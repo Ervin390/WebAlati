@@ -134,8 +134,8 @@ const acceptCookiesBtn = document.getElementById('accept-cookies');
 const LANG = window.WEBALATI_LANG || 'hr';
 
 // Default English APIs
-const DEFAULT_EN_NEWSLETTER = 'https://script.google.com/macros/s/AKfycbwFzCwyEpTnxY7WxKEfYQxY65-pX0mOi4DyKgnTVvOE3cBNGbEhCK5G5qVDKLSzcVjPsQ/exec';
-const DEFAULT_EN_CONTACT = 'https://script.google.com/macros/s/AKfycbxwihnSc0V4hcAAoaqDw6cR2nLUqvcAvl8DW0UOf_33jQiGaoob2lOQT3Zs6NJy78o6/exec';
+const DEFAULT_EN_NEWSLETTER = 'https://script.google.com/macros/s/AKfycbw-6q8Q_LWaddm08JN9lLFKYBpUfiZaHXk0B9qpsq89nWR9TuYPqPKbYfmU-QGHL9PLJA/exec';
+const DEFAULT_EN_CONTACT = 'https://script.google.com/macros/s/AKfycbzMMzXs14OEjkye5wjNPGIVH2vY6-aA1dvMc0diOfWc612I1SpgNPKNCi4_0yYyt_HN/exec';
 
 // Default Croatian APIs
 const DEFAULT_HR_NEWSLETTER = 'https://script.google.com/macros/s/AKfycbxn6-yeFxiFqrXgHLxBR-k0ky-2sUpk1hpw7t9bxNs_Avc240bQPl1g3iv6N2SPR4C_/exec';
@@ -888,13 +888,19 @@ async function handleNewsletterSubmit(e) {
             method: 'POST',
             body: formData
         });
-        
-        // Even if CORS fails, Apps Script often processes the request if it's simple POST.
-        // However, we want to proceed if we don't get a hard network error.
+
+        // Log any server-side errors for debugging
+        if (!response.ok) {
+            const errText = await response.text().catch(() => '');
+            console.error('Newsletter API error:', response.status, errText);
+        }
+
+        // Apps Script processes POST even with CORS limitations; proceed on no hard network error.
         closeModal(newsletterModal);
         document.getElementById('newsletter-form').reset();
         showSuccessModal(t.success_nl_title, t.success_nl_msg, true);
     } catch (err) {
+        console.error('Newsletter submit error:', err);
         errorEl.textContent = t.error_try_again;
     } finally {
         submitBtn.disabled = false;
@@ -940,10 +946,17 @@ async function handleContactSubmit(e) {
             body: formData
         });
 
+        // Log any server-side errors for debugging
+        if (!response.ok) {
+            const errText = await response.text().catch(() => '');
+            console.error('Contact API error:', response.status, errText);
+        }
+
         closeModal(contactModal);
         document.getElementById('contact-form').reset();
         showSuccessModal(t.success_cf_title, t.success_cf_msg);
     } catch (err) {
+        console.error('Contact submit error:', err);
         errorEl.textContent = t.error_try_again;
     } finally {
         submitBtn.disabled = false;
@@ -1131,26 +1144,19 @@ function renderBlogList() {
     blogGrid.innerHTML = '';
     const targetLang = currentLang === 'hr' ? 'HR' : 'ENGL';
 
-    // Handle both Flat and Nested JSON Arrays gracefully
+    // Filter to blogs that have a non-empty Heading (real content)
     const blogsToRender = allBlogs.filter(b => {
         if (!b) return false;
-        if (!b.Heading && !b.Slug) return false;
-        return true;
+        const heading = getLocalVal(b.Heading, targetLang);
+        return heading && String(heading).trim() !== '';
     });
-    console.log("Blogs to render:", blogsToRender);
+    console.log("Blogs to render:", blogsToRender.length);
 
     if (blogsToRender.length === 0) {
-        blogGrid.innerHTML = Array(3).fill(`
-            <div class="blog-card skeleton">
-                <div class="blog-img skeleton-box" style="height: 200px;"></div>
-                <div class="blog-content">
-                    <div class="skeleton-box" style="width: 40%; height: 14px; margin-bottom: 0.5rem;"></div>
-                    <div class="skeleton-box" style="width: 80%; height: 24px; margin-bottom: 1rem;"></div>
-                    <div class="skeleton-box" style="width: 100%; height: 14px; margin-bottom: 0.5rem;"></div>
-                    <div class="skeleton-box" style="width: 90%; height: 14px; margin-bottom: 1.5rem;"></div>
-                </div>
-            </div>
-        `).join('');
+        const noPostsMsg = currentLang === 'hr'
+            ? 'Trenutno nema objavljenih članaka. Uskoro!'
+            : 'No blog posts published yet. Coming soon!';
+        blogGrid.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:var(--text-secondary);margin-top:2rem;font-size:1.1rem;">${noPostsMsg}</p>`;
         return;
     }
 

@@ -155,26 +155,28 @@ foreach ($cfg in $configs) {
     $all_tools = @()
     $trending_tools = @()
     if ($response -and $response.tools) {
-        Write-Host "Processing all tools for $($cfg.lang)..."
+        Write-Host "Processing $($response.tools.Count) tools for $($cfg.lang)..."
         $index = 0
         foreach ($tool in $response.tools) {
             if (!$tool.name) { continue }
             
-            # Handle tags (can be string or array, look for multiple possible keys)
-            $raw_tags = Get-Val $tool.tags
-            if ($null -eq $raw_tags -or $raw_tags -eq "") {
-                $raw_tags = Get-Val $tool.Tags
-            }
-            if ($null -eq $raw_tags -or $raw_tags -eq "") {
-                $raw_tags = Get-Val $tool.Tagovi
+            # Handle tags - check all common field name variants
+            $raw_tags = $null
+            foreach ($tagField in @("tags", "Tags", "Tagovi", "Tag", "TAGS")) {
+                $val = Get-Val $tool.$tagField
+                if ($val -ne $null -and $val -ne "") {
+                    $raw_tags = $val
+                    break
+                }
             }
 
             if ($raw_tags -is [string] -and $raw_tags -ne "") {
-                $tool.tags = $raw_tags.Split(",").Trim() | Where-Object { $_ -ne "" }
-            } elseif ($raw_tags -is [array]) {
-                $tool.tags = $raw_tags
+                # Split comma-separated tags and trim whitespace
+                $tool | Add-Member -NotePropertyName "tags" -NotePropertyValue ($raw_tags.Split(",") | ForEach-Object { $_.Trim() } | Where-Object { $_ -ne "" }) -Force
+            } elseif ($raw_tags -is [array] -and $raw_tags.Count -gt 0) {
+                $tool | Add-Member -NotePropertyName "tags" -NotePropertyValue ($raw_tags | ForEach-Object { "$_".Trim() } | Where-Object { $_ -ne "" }) -Force
             } else {
-                $tool.tags = @()
+                $tool | Add-Member -NotePropertyName "tags" -NotePropertyValue @() -Force
             }
 
             $tool.logo = Save-And-Compress-Image $tool.logo "tool_$($cfg.lang)_$index" $image_dir
@@ -191,9 +193,25 @@ foreach ($cfg in $configs) {
 
     $all_blogs = @()
     if ($blog_response) {
-        Write-Host "Processing all blogs for $($cfg.lang)..."
+        # Handle both flat array and wrapped { data: [...] } responses
+        $blog_items = $null
+        if ($blog_response -is [array]) {
+            $blog_items = $blog_response
+            Write-Host "Blog response is a flat array with $($blog_items.Count) items for $($cfg.lang)"
+        } elseif ($blog_response.PSObject.Properties["data"] -and $blog_response.data -is [array]) {
+            $blog_items = $blog_response.data
+            Write-Host "Blog response is a wrapped object, using .data array with $($blog_items.Count) items for $($cfg.lang)"
+        } elseif ($blog_response.PSObject.Properties["blogs"] -and $blog_response.blogs -is [array]) {
+            $blog_items = $blog_response.blogs
+            Write-Host "Blog response is a wrapped object, using .blogs array with $($blog_items.Count) items for $($cfg.lang)"
+        } else {
+            Write-Warning "Blog response for $($cfg.lang) is not a recognized format. Type: $($blog_response.GetType().Name). Skipping blogs."
+            $blog_items = @()
+        }
+
+        Write-Host "Processing $($blog_items.Count) blogs for $($cfg.lang)..."
         $blog_index = 0
-        foreach ($raw_blog in $blog_response) {
+        foreach ($raw_blog in $blog_items) {
             
             if (!$raw_blog) { continue }
             
