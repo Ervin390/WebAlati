@@ -131,8 +131,18 @@ const contactModal = document.getElementById('contact-modal');
 const successModal = document.getElementById('success-modal');
 const cookieBanner = document.getElementById('cookie-banner');
 const acceptCookiesBtn = document.getElementById('accept-cookies');
-const NEWSLETTER_API = window.WEBALATI_NEWSLETTER_API || 'https://script.google.com/macros/s/AKfycbxn6-yeFxiFqrXgHLxBR-k0ky-2sUpk1hpw7t9bxNs_Avc240bQPl1g3iv6N2SPR4C_/exec';
-const CONTACT_API = window.WEBALATI_CONTACT_API || 'https://script.google.com/macros/s/AKfycbxfn3UB_8efNEB5zOJUBcjBDjrvYY9sJVK-6XgaOkg3_TsxXR-ROSYXScEC6d0_fllztg/exec';
+const LANG = window.WEBALATI_LANG || 'hr';
+
+// Default English APIs
+const DEFAULT_EN_NEWSLETTER = 'https://script.google.com/macros/s/AKfycbwFzCwyEpTnxY7WxKEfYQxY65-pX0mOi4DyKgnTVvOE3cBNGbEhCK5G5qVDKLSzcVjPsQ/exec';
+const DEFAULT_EN_CONTACT = 'https://script.google.com/macros/s/AKfycbxwihnSc0V4hcAAoaqDw6cR2nLUqvcAvl8DW0UOf_33jQiGaoob2lOQT3Zs6NJy78o6/exec';
+
+// Default Croatian APIs
+const DEFAULT_HR_NEWSLETTER = 'https://script.google.com/macros/s/AKfycbxn6-yeFxiFqrXgHLxBR-k0ky-2sUpk1hpw7t9bxNs_Avc240bQPl1g3iv6N2SPR4C_/exec';
+const DEFAULT_HR_CONTACT = 'https://script.google.com/macros/s/AKfycbxfn3UB_8efNEB5zOJUBcjBDjrvYY9sJVK-6XgaOkg3_TsxXR-ROSYXScEC6d0_fllztg/exec';
+
+const NEWSLETTER_API = window.WEBALATI_NEWSLETTER_API || (LANG === 'en' ? DEFAULT_EN_NEWSLETTER : DEFAULT_HR_NEWSLETTER);
+const CONTACT_API = window.WEBALATI_CONTACT_API || (LANG === 'en' ? DEFAULT_EN_CONTACT : DEFAULT_HR_CONTACT);
 
 // --- Security: Form API Token ---
 // Set per language in each index.html / blog.html <head> script block:
@@ -170,6 +180,11 @@ function checkCookieConsent() {
 document.addEventListener('DOMContentLoaded', () => {
     try {
         // Initial Render trigger
+        console.log("DOM Loaded. Current Lang:", currentLang);
+        console.log("WEBALATI_DATA exists:", !!window.WEBALATI_DATA);
+        if (window.WEBALATI_DATA) {
+            console.log("Blogs in data:", (window.WEBALATI_DATA.blogs || []).length);
+        }
         fetchToolsFromAPI();
 
         // Check for cookie consent
@@ -649,24 +664,28 @@ function populateFilters() {
         if (tool.subcategories) {
             tool.subcategories.forEach(sub => {
                 if (sub) {
-                    // Check if subcategory is in allowed list (case-insensitive for robustness)
                     const normalizedSub = sub.trim();
                     const allowedSub = ALLOWED_SUBCATEGORIES.find(s => s.toLowerCase() === normalizedSub.toLowerCase());
-
                     if (allowedSub) {
                         uniqueSubcategories.add(allowedSub);
                     }
                 }
             });
         }
-        if (tool.tags) {
-            tool.tags.forEach(tag => {
-                if (tag) {
-                    const formattedTag = tag.charAt(0).toUpperCase() + tag.slice(1).toLowerCase();
-                    uniqueTags.add(formattedTag);
-                }
-            });
+        // Extract tags robustly
+        let tags = [];
+        if (Array.isArray(tool.tags)) {
+            tags = tool.tags;
+        } else if (typeof tool.tags === 'string' && tool.tags.trim() !== '') {
+            tags = tool.tags.split(',').map(t => t.trim()).filter(t => t !== '');
         }
+
+        tags.forEach(tag => {
+            if (tag) {
+                const formattedTag = tag.trim().charAt(0).toUpperCase() + tag.trim().slice(1).toLowerCase();
+                uniqueTags.add(formattedTag);
+            }
+        });
     });
 
     Array.from(uniqueCategories).sort().forEach(cat => {
@@ -865,11 +884,13 @@ async function handleNewsletterSubmit(e) {
         formData.append('token', FORM_TOKEN);
         formData.append('ts', ts);
 
-        await fetch(NEWSLETTER_API, {
+        const response = await fetch(NEWSLETTER_API, {
             method: 'POST',
-            mode: 'no-cors',
             body: formData
         });
+        
+        // Even if CORS fails, Apps Script often processes the request if it's simple POST.
+        // However, we want to proceed if we don't get a hard network error.
         closeModal(newsletterModal);
         document.getElementById('newsletter-form').reset();
         showSuccessModal(t.success_nl_title, t.success_nl_msg, true);
@@ -914,11 +935,11 @@ async function handleContactSubmit(e) {
         formData.append('token', FORM_TOKEN);
         formData.append('ts', ts);
 
-        await fetch(CONTACT_API, {
+        const response = await fetch(CONTACT_API, {
             method: 'POST',
-            mode: 'no-cors',
             body: formData
         });
+
         closeModal(contactModal);
         document.getElementById('contact-form').reset();
         showSuccessModal(t.success_cf_title, t.success_cf_msg);
@@ -1093,7 +1114,9 @@ function showBlogPost(slug) {
 
 function renderBlogList() {
     const blogGrid = document.getElementById('blog-grid');
+    console.log("renderBlogList called. blogGrid exists:", !!blogGrid);
     if (!blogGrid) return;
+    console.log("allBlogs count:", (allBlogs || []).length);
 
     // Check for slug in URL on load
     const urlParams = new URLSearchParams(window.location.search);
@@ -1114,6 +1137,7 @@ function renderBlogList() {
         if (!b.Heading && !b.Slug) return false;
         return true;
     });
+    console.log("Blogs to render:", blogsToRender);
 
     if (blogsToRender.length === 0) {
         blogGrid.innerHTML = Array(3).fill(`
@@ -1131,7 +1155,9 @@ function renderBlogList() {
     }
 
     let html = '';
-    blogsToRender.forEach(blog => {
+    try {
+        blogsToRender.forEach(blog => {
+            console.log("Processing blog:", blog.Heading);
         const title = String(getLocalVal(blog.Heading, targetLang) || '');
         const minutes = String(getLocalVal(blog.Minutes, targetLang) || '5');
         const photo = String(getLocalVal(blog.Photo, targetLang) || '');
@@ -1159,7 +1185,11 @@ function renderBlogList() {
             </div>
         </article>
         `;
-    });
+        });
+    } catch (err) {
+        console.error("Error rendering blog list:", err);
+    }
+    console.log("Final HTML length:", html.length);
     blogGrid.innerHTML = html;
 }
 

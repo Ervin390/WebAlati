@@ -160,11 +160,20 @@ foreach ($cfg in $configs) {
         foreach ($tool in $response.tools) {
             if (!$tool.name) { continue }
             
-            # Handle tags (can be string or array)
+            # Handle tags (can be string or array, look for multiple possible keys)
             $raw_tags = Get-Val $tool.tags
+            if ($null -eq $raw_tags -or $raw_tags -eq "") {
+                $raw_tags = Get-Val $tool.Tags
+            }
+            if ($null -eq $raw_tags -or $raw_tags -eq "") {
+                $raw_tags = Get-Val $tool.Tagovi
+            }
+
             if ($raw_tags -is [string] -and $raw_tags -ne "") {
                 $tool.tags = $raw_tags.Split(",").Trim() | Where-Object { $_ -ne "" }
-            } elseif ($raw_tags -eq $null -or $raw_tags -eq "") {
+            } elseif ($raw_tags -is [array]) {
+                $tool.tags = $raw_tags
+            } else {
                 $tool.tags = @()
             }
 
@@ -175,6 +184,9 @@ foreach ($cfg in $configs) {
             }
             $index++
         }
+    } else {
+        Write-Warning "No tools found in API response for $($cfg.lang). Skipping update for this language to prevent data loss."
+        continue
     }
 
     $all_blogs = @()
