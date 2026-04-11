@@ -8,7 +8,7 @@ $configs = @(
         blog_api_url = "https://script.google.com/macros/s/AKfycbwMEPP0lEtFFxZQ2IX1ol6A55hDg1c7ZePRlxDXcaS_L29NVW1plyZByNhIudHF59Tt/exec"
         output_file_json = "api_response.json"
         output_file_js = "api_response.js"
-        token = $env:HR_DATA_TOKEN
+        token = "webalati_secure_2026_xyz123"
     },
     @{
         lang = "en"
