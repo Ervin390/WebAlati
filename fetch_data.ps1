@@ -5,7 +5,7 @@ $configs = @(
     @{
         lang = "hr"
         api_url = "https://script.google.com/macros/s/AKfycbwMEPP0lEtFFxZQ2IX1ol6A55hDg1c7ZePRlxDXcaS_L29NVW1plyZByNhIudHF59Tt/exec"
-        blog_api_url = "https://script.google.com/macros/s/AKfycby8QRriDM2ltAbYr1SKPxJkDW5Av0uOwthGlrXo4s277xJe57gMz2K9PHiPZpF4iUs/exec"
+        blog_api_url = "https://script.google.com/macros/s/AKfycbzOuswFBVU_XC75E13zxEzF2rVQXahC0khrVt6ewjgnnUWQvx11fBwn1sTyj8Ria2x4/exec"
         output_file_json = "api_response.json"
         output_file_js = "api_response.js"
         token = $env:HR_DATA_TOKEN
@@ -13,7 +13,7 @@ $configs = @(
     @{
         lang = "en"
         api_url = "https://script.google.com/macros/s/AKfycbzMp540q3I00e_QDtTnHnDkKeDsDI26KTyr2gFnzvdGm6-0or-SWrDm_9e2LTswvfxfQQ/exec"
-        blog_api_url = "https://script.google.com/macros/s/AKfycbzVYawUjYd8NixcBwdKnuF1gVigrAmTIamD2ON3PcjcAQVn68GiYhQSxGLh-K0nYS87/exec"
+        blog_api_url = "https://script.google.com/macros/s/AKfycbw0HQvXjQaOKWjOou9t5nWRt8tRN2dqY6jXCfxTuUDYOuFXUUrH-LaiQDOiQVh9_hC5/exec"
         output_file_json = "api_response_en.json"
         output_file_js = "api_response_en.js"
         token = $env:EN_DATA_TOKEN
