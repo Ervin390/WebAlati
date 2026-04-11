@@ -1820,6 +1820,9 @@ footer {
     cursor: pointer;
     align-items: center;
     justify-content: center;
+    padding: 0;
+    margin: 0;
+    line-height: 1;
   }
 
   .nav-links {
