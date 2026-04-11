@@ -869,7 +869,7 @@ async function handleNewsletterSubmit(e) {
     const t = TRANSLATIONS[currentLang];
 
     if (!name) { errorEl.textContent = t.error_name; return; }
-    if (!email || !/^[^@]+@[^@]+\.[^@]+$/.test(email)) { errorEl.textContent = t.error_email; return; }
+    if (!email || !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) { errorEl.textContent = t.error_email; return; }
     if (!terms) { errorEl.textContent = t.error_terms; return; }
 
     submitBtn.disabled = true;
@@ -923,7 +923,7 @@ async function handleContactSubmit(e) {
     const t = TRANSLATIONS[currentLang];
 
     if (!name) { errorEl.textContent = t.error_name; return; }
-    if (!email || !/^[^@]+@[^@]+\.[^@]+$/.test(email)) { errorEl.textContent = t.error_email; return; }
+    if (!email || !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) { errorEl.textContent = t.error_email; return; }
     if (!message) { errorEl.textContent = t.error_message; return; }
     if (!terms) { errorEl.textContent = t.error_terms; return; }
 

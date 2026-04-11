@@ -1,6 +1,9 @@
 name: Update WebAlati Data
 
 on:
+  push:
+    branches:
+      - main
   repository_dispatch:
     types: [update-data]
   workflow_dispatch:

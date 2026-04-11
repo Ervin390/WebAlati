@@ -4,8 +4,8 @@ Add-Type -AssemblyName System.Drawing
 $configs = @(
     @{
         lang = "hr"
-        api_url = "https://script.google.com/macros/s/AKfycbwMEPP0lEtFFxZQ2IX1ol6A55hDg1c7ZePRlxDXcaS_L29NVW1plyZByNhIudHF59Tt/exec"
-        blog_api_url = "https://script.google.com/macros/s/AKfycbzOuswFBVU_XC75E13zxEzF2rVQXahC0khrVt6ewjgnnUWQvx11fBwn1sTyj8Ria2x4/exec"
+        api_url = "https://script.google.com/macros/s/AKfycbzOuswFBVU_XC75E13zxEzF2rVQXahC0khrVt6ewjgnnUWQvx11fBwn1sTyj8Ria2x4/exec"
+        blog_api_url = "https://script.google.com/macros/s/AKfycbwMEPP0lEtFFxZQ2IX1ol6A55hDg1c7ZePRlxDXcaS_L29NVW1plyZByNhIudHF59Tt/exec"
         output_file_json = "api_response.json"
         output_file_js = "api_response.js"
         token = $env:HR_DATA_TOKEN
