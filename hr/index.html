@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="hr">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7E0TG7F51M"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-7E0TG7F51M');
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebAlati - Best AI and Web Tools</title>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="../style.css">
+    <script>
+        window.WEBALATI_LANG = "hr";
+        window.WEBALATI_TOOLS_API = "https://script.google.com/macros/s/AKfycbwMEPP0lEtFFxZQ2IX1ol6A55hDg1c7ZePRlxDXcaS_L29NVW1plyZByNhIudHF59Tt/exec";
+        window.WEBALATI_NEWSLETTER_API = "https://script.google.com/macros/s/AKfycbxn6-yeFxiFqrXgHLxBR-k0ky-2sUpk1hpw7t9bxNs_Avc240bQPl1g3iv6N2SPR4C_/exec";
+        window.WEBALATI_CONTACT_API = "https://script.google.com/macros/s/AKfycbxfn3UB_8efNEB5zOJUBcjBDjrvYY9sJVK-6XgaOkg3_TsxXR-ROSYXScEC6d0_fllztg/exec";
+        // Security: HR form token
+        window.WEBALATI_FORM_TOKEN = "hr_form_v1_9xk2m7";
+    </script>
+</head>
+
+<body>
+    <div id="app">
+
+        <!-- Header / Nav -->
+        <header class="navbar">
+            <div class="container">
+                <div class="logo" id="home-link">
+                    <span class="logo-text" data-i18n-brand="true">Web<span class="accent">Alati</span></span>
+                </div>
+                <nav class="nav-links">
+                    <a href="index.html" class="nav-link" data-i18n="nav_home">Početna</a>
+                    <a href="#categories-section" class="nav-link" data-i18n="nav_categories">Kategorije</a>
+                    <a href="blog.html" class="nav-link" data-i18n="nav_blog">Blog</a>
+                    <div class="custom-lang-switcher" id="lang-switcher" style="margin-left: 1.5rem;">
+                        <div class="lang-current" id="lang-current">
+                            <img src="https://flagcdn.com/w40/hr.png" alt="HR" class="lang-flag"> <span>HR</span>
+                            <i class="fa-solid fa-chevron-down" style="font-size: 0.7rem; opacity: 0.7;"></i>
+                        </div>
+                        <div class="lang-dropdown-list" id="lang-list">
+                            <div class="lang-option" data-value="index.html">
+                                <img src="https://flagcdn.com/w40/hr.png" alt="HR" class="lang-flag">
+                                <span>Hrvatski</span>
+                            </div>
+                            <div class="lang-option" data-value="../en/index.html">
+                                <img src="https://flagcdn.com/w40/gb.png" alt="EN" class="lang-flag">
+                                <span>English</span>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Main Home View -->
+        <main id="home-view" class="view active">
+
+            <!-- Hero Section -->
+            <section class="hero container">
+                <div class="hero-content">
+                    <h2 class="hero-top-heading" data-i18n="hero_top_title">Najbolji AI Alati na jednom mjestu</h2>
+                    <div class="profile-wrapper">
+                        <div class="profile-img-container">
+                            <!-- Profile Image placeholder -->
+                            <img src="../images/1000028266.jpg" alt="WebAlati Profil" class="profile-img"
+                                fetchpriority="high" decoding="async"
+                                onerror="this.src='https://via.placeholder.com/150/FF9F1C/FFFFFF?text=W'">
+                        </div>
+                        <!-- Speech Bubble -->
+                        <div class="speech-bubble">
+                            <p data-i18n="hero_bubble">Zapratite naše društvene mreže i svaki dan otkrijte zanimljive i
+                                korisne web i AI alate.
+                                🚀</p>
+                        </div>
+                    </div>
+                    <h1 class="brand-name" data-i18n-brand="true">Web<span class="accent">Alati</span></h1>
+                    <p class="brand-description" data-i18n="hero_desc">Vaš ultimativni direktorij za najbolje AI alate,
+                        web resurse i poslovni
+                        softver. Otkrijte vrhunske alate koji će već danas unaprijediti vaš tijek rada i zaradu.</p>
+
+                    <div class="social-links">
+                        <a href="https://www.tiktok.com/@webalati" target="_blank" class="social-btn tiktok"
+                            title="Zaprati na TikToku"><i class="fa-brands fa-tiktok"></i> Zaprati</a>
+                        <a href="https://www.youtube.com/@WebAlati/shorts" target="_blank" class="social-btn youtube"
+                            title="Zaprati na YouTubeu"><i class="fa-brands fa-youtube"></i> Zaprati</a>
+                        <a href="https://www.instagram.com/webalati/" target="_blank" class="social-btn instagram"
+                            title="Zaprati na Instagramu"><i class="fa-brands fa-instagram"></i> Zaprati</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Trending AI Tools Section -->
+            <section class="trending container section-padding">
+                <div class="section-header">
+                    <h2><i class="fa-solid fa-fire accent"></i> <span data-i18n="trending_title">Popularni AI
+                            Alati</span></h2>
+                </div>
+                <!-- Horizontal scrolling container -->
+                <div class="tools-scroll-container" id="trending-container">
+                    <!-- Cards will be injected here via JS -->
+                    <div class="loading-spinner">Učitavanje popularnih alata...</div>
+                </div>
+            </section>
+
+            <!-- Categories Section -->
+            <section class="categories container section-padding" id="categories-section">
+                <div class="section-header">
+                    <h2><i class="fa-solid fa-layer-group accent"></i> <span
+                            data-i18n="categories_title">Kategorije</span></h2>
+                </div>
+                <div class="categories-grid">
+                    <div class="category-card" data-category="Design">
+                        <div class="cat-icon"><i class="fa-solid fa-palette"></i></div>
+                        <h3 data-i18n="cat_design">Design</h3>
+                    </div>
+                    <div class="category-card" data-category="Video">
+                        <div class="cat-icon"><i class="fa-solid fa-video"></i></div>
+                        <h3 data-i18n="cat_video">Video</h3>
+                    </div>
+                    <div class="category-card" data-category="Productivity">
+                        <div class="cat-icon"><i class="fa-solid fa-briefcase"></i></div>
+                        <h3 data-i18n="cat_productivity">Produktivnost</h3>
+                    </div>
+                    <div class="category-card" data-category="Zarada">
+                        <div class="cat-icon"><i class="fa-solid fa-sack-dollar"></i></div>
+                        <h3 data-i18n="cat_earnings">Zarada</h3>
+                    </div>
+                    <div class="category-card" data-category="Zabavno">
+                        <div class="cat-icon"><i class="fa-solid fa-gamepad"></i></div>
+                        <h3 data-i18n="cat_fun">Zabavno</h3>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 3rem;">
+                    <button id="view-all-btn" class="btn-primary"
+                        style="display: inline-block; width: auto; padding: 1rem 2.5rem; font-size: 1.1rem;"
+                        data-i18n="view_all_btn">Pregledaj
+                        Sve Alate</button>
+                </div>
+            </section>
+        </main>
+
+        <!-- Category / All Tools View (Hidden by default) -->
+        <main id="category-view" class="view">
+            <div class="container section-padding">
+                <h2 id="category-title" class="hidden">Svi Alati</h2>
+
+                <!-- Search and Filters UI -->
+                <div class="filters-container">
+                    <div class="search-box">
+                        <i class="fa-solid fa-search"></i>
+                        <input type="text" id="search-input" placeholder="Pretraži"
+                            data-i18n-placeholder="search_placeholder" autocomplete="off">
+                    </div>
+                    <div class="filter-group">
+                        <select id="filter-category" class="filter-select">
+                            <option value="all">✨ Sve Kategorije</option>
+                            <!-- Options injected dynamically -->
+                        </select>
+                        <select id="filter-subcategory" class="filter-select">
+                            <option value="all">✨ Sve Podkategorije</option>
+                            <!-- Options injected dynamically -->
+                        </select>
+                        <select id="filter-access" class="filter-select">
+                            <option value="all">✨ Sav Pristup</option>
+                            <option value="besplatno">Besplatno</option>
+                            <option value="freemium">Freemium</option>
+                            <option value="plaćeno">Plaćeno</option>
+                        </select>
+                        <select id="filter-tag" class="filter-select">
+                            <option value="all">✨ Svi Tagovi</option>
+                        </select>
+
+                    </div>
+                </div>
+
+                <div class="tools-grid" id="category-tools-container">
+                    <!-- Category specific tools will be injected here via JS -->
+                    <div class="loading-spinner">Učitavanje alata...</div>
+                </div>
+
+                <!-- Pagination / Load More Dummy -->
+                <div class="load-more-container" id="load-more-container" style="display: none;">
+                    <button class="btn-secondary" id="load-more-btn">Učitaj Više</button>
+                </div>
+            </div>
+        </main>
+
+        <!-- Engagement / Mission Section -->
+        <section class="mission-section">
+            <div class="container">
+                <div class="mission-card">
+                    <div class="mission-grid">
+                        <div class="mission-text">
+                            <span class="mission-badge" data-i18n="mission_badge">Naša Misija</span>
+                            <h2 data-i18n="mission_title">Više od samo linkova — vaša prečica do uspjeha</h2>
+                            <p class="mission-lead" data-i18n="mission_lead">Svaki dan objavljujemo nove AI i web alate
+                                koji su zabavni, korisni
+                                i edukativni te povećavaju vašu produktivnost.</p>
+                            <div class="mission-details">
+                                <p data-i18n="mission_p1">Cilj naše web stranice i kanala na društvenim mrežama je
+                                    educirati entuzijaste o AI i
+                                    web alatima, olakšati im pokretanje vlastitog posla, ostvarivanje prihoda ili pomoć
+                                    pri implementaciji AI rješenja u postojeće poslovanje.</p>
+                                <p data-i18n="mission_p2">Prateći naše društvene mreže, podržavate naš rad i potičete
+                                    nas na pomoć drugima.
+                                    Svaki alat je testiran i provjeren prije nego što se nađe na web stranici i objavi u
+                                    videima, što osigurava da služi svojoj svrsi uz vrhunsku kvalitetu.</p>
+                            </div>
+                        </div>
+                        <div class="mission-stats">
+                            <div class="stat-item">
+                                <i class="fa-solid fa-check-double"></i>
+                                <span>100% Testirano</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fa-solid fa-graduation-cap"></i>
+                                <span>Edukativno</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fa-solid fa-rocket"></i>
+                                <span>Brzi rast</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="newsletter-section">
+            <div class="container">
+                <div class="newsletter-card">
+                    <div class="newsletter-icon"><i class="fa-solid fa-envelope-open-text"></i></div>
+                    <div class="newsletter-content">
+                        <h2 data-i18n="newsletter_title">Preuzmi besplatni PDF Vodič!</h2>
+                        <p data-i18n="newsletter_desc">Prijavite se na naš newsletter i odmah preuzmite naš ekskluzivni
+                            <b>Prompt Engineering Vodič</b> za bolje AI rezultate. Svaki tjedan šaljemo i najbolje nove
+                            alate direktno u vaš inbox.</p>
+                    </div>
+                    <button class="btn-newsletter" id="open-newsletter-btn">
+                        <i class="fa-solid fa-paper-plane"></i> Prijavi se na Newsletter
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Submit Tool CTA -->
+        <section class="contact-cta">
+            <div class="container">
+                <div class="contact-card">
+                    <h2 data-i18n="contact_title">Želite dodati vaš AI alat ili SaaS?</h2>
+                    <p data-i18n="contact_desc">Imate odličan alat a želite da se nađe u našem direktoriju? Ispunite naš
+                        kratki obrazac i ubrzo ćemo ga pregledati i objaviti.</p>
+                    <button class="btn-primary contact-btn" id="open-contact-btn">
+                        <i class="fa-solid fa-rocket"></i> <span data-i18n="contact_btn">Prijavi Alat</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <p>&copy; 2026 WebAlati. <a href="javascript:void(0)" class="footer-link open-contact-link">Kontaktiraj
+                        nas</a> | <a href="uvjeti-koristenja.html" class="footer-link" data-i18n="footer_terms">Uvjeti
+                        korištenja i
+                        Pravila privatnosti</a></p>
+            </div>
+        </footer>
+
+        <!-- Tool Details Modal -->
+        <div id="tool-modal" class="modal">
+            <div class="modal-overlay" id="modal-overlay"></div>
+            <div class="modal-content">
+                <button class="close-modal" id="close-modal">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                <div class="modal-body" id="modal-body">
+                    <!-- Dynamic Content -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Newsletter Modal -->
+        <div id="newsletter-modal" class="modal">
+            <div class="modal-overlay" id="newsletter-modal-overlay"></div>
+            <div class="modal-content form-modal-content">
+                <button class="close-modal" id="close-newsletter-modal">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                <div class="form-modal-body">
+                    <div class="form-modal-icon newsletter-icon-color"><i class="fa-solid fa-envelope-open-text"></i>
+                    </div>
+                    <h2 class="form-modal-title">Prijavite se na Newsletter</h2>
+                    <p class="form-modal-subtitle">Svaki tjedan — najzanimljiviji AI alati direktno u vaš inbox.</p>
+                    <form id="newsletter-form" novalidate>
+                        <div class="form-group">
+                            <label for="nl-name">Ime i prezime</label>
+                            <input type="text" id="nl-name" placeholder="Vaše ime i prezime" autocomplete="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nl-email">Email Adresa</label>
+                            <input type="email" id="nl-email" placeholder="vas@email.com" autocomplete="email" required>
+                        </div>
+                        <div class="form-checkbox">
+                            <input type="checkbox" id="nl-terms" required>
+                            <label for="nl-terms">Prihvaćam <a href="uvjeti-koristenja.html" class="terms-link"
+                                    target="_blank">pravila i uvjete korištenja</a></label>
+                        </div>
+                        <button type="submit" class="btn-primary form-submit-btn" id="nl-submit-btn">
+                            <i class="fa-solid fa-paper-plane"></i> Pretplati me!
+                        </button>
+                        <p class="form-error" id="nl-error"></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Form Modal -->
+        <div id="contact-modal" class="modal">
+            <div class="modal-overlay" id="contact-modal-overlay"></div>
+            <div class="modal-content form-modal-content">
+                <button class="close-modal" id="close-contact-modal">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                <div class="form-modal-body">
+                    <div class="form-modal-icon contact-icon-color"><i class="fa-solid fa-rocket"></i></div>
+                    <h2 class="form-modal-title">Kontaktirajte nas</h2>
+                    <p class="form-modal-subtitle">Ispunite obrazac i ubrzo ćemo pregledati vaš upit i povratno vam se
+                        javiti.</p>
+                    <form id="contact-form" novalidate>
+                        <div class="form-group">
+                            <label for="cf-name" data-i18n="modal_cf_name">Puno Ime</label>
+                            <input type="text" id="cf-name" placeholder="Ime i prezime"
+                                data-i18n-placeholder="modal_cf_name_pl" autocomplete="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cf-email" data-i18n="modal_cf_email">Email Adresa</label>
+                            <input type="email" id="cf-email" placeholder="vas@email.com"
+                                data-i18n-placeholder="modal_cf_email_pl" autocomplete="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cf-phone" data-i18n="modal_cf_link">Link Alata (URL)</label>
+                            <input type="url" id="cf-phone" placeholder="https://..."
+                                data-i18n-placeholder="modal_cf_link_pl">
+                        </div>
+                        <div class="form-group">
+                            <label for="cf-message">Poruka</label>
+                            <textarea id="cf-message" placeholder="Kako vam možemo pomoći?..." rows="4"
+                                required></textarea>
+                        </div>
+                        <div class="form-checkbox">
+                            <input type="checkbox" id="cf-terms" required>
+                            <label for="cf-terms"><span data-i18n="modal_cf_terms">Prihvaćam</span> <a
+                                    href="uvjeti-koristenja.html" class="terms-link" target="_blank"
+                                    data-i18n="modal_cf_terms_link">pravila i uvjete korištenja</a></label>
+                        </div>
+                        <button type="submit" class="btn-primary form-submit-btn" id="cf-submit-btn">
+                            <i class="fa-solid fa-paper-plane"></i> Pošalji
+                        </button>
+                        <p class="form-error" id="cf-error"></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Modal (shared) -->
+        <div id="success-modal" class="modal">
+            <div class="modal-overlay" id="success-modal-overlay"></div>
+            <div class="modal-content success-modal-content">
+                <div class="success-modal-body">
+                    <div class="success-icon"><i class="fa-solid fa-circle-check"></i></div>
+                    <h2 id="success-title">Uspješno!</h2>
+                    <p id="success-message"></p>
+                    <button class="btn-primary" id="success-close-btn"
+                        style="width:auto;padding:0.9rem 2.5rem;">Zatvori</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cookie Consent Banner -->
+        <div id="cookie-banner" class="cookie-banner hidden">
+            <div class="container cookie-container">
+                <div class="cookie-content">
+                    <i class="fa-solid fa-cookie-bite cookie-icon"></i>
+                    <p>Koristimo kolačiće kako bismo poboljšali vaše iskustvo, pratili posjećenost (Google Analytics) i
+                        omogućili rad formi. <a href="uvjeti-koristenja.html" class="cookie-link">Saznajte više</a>.</p>
+                </div>
+                <div class="cookie-actions">
+                    <button id="accept-cookies" class="btn-primary btn-sm">Prihvati</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main JS -->
+        <script>
+            window.WEBALATI_LANG = "hr";
+            window.WEBALATI_TOOLS_API = "https://script.google.com/macros/s/AKfycbw7qXVMqy4MICLn77QjS-ie11AE4ITvd6oGwXiJXhvJLTHnkImtcRGsx9eaklLYYJBQ/exec";
+            window.WEBALATI_NEWSLETTER_API = "https://script.google.com/macros/s/AKfycbxn6-yeFxiFqrXgHLxBR-k0ky-2sUpk1hpw7t9bxNs_Avc240bQPl1g3iv6N2SPR4C_/exec";
+            window.WEBALATI_CONTACT_API = "https://script.google.com/macros/s/AKfycbxfn3UB_8efNEB5zOJUBcjBDjrvYY9sJVK-6XgaOkg3_TsxXR-ROSYXScEC6d0_fllztg/exec";
+            // Security: HR form token
+            window.WEBALATI_FORM_TOKEN = "hr_form_v1_9xk2m7";
+        </script>
+        <!-- Main JS -->
+        <script src="../api_response.js"></script>
+        <script src="../script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7E0TG7F51M"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-7E0TG7F51M');
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebTools - Best AI and Web Tools</title>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../style.css">
+
+    <script>
+        window.WEBALATI_LANG = "en";
+        window.WEBALATI_TOOLS_API = "https://script.google.com/macros/s/AKfycbzMp540q3I00e_QDtTnHnDkKeDsDI26KTyr2gFnzvdGm6-0or-SWrDm_9e2LTswvfxfQQ/exec";
+        window.WEBALATI_NEWSLETTER_API = "https://script.google.com/macros/s/AKfycbwFzCwyEpTnxY7WxKEfYQxY65-pX0mOi4DyKgnTVvOE3cBNGbEhCK5G5qVDKLSzcVjPsQ/exec";
+        window.WEBALATI_CONTACT_API = "https://script.google.com/macros/s/AKfycbxwihnSc0V4hcAAoaqDw6cR2nLUqvcAvl8DW0UOf_33jQiGaoob2lOQT3Zs6NJy78o6/exec";
+        // Security: EN form token
+        window.WEBALATI_FORM_TOKEN = "en_form_v1_3qz8p6";
+    </script>
+</head>
+
+<body>
+    <div id="app">
+
+        <!-- Header / Nav -->
+        <header class="navbar">
+            <div class="container">
+                <div class="logo" id="home-link">
+                    <span class="logo-text" data-i18n-brand="true">Web<span class="accent">Tools</span></span>
+                </div>
+                <nav class="nav-links">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="#categories-section" class="nav-link">Categories</a>
+                    <a href="blog.html" class="nav-link">Blog</a>
+                    <div class="custom-lang-switcher" id="lang-switcher" style="margin-left: 1.5rem;">
+                        <div class="lang-current" id="lang-current">
+                            <img src="https://flagcdn.com/w40/gb.png" alt="EN" class="lang-flag"> <span>EN</span>
+                            <i class="fa-solid fa-chevron-down" style="font-size: 0.7rem; opacity: 0.7;"></i>
+                        </div>
+                        <div class="lang-dropdown-list" id="lang-list">
+                            <div class="lang-option" data-value="../hr/index.html">
+                                <img src="https://flagcdn.com/w40/hr.png" alt="HR" class="lang-flag"> <span>Hrvatski</span>
+                            </div>
+                            <div class="lang-option" data-value="index.html">
+                                <img src="https://flagcdn.com/w40/gb.png" alt="EN" class="lang-flag"> <span>English</span>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Main Home View -->
+        <main id="home-view" class="view active">
+
+            <!-- Hero Section -->
+            <section class="hero container">
+                <div class="hero-content">
+                    <h2 class="hero-top-heading">Best AI Tools in one place</h2>
+                    <!-- Profile section removed for English version -->
+
+                    <h1 class="brand-name" data-i18n-brand="true">Web<span class="accent">Tools</span></h1>
+                    <p class="brand-description">Your ultimate directory for the best AI tools, web resources, and business software. Discover top-notch tools that will improve your workflow and earnings today.</p>
+
+                    <div class="hero-actions">
+                        <a href="#categories-section" class="btn-primary hero-cta">
+                            <i class="fa-solid fa-compass"></i> Explore AI Tools
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Trending AI Tools Section -->
+            <section class="trending container section-padding">
+                <div class="section-header">
+                    <h2><i class="fa-solid fa-fire accent"></i> <span>Trending AI Tools</span></h2>
+                </div>
+                <!-- Horizontal scrolling container -->
+                <div class="tools-scroll-container" id="trending-container">
+                    <!-- Cards will be injected here via JS -->
+                    <div class="loading-spinner">Loading trending tools...</div>
+                </div>
+            </section>
+
+            <!-- Categories Section -->
+            <section class="categories container section-padding" id="categories-section">
+                <div class="section-header">
+                    <h2><i class="fa-solid fa-layer-group accent"></i> <span>Categories</span></h2>
+                </div>
+                <div class="categories-grid">
+                    <div class="category-card" data-category="Design">
+                        <div class="cat-icon"><i class="fa-solid fa-palette"></i></div>
+                        <h3>Design</h3>
+                    </div>
+                    <div class="category-card" data-category="Video">
+                        <div class="cat-icon"><i class="fa-solid fa-video"></i></div>
+                        <h3>Video</h3>
+                    </div>
+                    <div class="category-card" data-category="Productivity">
+                        <div class="cat-icon"><i class="fa-solid fa-briefcase"></i></div>
+                        <h3 data-i18n="cat_productivity">Productivity</h3>
+                    </div>
+                    <div class="category-card" data-category="Zarada">
+                        <div class="cat-icon"><i class="fa-solid fa-sack-dollar"></i></div>
+                        <h3>Earnings</h3>
+                    </div>
+                    <div class="category-card" data-category="Zabavno">
+                        <div class="cat-icon"><i class="fa-solid fa-gamepad"></i></div>
+                        <h3>Entertainment</h3>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 3rem;">
+                    <button id="view-all-btn" class="btn-primary"
+                        style="display: inline-block; width: auto; padding: 1rem 2.5rem; font-size: 1.1rem;"
+                        data-i18n="view_all_btn">View All Tools</button>
+                </div>
+            </section>
+        </main>
+
+        <!-- Category / All Tools View (Hidden by default) -->
+        <main id="category-view" class="view">
+            <div class="container section-padding">
+                <h2 id="category-title" class="hidden">All Tools</h2>
+
+                <!-- Search and Filters UI -->
+                <div class="filters-container">
+                    <div class="search-box">
+                        <i class="fa-solid fa-search"></i>
+                        <input type="text" id="search-input" placeholder="Search tools..." autocomplete="off">
+                    </div>
+                    <div class="filter-group">
+                        <select id="filter-category" class="filter-select">
+                            <option value="all">✨ All Categories</option>
+                            <!-- Options injected dynamically -->
+                        </select>
+                        <select id="filter-subcategory" class="filter-select">
+                            <option value="all">✨ All Subcategories</option>
+                            <!-- Options injected dynamically -->
+                        </select>
+                        <select id="filter-access" class="filter-select">
+                            <option value="all">✨ All Access</option>
+                            <option value="besplatno">Free</option>
+                            <option value="freemium">Freemium</option>
+                            <option value="plaćeno">Paid</option>
+                        </select>
+                        <select id="filter-tag" class="filter-select">
+                            <option value="all">✨ All Tags</option>
+                        </select>
+
+                    </div>
+                </div>
+
+                <div class="tools-grid" id="category-tools-container">
+                    <!-- Category specific tools will be injected here via JS -->
+                    <div class="loading-spinner">Loading tools...</div>
+                </div>
+
+                <!-- Pagination / Load More Dummy -->
+                <div class="load-more-container" id="load-more-container" style="display: none;">
+                    <button class="btn-secondary" id="load-more-btn">Load More</button>
+                </div>
+            </div>
+        </main>
+
+        <!-- Engagement / Mission Section -->
+        <section class="mission-section">
+            <div class="container">
+                <div class="mission-card">
+                    <div class="mission-grid">
+                        <div class="mission-text">
+                            <span class="mission-badge" data-i18n="mission_badge">Our Mission</span>
+                            <h2 data-i18n="mission_title">More than just links — your shortcut to excellence</h2>
+                            <p class="mission-lead" data-i18n="mission_lead">We curate the most powerful AI and web tools to help you work smarter and achieve more in less time.</p>
+                            <div class="mission-details">
+                                <p data-i18n="mission_p1">The goal of our website is to empower enthusiasts and professionals with the right tools to build, automate, and scale their projects efficiently.</p>
+                                <p data-i18n="mission_p2">Our collection is hand-picked and verified, ensuring that every resource we recommend meets high standards of quality and utility. By using our directory, you save hours of research and gain access to the best cutting-edge technology.</p>
+                            </div>
+                        </div>
+                        <div class="mission-stats">
+                            <div class="stat-item">
+                                <i class="fa-solid fa-check-double"></i>
+                                <span>100% Tested</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fa-solid fa-graduation-cap"></i>
+                                <span>Educational</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fa-solid fa-rocket"></i>
+                                <span>Fast Growth</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="newsletter-section">
+            <div class="container">
+                <div class="newsletter-card">
+                    <div class="newsletter-icon"><i class="fa-solid fa-envelope-open-text"></i></div>
+                    <div class="newsletter-content">
+                        <h2 class="newsletter-title">Get Your Free PDF Guide!</h2>
+                        <p class="newsletter-subtitle">Subscribe to our newsletter and instantly download our exclusive <b>Prompt Engineering Guide</b> for better AI results. Every week we also send the best new tools directly to your inbox.</p>
+                    </div>
+                    <button class="btn-newsletter" id="open-newsletter-btn">
+                        <i class="fa-solid fa-paper-plane"></i> Join now for free
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Submit Tool CTA -->
+        <section class="contact-cta">
+            <div class="container">
+                <div class="contact-card">
+                    <h2>Want to list your AI tool or SaaS?</h2>
+                    <p>Have a great tool and want it in our directory? Fill out the short form and we'll review and publish it shortly.</p>
+                    <button class="btn-primary contact-btn" id="open-contact-btn">
+                        <i class="fa-solid fa-rocket"></i> <span>Submit Tool</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <p>&copy; 2026 WebTools. <a href="javascript:void(0)" class="footer-link open-contact-link">Contact Us</a> | <a href="uvjeti-koristenja.html" class="footer-link"
+                        data-i18n="footer_terms">Terms of Use and
+                        Privacy Policy</a></p>
+            </div>
+        </footer>
+
+        <!-- Tool Details Modal -->
+        <div id="tool-modal" class="modal">
+            <div class="modal-overlay" id="modal-overlay"></div>
+            <div class="modal-content">
+                <button class="close-modal" id="close-modal">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                <div class="modal-body" id="modal-body">
+                    <!-- Dynamic Content -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Newsletter Modal -->
+        <div id="newsletter-modal" class="modal">
+            <div class="modal-overlay" id="newsletter-modal-overlay"></div>
+            <div class="modal-content form-modal-content">
+                <button class="close-modal" id="close-newsletter-modal">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                <div class="form-modal-body">
+                    <div class="form-modal-icon newsletter-icon-color"><i class="fa-solid fa-envelope-open-text"></i></div>
+                    <h2 class="form-modal-title">Join our Newsletter</h2>
+                    <p class="form-modal-subtitle">Get the latest AI tools and guides directly in your inbox.</p>
+                    <form id="newsletter-form" novalidate>
+                        <div class="form-group">
+                            <label for="nl-name">Full Name</label>
+                            <input type="text" id="nl-name" placeholder="Your full name" autocomplete="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nl-email">Email Address</label>
+                            <input type="email" id="nl-email" placeholder="you@email.com" autocomplete="email" required>
+                        </div>
+                        <div class="form-checkbox">
+                            <input type="checkbox" id="nl-terms" required>
+                            <label for="nl-terms">I accept the <a href="uvjeti-koristenja.html" class="terms-link"
+                                    target="_blank">terms and conditions</a></label>
+                        </div>
+                        <button type="submit" class="btn-primary form-submit-btn" id="nl-submit-btn">
+                            <i class="fa-solid fa-paper-plane"></i> Subscribe!
+                        </button>
+                        <p class="form-error" id="nl-error"></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Form Modal -->
+        <div id="contact-modal" class="modal">
+            <div class="modal-overlay" id="contact-modal-overlay"></div>
+            <div class="modal-content form-modal-content">
+                <button class="close-modal" id="close-contact-modal">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                <div class="form-modal-body">
+                    <h2 class="form-modal-title">Contact Us</h2>
+                    <p class="form-modal-subtitle">Fill out the form and we will review your message and contact you back.</p>
+                    <form id="contact-form" novalidate>
+                        <div class="form-group">
+                            <label for="cf-name">Full Name</label>
+                            <input type="text" id="cf-name" placeholder="First and Last Name"
+                                autocomplete="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cf-email">Email Address</label>
+                            <input type="email" id="cf-email" placeholder="you@email.com"
+                                autocomplete="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cf-phone">Tool Link (URL)</label>
+                            <input type="url" id="cf-phone" placeholder="https://...">
+                        </div>
+                        <div class="form-group">
+                            <label for="cf-message">Message</label>
+                            <textarea id="cf-message" placeholder="How can we help you?..."
+                                rows="4" required></textarea>
+                        </div>
+                        <div class="form-checkbox">
+                            <input type="checkbox" id="cf-terms" required>
+                            <label for="cf-terms">I accept the <a
+                                    href="uvjeti-koristenja.html" class="terms-link" target="_blank">terms and conditions</a></label>
+                        </div>
+                        <button type="submit" class="btn-primary form-submit-btn" id="cf-submit-btn">
+                            <i class="fa-solid fa-paper-plane"></i> Send
+                        </button>
+                        <p class="form-error" id="cf-error"></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Modal (shared) -->
+        <div id="success-modal" class="modal">
+            <div class="modal-overlay" id="success-modal-overlay"></div>
+            <div class="modal-content success-modal-content">
+                <div class="success-modal-body">
+                    <div class="success-icon"><i class="fa-solid fa-circle-check"></i></div>
+                    <h2 id="success-title">Success!</h2>
+                    <p id="success-message"></p>
+                    <button class="btn-primary" id="success-close-btn"
+                        style="width:auto;padding:0.9rem 2.5rem;">Close</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cookie Consent Banner -->
+        <div id="cookie-banner" class="cookie-banner hidden">
+            <div class="container cookie-container">
+                <div class="cookie-content">
+                    <i class="fa-solid fa-cookie-bite cookie-icon"></i>
+                    <p>We use cookies to improve your experience, track analytics, and enable forms. <a href="uvjeti-koristenja.html" class="cookie-link">Learn more</a>.</p>
+                </div>
+                <div class="cookie-actions">
+                    <button id="accept-cookies" class="btn-primary btn-sm">Accept</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main JS -->
+        <script src="../api_response_en.js"></script>
+        <script src="../script.js"></script>
+</body>
+
+</html>

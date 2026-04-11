@@ -1,0 +1,33 @@
+name: Update WebAlati Data
+
+on:
+  repository_dispatch:
+    types: [update-data]
+  workflow_dispatch:
+
+jobs:
+  update-data:
+    runs-on: windows-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run fetch_data.ps1
+        shell: powershell
+        env:
+          HR_DATA_TOKEN: ${{ secrets.HR_DATA_TOKEN }}
+          EN_DATA_TOKEN: ${{ secrets.EN_DATA_TOKEN }}
+          SIGNING_SECRET: ${{ secrets.SIGNING_SECRET }}
+        run: |
+          .\fetch_data.ps1
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add api_response.json api_response.js api_response_en.json api_response_en.js images/tools/ images/blogs/
+          git commit -m "Automatsko ažuriranje AI alata i blogova iz Google Sheeta 🚀" || echo "Nema promjena za ažuriranje"
+          git push

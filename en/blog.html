@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7E0TG7F51M"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-7E0TG7F51M');
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebTools - Blog</title>
+    <meta name="description" content="Read our latest articles about AI tools, productivity, and web resources.">
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../style.css">
+
+    <style>
+        .blog-hero {
+            padding: 8rem 0 4rem;
+            text-align: center;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(min(100%, 380px), 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+            min-height: 600px;
+            /* Prevent collapse */
+        }
+
+        .blog-card {
+            background: var(--surface-main);
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            border: var(--glass-border);
+            backdrop-filter: blur(10px);
+            transition: all var(--transition-speed) cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            animation: fadeInUp 0.6s ease backwards;
+        }
+
+        .blog-card:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .blog-card:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .blog-card:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255, 159, 28, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .blog-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: var(--glass-border);
+            background: var(--surface-hover);
+            /* Placeholder color during load */
+        }
+
+        .blog-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            max-width: 100%;
+        }
+
+        .blog-meta {
+            font-size: 0.8rem;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .blog-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+            max-width: 90%;
+            /* Prevent lines from being too long */
+        }
+
+        .blog-excerpt {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            max-width: 95%;
+        }
+
+        .read-more {
+            color: var(--text-primary);
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: gap 0.3s ease;
+        }
+
+        .blog-card:hover .read-more {
+            gap: 0.8rem;
+            color: var(--accent-color);
+        }
+
+        /* Detail View Styles */
+        #post-view {
+            display: none;
+            padding-top: 2rem;
+        }
+
+        #post-view.active {
+            display: block;
+        }
+
+        .post-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .post-meta {
+            font-size: 0.9rem;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .post-title {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease backwards;
+        }
+
+        .post-featured-img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: var(--border-radius-lg);
+            margin-bottom: 4rem;
+            border: var(--glass-border);
+            animation: fadeInUp 0.8s ease backwards;
+            animation-delay: 0.1s;
+        }
+
+        .post-body {
+            max-width: 800px;
+            margin: 0 auto;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 1.1rem;
+            animation: fadeInUp 0.8s ease backwards;
+            animation-delay: 0.2s;
+        }
+
+        .post-body h2 {
+            font-size: 2rem;
+            color: var(--text-primary);
+            margin: 3rem 0 1.5rem;
+            font-weight: 800;
+        }
+
+        .post-body p {
+            margin-bottom: 1.5rem;
+        }
+
+        .post-cta-container {
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        .post-cta-container .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2.2rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            width: auto;
+            min-width: 200px;
+        }
+
+        .post-cta-container .btn-primary i {
+            margin-left: 0.8rem;
+        }
+
+        .back-to-blog {
+            margin-top: 5rem;
+            padding-top: 3rem;
+            border-top: var(--glass-border);
+            display: flex;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .post-title {
+                font-size: 2rem;
+            }
+
+            .post-featured-img {
+                height: 250px;
+                margin-bottom: 2rem;
+            }
+
+            .post-body h2 {
+                font-size: 1.6rem;
+            }
+
+            .post-cta-container .btn-primary {
+                width: 100%;
+                max-width: 320px;
+                padding: 1rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+
+        <!-- Header / Nav -->
+        <header class="navbar">
+            <div class="container">
+                <a href="index.html" class="logo">
+                    <span class="logo-text" data-i18n-brand="true">Web<span class="accent">Tools</span></span>
+                </a>
+                <nav class="nav-links">
+                    <a href="index.html" class="nav-link" data-i18n="nav_home">Home</a>
+                    <a href="index.html#categories-section" class="nav-link" data-i18n="nav_categories">Categories</a>
+                    <a href="blog.html" class="nav-link active" id="blog-nav-link">Blog</a>
+                    <a href="blog.html" class="nav-link hidden" id="back-nav-link"><i
+                            class="fa-solid fa-arrow-left"></i> Back</a>
+                    <div class="custom-lang-switcher" id="lang-switcher" style="margin-left: 1.5rem;">
+                        <div class="lang-current" id="lang-current">
+                            <img src="https://flagcdn.com/w40/gb.png" alt="EN" class="lang-flag"> <span>EN</span>
+                            <i class="fa-solid fa-chevron-down" style="font-size: 0.7rem; opacity: 0.7;"></i>
+                        </div>
+                        <div class="lang-dropdown-list" id="lang-list">
+                            <div class="lang-option" data-value="../hr/blog.html">
+                                <img src="https://flagcdn.com/w40/hr.png" alt="HR" class="lang-flag"> <span>Hrvatski</span>
+                            </div>
+                            <div class="lang-option" data-value="blog.html">
+                                <img src="https://flagcdn.com/w40/gb.png" alt="EN" class="lang-flag"> <span>English</span>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </header>
+
+        <main class="container section-padding">
+            <div id="blog-list-view">
+                <section class="blog-hero">
+                    <h1 class="brand-name">
+                        Our <span class="accent">Blog</span>
+                    </h1>
+                    <p class="brand-description">
+                        The latest news, guides, and reviews of the best AI and web tools on the market.
+                    </p>
+                </section>
+
+                <div class="blog-grid" id="blog-grid">
+                    <p style="grid-column: 1/-1; text-align: center; color: var(--text-secondary); margin-top: 2rem;">
+                        Loading / Učitavanje...</p>
+                </div>
+            </div>
+
+            <!-- Single Post View -->
+            <div id="post-view">
+                <div id="dynamic-post">
+                    <!-- Hydrated via JS -->
+                </div>
+
+                <div class="back-to-blog">
+                    <div class="logo">
+                    <a href="index.html">
+                        <i class="fa-solid fa-microchip logo-icon"></i>
+                        <span>WebTools</span>
+                    </a>
+                </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <p>&copy; 2026 WebTools. <a href="javascript:void(0)" class="footer-link open-contact-link">Contact Us</a> | All rights reserved. <a href="uvjeti-koristenja.html"
+                        class="footer-link">Terms of Use and Privacy Policy</a></p>
+            </div>
+        </footer>
+
+        <!-- Newsletter Modal -->
+        <div id="newsletter-modal" class="modal">
+            <div class="modal-overlay" id="newsletter-modal-overlay"></div>
+            <div class="modal-content form-modal-content">
+                <button class="close-modal" id="close-newsletter-modal">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                <div class="form-modal-body">
+                    <div class="form-modal-icon newsletter-icon-color"><i class="fa-solid fa-envelope-open-text"></i></div>
+                    <h2 class="form-modal-title">Join our Newsletter</h2>
+                    <p class="form-modal-subtitle">Get the latest AI tools and guides directly in your inbox.</p>
+                    <form id="newsletter-form" novalidate>
+                        <div class="form-group">
+                            <label for="nl-name">Name</label>
+                            <input type="text" id="nl-name" placeholder="Your name" autocomplete="given-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nl-email">Email Address</label>
+                            <input type="email" id="nl-email" placeholder="you@email.com" autocomplete="email" required>
+                        </div>
+                        <div class="form-checkbox">
+                            <input type="checkbox" id="nl-terms" required>
+                            <label for="nl-terms">I accept the <a href="uvjeti-koristenja.html" class="terms-link"
+                                    target="_blank">terms and conditions</a></label>
+                        </div>
+                        <button type="submit" class="btn-primary form-submit-btn" id="nl-submit-btn">
+                            <i class="fa-solid fa-paper-plane"></i> Subscribe!
+                        </button>
+                        <p class="form-error" id="nl-error"></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Form Modal -->
+        <div id="contact-modal" class="modal">
+            <div class="modal-overlay" id="contact-modal-overlay"></div>
+            <div class="modal-content form-modal-content">
+                <button class="close-modal" id="close-contact-modal">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                <div class="form-modal-body">
+                    <div class="form-modal-icon contact-icon-color"><i class="fa-solid fa-rocket"></i></div>
+                    <h2 class="form-modal-title">Contact Us</h2>
+                    <p class="form-modal-subtitle">Fill out the form and we will review your message and contact you back.</p>
+                    <form id="contact-form" novalidate>
+                        <div class="form-group">
+                            <label for="cf-name">Full Name</label>
+                            <input type="text" id="cf-name" placeholder="First and Last Name"
+                                autocomplete="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cf-email">Email Address</label>
+                            <input type="email" id="cf-email" placeholder="you@email.com"
+                                autocomplete="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cf-phone">Tool Link (URL)</label>
+                            <input type="url" id="cf-phone" placeholder="https://...">
+                        </div>
+                        <div class="form-group">
+                            <label for="cf-message">Message</label>
+                            <textarea id="cf-message" placeholder="How can we help you?..."
+                                rows="4" required></textarea>
+                        </div>
+                        <div class="form-checkbox">
+                            <input type="checkbox" id="cf-terms" required>
+                            <label for="cf-terms">I accept the <a
+                                    href="uvjeti-koristenja.html" class="terms-link" target="_blank">terms and conditions</a></label>
+                        </div>
+                        <button type="submit" class="btn-primary form-submit-btn" id="cf-submit-btn">
+                            <i class="fa-solid fa-paper-plane"></i> Send
+                        </button>
+                        <p class="form-error" id="cf-error"></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Modal (shared) -->
+        <div id="success-modal" class="modal">
+            <div class="modal-overlay" id="success-modal-overlay"></div>
+            <div class="modal-content success-modal-content">
+                <div class="success-modal-body">
+                    <div class="success-icon"><i class="fa-solid fa-circle-check"></i></div>
+                    <h2 id="success-title">Success!</h2>
+                    <p id="success-message"></p>
+                    <button class="btn-primary" id="success-close-btn"
+                        style="width:auto;padding:0.9rem 2.5rem;">Close</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cookie Consent Banner -->
+        <div id="cookie-banner" class="cookie-banner hidden">
+            <div class="container cookie-container">
+                <div class="cookie-content">
+                    <i class="fa-solid fa-cookie-bite cookie-icon"></i>
+                    <p>We use cookies to improve your experience, track analytics, and enable forms. <a href="uvjeti-koristenja.html" class="cookie-link">Learn more</a>.</p>
+                </div>
+                <div class="cookie-actions">
+                    <button id="accept-cookies" class="btn-primary btn-sm">Accept</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main JS -->
+        <script>
+            window.WEBALATI_LANG = "en";
+            window.WEBALATI_TOOLS_API = "https://script.google.com/macros/s/AKfycbzMp540q3I00e_QDtTnHnDkKeDsDI26KTyr2gFnzvdGm6-0or-SWrDm_9e2LTswvfxfQQ/exec";
+            // Security: EN form token
+            window.WEBALATI_FORM_TOKEN = "en_form_v1_3qz8p6";
+        </script>
+        <script src="../api_response_en.js"></script>
+        <script src="../script.js"></script>
+    </div>
+</body>
+</html>
