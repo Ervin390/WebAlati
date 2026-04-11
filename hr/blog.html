@@ -267,13 +267,15 @@
                 <a href="index.html" class="logo">
                     <span class="logo-text" data-i18n-brand="true">Web<span class="accent">Alati</span></span>
                 </a>
-                <nav class="nav-links">
+                <nav class="nav-links" id="nav-links">
                     <a href="index.html" class="nav-link" data-i18n="nav_home">Početna</a>
                     <a href="index.html#categories-section" class="nav-link" data-i18n="nav_categories">Kategorije</a>
                     <a href="blog.html" class="nav-link active" id="blog-nav-link" data-i18n="nav_blog">Blog</a>
                     <a href="blog.html" class="nav-link hidden" id="back-nav-link"><i
                             class="fa-solid fa-arrow-left"></i> Natrag</a>
-                    <div class="custom-lang-switcher" id="lang-switcher" style="margin-left: 1.5rem;">
+                </nav>
+                <div class="nav-right">
+                    <div class="custom-lang-switcher" id="lang-switcher">
                         <div class="lang-current" id="lang-current">
                             <img src="https://flagcdn.com/w40/hr.png" alt="HR" class="lang-flag"> <span>HR</span>
                             <i class="fa-solid fa-chevron-down" style="font-size: 0.7rem; opacity: 0.7;"></i>
@@ -287,7 +289,10 @@
                             </div>
                         </div>
                     </div>
-                </nav>
+                    <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Menu">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
             </div>
         </header>
 

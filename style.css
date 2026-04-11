@@ -194,6 +194,16 @@ body:not(.lang-en) .lang-hr {
   width: 100%;
 }
 
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.mobile-menu-btn {
+  display: none;
+}
+
 .lang-btn {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -1798,7 +1808,43 @@ footer {
 
   .contact-btn {
     padding: 1rem 2rem !important;
-    font-size: 1rem !important;
+  }
+  /* ---- Mobile Adjustments ---- */
+  .mobile-menu-btn {
+    display: flex;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(15, 15, 15, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    flex-direction: column;
+    padding: 2rem 1rem;
+    gap: 1.5rem;
+    border-bottom: 1px solid rgba(255, 159, 28, 0.2);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 99;
+  }
+
+  .nav-links.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
   }
 
   /* Form modals on mobile */
@@ -1845,6 +1891,7 @@ footer {
 
   .tools-scroll-container {
     justify-content: center;
+    gap: 1.65rem; /* ~10% more blank space */
   }
 
   .tool-card {
@@ -1858,7 +1905,7 @@ footer {
 
   .categories-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
+    gap: 1.2rem;
   }
 
   .category-card {
@@ -1876,6 +1923,7 @@ footer {
 
   .tools-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
   }
 
   /* Speech bubble below image on phone */
