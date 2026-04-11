@@ -745,7 +745,8 @@ function createToolCardHTML(tool) {
     // Full-width image or stylised fallback
     let imageHTML;
     if (tool.logo && tool.logo.trim() !== '') {
-        imageHTML = `<img src="${ASSET_PREFIX}${tool.logo}" alt="${tool.name}" loading="lazy" decoding="async"
+        const imgSrc = tool.logo.startsWith('http') ? tool.logo : ASSET_PREFIX + tool.logo;
+        imageHTML = `<img src="${imgSrc}" alt="${tool.name}" loading="lazy" decoding="async"
             onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
             <div class="tool-img-fallback" style="background:${gradientBg};display:none;">
                 <span>${initial}</span>
