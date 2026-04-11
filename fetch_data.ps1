@@ -130,11 +130,14 @@ foreach ($cfg in $configs) {
     # Build signed URLs for both API calls
     $ts_tools = [System.DateTimeOffset]::UtcNow.ToUnixTimeMilliseconds().ToString()
     $sig_tools = Get-ApiSignature $token $ts_tools $SIGNING_SECRET
-    $signed_tools_url = "${api_url}?token=${token}&ts=${ts_tools}&sig=${sig_tools}"
+    $encoded_token = [uri]::EscapeDataString($token)
+    $encoded_sig_tools = [uri]::EscapeDataString($sig_tools)
+    $signed_tools_url = "${api_url}?token=${encoded_token}&ts=${ts_tools}&sig=${encoded_sig_tools}"
 
     $ts_blog = [System.DateTimeOffset]::UtcNow.ToUnixTimeMilliseconds().ToString()
     $sig_blog = Get-ApiSignature $token $ts_blog $SIGNING_SECRET
-    $signed_blog_url = "${blog_api_url}?token=${token}&ts=${ts_blog}&sig=${sig_blog}"
+    $encoded_sig_blog = [uri]::EscapeDataString($sig_blog)
+    $signed_blog_url = "${blog_api_url}?token=${encoded_token}&ts=${ts_blog}&sig=${encoded_sig_blog}"
 
     $response = $null
     Write-Host "Fetching tools from: $api_url (signed)"
