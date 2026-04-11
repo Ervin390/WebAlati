@@ -1,1 +1,1 @@
-﻿window.WEBALATI_DATA = {"tools":[],"trending":[],"blogs":[{"MainText":"","ButtonLink":"","Subheading":"","Timestamp":"","Heading":"","Photo":"","Minutes":"","Text2":"","Text1":"","Language":"hr","Slug":"","Subheading2":"","Text3":"","HighlitedText":""}]};
+﻿window.WEBALATI_DATA = {"tools":[],"trending":[],"blogs":[]};
