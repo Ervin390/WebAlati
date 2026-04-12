@@ -416,6 +416,77 @@ function showCategory(categoryName) {
     currentDisplayCount = 20;
 }
 
+// --- Clean Slug Generator ---
+function createSlug(name) {
+    return name
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-|-$/g, '');
+}
+
+// --- SEO & Meta Update Function ---
+function updateSEOForTool(tool) {
+    document.title = `${tool.name} - AI Tool | WebAlati`;
+
+    const setMeta = (name, content, attr = 'name') => {
+        let tag = document.querySelector(`meta[${attr}="${name}"]`);
+        if (!tag) {
+            tag = document.createElement('meta');
+            tag.setAttribute(attr, name);
+            document.head.appendChild(tag);
+        }
+        tag.setAttribute('content', content);
+    };
+
+    const displayDesc = tool.desc ? tool.desc.substring(0, 155) + '...' : '';
+
+    setMeta('description', displayDesc, 'name');
+    
+    let canonical = document.getElementById('canonical-url');
+    if (canonical) {
+        canonical.setAttribute('href', window.location.href);
+    }
+
+    setMeta('og:title', `${tool.name} - AI Tool | WebAlati`, 'property');
+    setMeta('og:description', displayDesc, 'property');
+    setMeta('og:image', tool.logo.startsWith('http') ? tool.logo : window.location.origin + '/' + tool.logo.replace(/^\.\.\//, ''), 'property');
+    setMeta('og:url', window.location.href, 'property');
+
+    let script = document.getElementById('seo-json-ld');
+    if (!script) {
+        script = document.createElement('script');
+        script.setAttribute('type', 'application/ld+json');
+        script.setAttribute('id', 'seo-json-ld');
+        document.head.appendChild(script);
+    }
+    
+    const jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": tool.name,
+        "operatingSystem": "Web Browser",
+        "applicationCategory": tool.category || "BusinessApplication",
+        "description": tool.desc,
+        "url": window.location.href,
+        "image": tool.logo.startsWith('http') ? tool.logo : window.location.origin + '/' + tool.logo.replace(/^\.\.\//, '')
+    };
+    script.textContent = JSON.stringify(jsonLd);
+}
+
+function resetSEO() {
+    document.title = currentLang === 'hr' ? "WebAlati - Best AI and Web Tools" : "WebTools - Best AI and Web Tools";
+    
+    let tag = document.querySelector(`meta[name="description"]`);
+    if(tag) tag.setAttribute('content', currentLang === 'hr' ? "Otkrijte i pretražite najbolje umjetne inteligencije (AI) alate za posao, edukaciju i svakodnevni život na jednom mjestu." : "Your ultimate directory for the best AI tools, web resources, and business software.");
+
+    let canonical = document.getElementById('canonical-url');
+    if (canonical) canonical.setAttribute('href', window.location.origin + window.location.pathname);
+    
+    let ldScript = document.getElementById('seo-json-ld');
+    if (ldScript) ldScript.remove();
+}
+
 // --- Modal Functions ---
 function openToolModal(toolId) {
     const tool = allTools.find(t => t.id === toolId);
@@ -475,11 +546,65 @@ function openToolModal(toolId) {
 
     toolModal.classList.add('active');
     document.body.style.overflow = 'hidden'; // Prevent scroll
+
+    // URL Routing Update
+    const slug = createSlug(tool.name);
+    const newUrl = new URL(window.location);
+    newUrl.searchParams.set('tool', slug);
+    window.history.pushState({ toolId: slug }, '', newUrl.href);
+
+    // Metadata Update
+    updateSEOForTool({ ...tool, desc: displayDesc });
 }
 
-function closeToolModal() {
+function closeToolModal(event) {
+    // Only process if tool modal is actually open
+    if (!toolModal.classList.contains('active')) return;
     toolModal.classList.remove('active');
     document.body.style.overflow = ''; // Restore scroll
+
+    // Clean URL
+    const newUrl = new URL(window.location);
+    newUrl.searchParams.delete('tool');
+    
+    // Only pushstate if the current URL actually has 'tool=XYZ' 
+    // (prevents double push on popstate events)
+    if (window.location.search.includes('tool=')) {
+        window.history.pushState(null, '', newUrl.href);
+    }
+    
+    resetSEO();
+}
+
+// Window History Popstate Integration
+window.addEventListener('popstate', (e) => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const requestedSlug = urlParams.get('tool');
+
+    if (requestedSlug) {
+        const foundTool = allTools.find(t => createSlug(t.name) === requestedSlug);
+        if (foundTool) {
+            // Prevent pushing state again since we are navigating
+            openToolModalWithoutHistory(foundTool);
+        }
+    } else {
+        if (toolModal.classList.contains('active')) {
+            toolModal.classList.remove('active');
+            document.body.style.overflow = ''; 
+            resetSEO();
+        }
+    }
+});
+
+// Helper for popstate to avoid history loop
+function openToolModalWithoutHistory(tool) {
+    if (!tool) return;
+    // ... we can just call openToolModal but replace state ideally
+    // for simplicity, we just use openToolModal and let it push state normally, 
+    // but a cleaner approach is setting a flag.
+    // For now, let's keep it robust by letting openToolModal run, then replacing it
+    openToolModal(tool.id);
+    window.history.replaceState({ toolId: createSlug(tool.name) }, '', window.location.href);
 }
 
 // --- Data Fetching ---
@@ -606,6 +731,23 @@ function fetchToolsFromAPI() {
 
         // Preload blog images for near-instant navigation
         preloadBlogImages();
+
+        // Check if a tool was requested via URL query params and open it
+        setTimeout(() => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const requestedSlug = urlParams.get('tool');
+            if (requestedSlug) {
+                const foundTool = allTools.find(t => createSlug(t.name) === requestedSlug);
+                if (foundTool) {
+                    openToolModalWithoutHistory(foundTool);
+                } else {
+                    // Gracefully fallback if tool doesn't exist
+                    const cleanUrl = new URL(window.location);
+                    cleanUrl.searchParams.delete('tool');
+                    window.history.replaceState(null, '', cleanUrl.href);
+                }
+            }
+        }, 100);
 
     } catch (error) {
         console.error("Data parsing error:", error);
