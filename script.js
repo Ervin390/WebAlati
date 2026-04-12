@@ -843,9 +843,7 @@ function populateFilters() {
     Array.from(uniqueCategories).sort().forEach(cat => {
         const option = document.createElement('option');
         option.value = cat;
-        option.textContent = (currentLang === 'hr' && TRANSLATIONS[currentLang][`cat_${cat.toLowerCase()}`])
-            ? TRANSLATIONS[currentLang][`cat_${cat.toLowerCase()}`]
-            : cat;
+        option.textContent = cat;
         filterCategory.appendChild(option);
     });
 
@@ -1187,8 +1185,8 @@ function applyFilters() {
     if (selectedAccess !== 'all') {
         filtered = filtered.filter(tool => {
             const toolFree = String(tool.free || "").toLowerCase();
-            if (selectedAccess === 'besplatno') return toolFree.includes('free') && !toolFree.includes('freemium');
-            if (selectedAccess === 'plaćeno') return toolFree.includes('paid') || toolFree.includes('plaćeno') || toolFree.includes('placeno');
+            if (selectedAccess === 'free') return toolFree.includes('free') && !toolFree.includes('freemium');
+            if (selectedAccess === 'paid') return toolFree.includes('paid') || toolFree.includes('plaćeno') || toolFree.includes('placeno');
             if (selectedAccess === 'freemium') return toolFree.includes('freemium');
             return true;
         });
