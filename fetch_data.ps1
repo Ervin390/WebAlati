@@ -21,10 +21,20 @@ $configs = @(
 )
 
 $SIGNING_SECRET = $env:SIGNING_SECRET
+$image_dir = "images/tools"
+$blog_dir = "images/blogs"
+
+# Ensure directories exist with absolute paths
+$ABS_ROOT = (Get-Item .).FullName
+$ABS_IMAGE_DIR = [System.IO.Path]::Combine($ABS_ROOT, $image_dir)
+$ABS_BLOG_DIR = [System.IO.Path]::Combine($ABS_ROOT, $blog_dir)
+
+if (!(Test-Path $ABS_IMAGE_DIR)) { New-Item -ItemType Directory -Path $ABS_IMAGE_DIR -Force | Out-Null }
+if (!(Test-Path $ABS_BLOG_DIR)) { New-Item -ItemType Directory -Path $ABS_BLOG_DIR -Force | Out-Null }
 
 # --- Security: Generate SHA-256 signature ---
-# payload = token + "|" + ts + "|" + signingSecret  ->  SHA-256  ->  Base64
 function Get-ApiSignature($token, $ts, $secret) {
+    if (!$token -or !$secret) { return "" }
     $payload = "$token|$ts|$secret"
     $bytes = [System.Text.Encoding]::UTF8.GetBytes($payload)
     $sha256 = [System.Security.Cryptography.SHA256]::Create()
@@ -33,67 +43,52 @@ function Get-ApiSignature($token, $ts, $secret) {
     return [Convert]::ToBase64String($hashBytes)
 }
 
-$image_dir = "images/tools"
-$blog_dir = "images/blogs"
-
-if (!(Test-Path $image_dir)) {
-    New-Item -ItemType Directory -Path $image_dir -Force | Out-Null
-}
-if (!(Test-Path $blog_dir)) {
-    New-Item -ItemType Directory -Path $blog_dir -Force | Out-Null
-}
-
-function Save-And-Compress-Image($url, $id, $target_dir) {
+function Save-And-Compress-Image($url, $target_folder, $filename) {
     if (!$url -or $url -notlike "http*") { return $url }
     
-    $extension = "jpg"
-    $filename = "$id.$extension"
-    $local_path = "$target_dir/$filename"
-    $relative_path = "$target_dir/$filename"
+    $abs_target_dir = [System.IO.Path]::Combine($ABS_ROOT, $target_folder)
+    if (!(Test-Path $abs_target_dir)) { New-Item -ItemType Directory -Path $abs_target_dir -Force | Out-Null }
+    
+    $local_path = [System.IO.Path]::Combine($abs_target_dir, $filename)
+    $relative_path = "$target_folder/$filename"
     
     try {
-        if (!(Test-Path $local_path)) {
-            Write-Host "Processing image: $url"
-            $temp_file = New-TemporaryFile
-            Invoke-WebRequest -Uri $url -OutFile $temp_file.FullName -TimeoutSec 10
-            
-            # Open image for processing
-            $img = [System.Drawing.Image]::FromFile($temp_file.FullName)
-            
-            # Calculate new dimensions (max width 400px)
-            $maxWidth = 400
-            if ($img.Width -gt $maxWidth) {
-                $ratio = $maxWidth / $img.Width
-                $newWidth = $maxWidth
-                $newHeight = [int]($img.Height * $ratio)
-            } else {
-                $newWidth = $img.Width
-                $newHeight = $img.Height
-            }
-            
-            $newImg = New-Object System.Drawing.Bitmap($newWidth, $newHeight)
-            $graph = [System.Drawing.Graphics]::FromImage($newImg)
-            $graph.InterpolationMode = [System.Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic
-            $graph.DrawImage($img, 0, 0, $newWidth, $newHeight)
-            
-            # Set JPEG compression quality (85%)
-            $encoderParams = New-Object System.Drawing.Imaging.EncoderParameters(1)
-            $encoderParams.Param[0] = New-Object System.Drawing.Imaging.EncoderParameter([System.Drawing.Imaging.Encoder]::Quality, 85)
-            $jpegCodec = [System.Drawing.Imaging.ImageCodecInfo]::GetImageEncoders() | Where-Object { $_.MimeType -eq "image/jpeg" }
-            
-            $newImg.Save($local_path, $jpegCodec, $encoderParams)
-            
-            $graph.Dispose()
-            $newImg.Dispose()
-            $img.Dispose()
-            $temp_file | Remove-Item
-        }
+        Write-Host "Processing image: $url -> $relative_path"
+        $temp_file = [System.IO.Path]::GetTempFileName()
+        $wc = New-Object System.Net.WebClient
+        $wc.DownloadFile($url, $temp_file)
+        
+        $img = [System.Drawing.Image]::FromFile($temp_file)
+        # Create a new bitmap with the desired size and resolution
+        $newImg = New-Object System.Drawing.Bitmap(400, 400)
+        $graph = [System.Drawing.Graphics]::FromImage($newImg)
+        $graph.InterpolationMode = [System.Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic
+        $graph.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::HighQuality
+        $graph.PixelOffsetMode = [System.Drawing.Drawing2D.PixelOffsetMode]::HighQuality
+        $graph.CompositingQuality = [System.Drawing.Drawing2D.CompositingQuality]::HighQuality
+
+        $graph.DrawImage($img, 0, 0, 400, 400)
+        
+        # Save as high-quality JPEG
+        $encoder = [System.Drawing.Imaging.ImageCodecInfo]::GetImageEncoders() | Where-Object { $_.FormatDescription -eq "JPEG" }
+        $params = New-Object System.Drawing.Imaging.EncoderParameters(1)
+        $params.Param[0] = New-Object System.Drawing.Imaging.EncoderParameter([System.Drawing.Imaging.Encoder]::Quality, 85)
+        
+        $newImg.Save($local_path, $encoder, $params)
+        
+        $graph.Dispose()
+        $newImg.Dispose()
+        $img.Dispose()
+        [System.IO.File]::Delete($temp_file)
+        
         return $relative_path
     } catch {
         Write-Warning "Failed to process image ${url}: $_"
         return $url
     }
 }
+
+Write-Host "Assembly loaded: $([System.Reflection.Assembly]::LoadWithPartialName('System.Drawing'))"
 
 # Handle both flat and nested JSON forms with multiple language keys
 function Get-Val($prop) {
@@ -113,10 +108,11 @@ function Get-Val($prop) {
 }
 
 # Function to get header value even if column name varies slightly
-function Get-Header-Val($obj, $primary, $secondary) {
-    $val = Get-Val $obj.$primary
-    if ($val -eq "" -and $secondary) {
-        $val = Get-Val $obj.$secondary
+function Get-Header-Val($obj, $primary, $secondary, $lang) {
+    if ($null -eq $obj) { return $null }
+    $val = Get-Val $obj.$primary $lang
+    if (($null -eq $val -or $val -eq "") -and $secondary) {
+        $val = Get-Val $obj.$secondary $lang
     }
     return $val
 }
@@ -182,7 +178,7 @@ foreach ($cfg in $configs) {
                 $tool | Add-Member -NotePropertyName "tags" -NotePropertyValue @() -Force
             }
 
-            $tool.logo = Save-And-Compress-Image $tool.logo "tool_$($cfg.lang)_$index" $image_dir
+            $tool.logo = Save-And-Compress-Image $tool.logo $image_dir "tool_$($cfg.lang)_$index.jpg"
             $all_tools += $tool
             if ($tool.trending -eq $true) {
                 $trending_tools += $tool
@@ -215,30 +211,26 @@ foreach ($cfg in $configs) {
         Write-Host "Processing $($blog_items.Count) blogs for $($cfg.lang)..."
         $blog_index = 0
         foreach ($raw_blog in $blog_items) {
-            
             if (!$raw_blog) { continue }
             
-            $img_url = Get-Val $raw_blog.Photo
-            
-            $img_url = Get-Val $raw_blog.Photo
-            
-            $compressed_img = Save-And-Compress-Image $img_url "blog_$($cfg.lang)_$blog_index" $blog_dir
+            $photo_url = Get-Val $raw_blog.Photo $cfg.sheetLang
+            $compressed_img = Save-And-Compress-Image $photo_url $blog_dir "blog_$($cfg.lang)_$blog_index.jpg"
             
             $blog = @{
                 Language = $cfg.lang
-                Slug = Get-Header-Val $raw_blog "Slug" "Timestamp"
-                Timestamp = Get-Val $raw_blog.Timestamp
-                Heading = Get-Val $raw_blog.Heading
-                Minutes = Get-Val $raw_blog.Minutes
-                MainText = Get-Header-Val $raw_blog "Main Text" "MainText"
+                Slug = Get-Header-Val $raw_blog "Slug" "Timestamp" $cfg.sheetLang
+                Timestamp = Get-Val $raw_blog.Timestamp $cfg.sheetLang
+                Heading = Get-Val $raw_blog.Heading $cfg.sheetLang
+                Minutes = Get-Val $raw_blog.Minutes $cfg.sheetLang
+                MainText = Get-Header-Val $raw_blog "Main Text" "MainText" $cfg.sheetLang
                 Photo = $compressed_img
-                Text1 = Get-Header-Val $raw_blog "Text 1" "Text1"
-                Subheading = Get-Val $raw_blog.Subheading
-                Text2 = Get-Header-Val $raw_blog "Text 2" "Text2"
-                HighlitedText = Get-Header-Val $raw_blog "Highlited text" "HighlitedText"
-                Subheading2 = Get-Header-Val $raw_blog "Subheading 2" "Subheading2"
-                Text3 = Get-Header-Val $raw_blog "Text 3" "Text3"
-                ButtonLink = Get-Header-Val $raw_blog "Button Link" "ButtonLink"
+                Text1 = Get-Header-Val $raw_blog "Text 1" "Text1" $cfg.sheetLang
+                Subheading = Get-Val $raw_blog.Subheading $cfg.sheetLang
+                Text2 = Get-Header-Val $raw_blog "Text 2" "Text2" $cfg.sheetLang
+                HighlitedText = Get-Header-Val $raw_blog "Highlited text" "HighlitedText" $cfg.sheetLang
+                Subheading2 = Get-Header-Val $raw_blog "Subheading 2" "Subheading2" $cfg.sheetLang
+                Text3 = Get-Header-Val $raw_blog "Text 3" "Text3" $cfg.sheetLang
+                ButtonLink = Get-Header-Val $raw_blog "Button Link" "ButtonLink" $cfg.sheetLang
             }
             $all_blogs += $blog
             $blog_index++

@@ -152,8 +152,8 @@ const FORM_TOKEN = window.WEBALATI_FORM_TOKEN || '';
 
 // --- Cookie Consent Logic ---
 function loadGoogleAnalytics() {
-    // Placeholder for Google Analytics - replace G-XXXXXXXXXX with actual ID
-    console.log("Cookie consent accepted: Loading Google Analytics (Anonymized)...");
+    // Analytics is loaded via HTML tags; this serves as an internal hook if needed.
+}
     /*
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -163,7 +163,6 @@ function loadGoogleAnalytics() {
     ga('set', 'anonymizeIp', true);
     ga('send', 'pageview');
     */
-}
 
 function checkCookieConsent() {
     if (!cookieBanner) return;
@@ -180,11 +179,6 @@ function checkCookieConsent() {
 document.addEventListener('DOMContentLoaded', () => {
     try {
         // Initial Render trigger
-        console.log("DOM Loaded. Current Lang:", currentLang);
-        console.log("WEBALATI_DATA exists:", !!window.WEBALATI_DATA);
-        if (window.WEBALATI_DATA) {
-            console.log("Blogs in data:", (window.WEBALATI_DATA.blogs || []).length);
-        }
         fetchToolsFromAPI();
 
         // Check for cookie consent
@@ -1295,12 +1289,11 @@ function renderBlogList() {
     const targetLang = currentLang === 'hr' ? 'HR' : 'ENGL';
 
     // Filter to blogs that have a non-empty Heading (real content)
-    const blogsToRender = allBlogs.filter(b => {
+    const blogsToRender = (window.WEBALATI_DATA.blogs || []).filter(b => {
         if (!b) return false;
         const heading = getLocalVal(b.Heading, targetLang);
         return heading && String(heading).trim() !== '';
     });
-    console.log("Blogs to render:", blogsToRender.length);
 
     if (blogsToRender.length === 0) {
         const noPostsMsg = currentLang === 'hr'
@@ -1313,7 +1306,6 @@ function renderBlogList() {
     let html = '';
     try {
         blogsToRender.forEach(blog => {
-            console.log("Processing blog:", blog.Heading);
         const title = String(getLocalVal(blog.Heading, targetLang) || '');
         const minutes = String(getLocalVal(blog.Minutes, targetLang) || '5');
         const photo = String(getLocalVal(blog.Photo, targetLang) || '');
@@ -1343,9 +1335,8 @@ function renderBlogList() {
         `;
         });
     } catch (err) {
-        console.error("Error rendering blog list:", err);
+        // Fail silently in production to avoid disruption, or log to a service.
     }
-    console.log("Final HTML length:", html.length);
     blogGrid.innerHTML = html;
 }
 
