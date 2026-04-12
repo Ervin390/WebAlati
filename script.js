@@ -1370,11 +1370,11 @@ function renderBlogPost() {
     const timestamp = String(getLocalVal(blog.Timestamp, targetLang) || '');
     const photo = String(getLocalVal(blog.Photo, targetLang) || '');
 
-    const mainText = String(getLocalVal(blog.MainText || blog["Main Text"] || blog.Text1 || blog["Text 1"], targetLang) || '');
+    const mainText = String(getLocalVal(blog.MainText || blog["Main Text"], targetLang) || '');
     const text1 = String(getLocalVal(blog.Text1 || blog["Text 1"], targetLang) || '');
-    const subHeading1 = String(getLocalVal(blog.Subheading, targetLang) || '');
+    const subHeading1 = String(getLocalVal(blog.Subheading || blog["Subheading"], targetLang) || '');
     const text2 = String(getLocalVal(blog.Text2 || blog["Text 2"], targetLang) || '');
-    const highlighted = String(getLocalVal(blog.HighlitedText || blog["Highlighted Text"], targetLang) || '');
+    const highlighted = String(getLocalVal(blog.HighlitedText || blog["Highlighted Text"] || blog.HighlightedText, targetLang) || '');
     const subHeading2 = String(getLocalVal(blog.Subheading2 || blog["Subheading 2"], targetLang) || '');
     const text3 = String(getLocalVal(blog.Text3 || blog["Text 3"], targetLang) || '');
     const buttonLink = String(getLocalVal(blog.ButtonLink || blog["Button Link"], targetLang) || '');
@@ -1392,10 +1392,11 @@ function renderBlogPost() {
         <img src="${ASSET_PREFIX}${photo}" alt="${title}" class="post-featured-img" onerror="this.style.display='none'">
 
         <div class="post-body">
-            ${mainText && mainText !== text1 ? `<p>${mainText}</p>` : (mainText ? `<p>${mainText}</p>` : '')}
-            ${text1 && text1 !== mainText ? `<p>${text1}</p>` : ''}
+            ${mainText ? `<p>${mainText}</p>` : ''}
 
             ${subHeading1 ? `<h2>${subHeading1}</h2>` : ''}
+
+            ${text1 ? `<p>${text1}</p>` : ''}
             ${text2 ? `<p>${text2}</p>` : ''}
 
             ${highlighted ? `<blockquote style="border-left: 4px solid var(--accent-color); padding-left: 2rem; margin: 3rem 0; font-style: italic; color: var(--text-primary); font-size: 1.4rem;">"${highlighted}"</blockquote>` : ''}
@@ -1410,6 +1411,7 @@ function renderBlogPost() {
                 </a>
             </div>
             ` : ''}
+        </div>
     `;
 }
 
