@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
-      <loc>https://webalati.com/hr/index.html</loc>
+      <loc>https://webalati.tech/hr/</loc>
       <priority>1.0</priority>
    </url>
    <url>
-      <loc>https://webalati.com/en/index.html</loc>
+      <loc>https://webalati.tech/en/</loc>
       <priority>1.0</priority>
    </url>
    <url>
-      <loc>https://webalati.com/hr/blog.html</loc>
+      <loc>https://webalati.tech/hr/blogs/</loc>
       <priority>0.8</priority>
    </url>
    <url>
-      <loc>https://webalati.com/en/blog.html</loc>
+      <loc>https://webalati.tech/en/blogs/</loc>
       <priority>0.8</priority>
    </url>
 </urlset>

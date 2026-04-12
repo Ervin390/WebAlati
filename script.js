@@ -73,9 +73,17 @@ const TRANSLATIONS = {
 
 let currentLang = window.WEBALATI_LANG || 'hr';
 
-// Handle relative paths for assets when in /hr/ or /en/ subfolders
-const isSubfolder = window.location.pathname.includes('/hr/') || window.location.pathname.includes('/en/');
-const ASSET_PREFIX = isSubfolder ? '../' : '';
+// Handle relative paths for assets based on directory depth
+const pathParts = window.location.pathname.split('/').filter(p => p && !p.endsWith('.html'));
+// Determine depth: /hr/ is depth 1, /hr/blogs/ is depth 2
+let depth = pathParts.length;
+// Special case: if we are at root but not in a subfolder (e.g. index.html)
+if (window.location.pathname.includes('/hr/') || window.location.pathname.includes('/en/')) {
+    // Already handled by pathParts filtering
+} else {
+    depth = 0;
+}
+const ASSET_PREFIX = '../'.repeat(depth);
 
 const TOOL_DESCRIPTIONS_EN = {
     "ElevenLabs": "Forget robotic sound. With ElevenLabs create natural voice for video, business and content.",
@@ -1249,7 +1257,7 @@ function showBlogList(e) {
     if (backNav) backNav.style.display = 'none';
 
     window.scrollTo({ top: 0, behavior: 'instant' });
-    history.pushState(null, "", "blog.html");
+    history.pushState(null, "", "./");
     renderBlogList();
 }
 
@@ -1265,7 +1273,7 @@ function showBlogPost(slug) {
     if (backNav) backNav.style.display = 'inline-block';
 
     window.scrollTo({ top: 0, behavior: 'instant' });
-    history.pushState(null, "", `blog.html?slug=${slug}`);
+    history.pushState(null, "", "?slug=${slug}");
     renderBlogPost();
 }
 

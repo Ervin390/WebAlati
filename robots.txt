@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://webalati.com/sitemap.xml
+Sitemap: https://webalati.tech/sitemap.xml

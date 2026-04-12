@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="hr">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -13,7 +13,8 @@
       gtag('config', 'G-7E0TG7F51M');
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebAlati Blog - Latest Insights into AI and Web Tools</title>
+    <title>WebTools - Blog</title>
+    <meta name="description" content="Read our latest articles about AI tools, productivity, and web resources.">
 
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,13 +28,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="../style.css">
-    <script>
-        window.WEBALATI_LANG = "hr";
-        window.WEBALATI_TOOLS_API = "https://script.google.com/macros/s/AKfycbwMEPP0lEtFFxZQ2IX1ol6A55hDg1c7ZePRlxDXcaS_L29NVW1plyZByNhIudHF59Tt/exec";
-        // Security: HR form token
-        window.WEBALATI_FORM_TOKEN = "hr_form_v1_9xk2m7";
-    </script>
+    <link rel="stylesheet" href="../../style.css">
 
     <style>
         .blog-hero {
@@ -250,7 +245,7 @@
 
             .post-body {
                 padding: 0 1rem;
-                font-size: 1rem; /* Slightly smaller for readability on very narrow screens */
+                font-size: 1rem;
             }
 
             .post-body h2 {
@@ -272,27 +267,27 @@
         <!-- Header / Nav -->
         <header class="navbar">
             <div class="container">
-                <a href="index.html" class="logo">
-                    <span class="logo-text" data-i18n-brand="true">Web<span class="accent">Alati</span></span>
+                <a href="../" class="logo">
+                    <span class="logo-text" data-i18n-brand="true">Web<span class="accent">Tools</span></span>
                 </a>
                 <nav class="nav-links" id="nav-links">
-                    <a href="index.html" class="nav-link" data-i18n="nav_home">Početna</a>
-                    <a href="index.html#categories-section" class="nav-link" data-i18n="nav_categories">Kategorije</a>
-                    <a href="blog.html" class="nav-link active" id="blog-nav-link" data-i18n="nav_blog">Blog</a>
-                    <a href="blog.html" class="nav-link hidden" id="back-nav-link"><i
-                            class="fa-solid fa-arrow-left"></i> Natrag</a>
+                    <a href="../" class="nav-link" data-i18n="nav_home">Home</a>
+                    <a href="../#categories-section" class="nav-link" data-i18n="nav_categories">Categories</a>
+                    <a href="./" class="nav-link active" id="blog-nav-link">Blog</a>
+                    <a href="./" class="nav-link hidden" id="back-nav-link"><i
+                            class="fa-solid fa-arrow-left"></i> Back</a>
                 </nav>
                 <div class="nav-right">
                     <div class="custom-lang-switcher" id="lang-switcher">
                         <div class="lang-current" id="lang-current">
-                            <img src="https://flagcdn.com/w40/hr.png" alt="HR" class="lang-flag"> <span>HR</span>
+                            <img src="https://flagcdn.com/w40/gb.png" alt="EN" class="lang-flag"> <span>EN</span>
                             <i class="fa-solid fa-chevron-down" style="font-size: 0.7rem; opacity: 0.7;"></i>
                         </div>
                         <div class="lang-dropdown-list" id="lang-list">
-                            <div class="lang-option" data-value="blog.html">
+                            <div class="lang-option" data-value="../../hr/blogs/">
                                 <img src="https://flagcdn.com/w40/hr.png" alt="HR" class="lang-flag"> <span>Hrvatski</span>
                             </div>
-                            <div class="lang-option" data-value="../en/blog.html">
+                            <div class="lang-option" data-value="./">
                                 <img src="https://flagcdn.com/w40/gb.png" alt="EN" class="lang-flag"> <span>English</span>
                             </div>
                         </div>
@@ -308,16 +303,16 @@
             <div id="blog-list-view">
                 <section class="blog-hero">
                     <h1 class="brand-name">
-                        Naš <span class="accent">Blog</span>
+                        Our <span class="accent">Blog</span>
                     </h1>
                     <p class="brand-description">
-                        Najnovije vijesti, vodiči i recenzije najboljih AI i web alata na tržištu.
+                        The latest news, guides, and reviews of the best AI and web tools on the market.
                     </p>
                 </section>
 
                 <div class="blog-grid" id="blog-grid">
                     <p style="grid-column: 1/-1; text-align: center; color: var(--text-secondary); margin-top: 2rem;">
-                        Učitavanje...</p>
+                        Loading / Učitavanje...</p>
                 </div>
             </div>
 
@@ -328,10 +323,12 @@
                 </div>
 
                 <div class="back-to-blog">
-                    <a href="blog.html" class="read-more" onclick="showBlogList(event)">
-                        <i class="fa-solid fa-arrow-left"></i>
-                        Natrag na listu
+                    <div class="logo">
+                    <a href="../">
+                        <i class="fa-solid fa-microchip logo-icon"></i>
+                        <span>WebTools</span>
                     </a>
+                </div>
                 </div>
             </div>
         </main>
@@ -339,8 +336,8 @@
         <!-- Footer -->
         <footer>
             <div class="container">
-                <p>&copy; 2026 WebAlati. <a href="javascript:void(0)" class="footer-link open-contact-link">Kontaktiraj nas</a> | Sva prava pridržana. <a href="uvjeti-koristenja.html"
-                        class="footer-link">Uvjeti korištenja i Pravila privatnosti</a></p>
+                <p>&copy; 2026 WebTools. <a href="javascript:void(0)" class="footer-link open-contact-link">Contact Us</a> | All rights reserved. <a href="uvjeti-koristenja.html"
+                        class="footer-link">Terms of Use and Privacy Policy</a></p>
             </div>
         </footer>
 
@@ -352,26 +349,25 @@
                     <i class="fa-solid fa-xmark"></i>
                 </button>
                 <div class="form-modal-body">
-                    <div class="form-modal-icon newsletter-icon-color"><i class="fa-solid fa-envelope-open-text"></i>
-                    </div>
-                    <h2 class="form-modal-title">Prijavite se na Newsletter</h2>
-                    <p class="form-modal-subtitle">Svaki tjedan — najzanimljiviji AI alati direktno u vaš inbox.</p>
+                    <div class="form-modal-icon newsletter-icon-color"><i class="fa-solid fa-envelope-open-text"></i></div>
+                    <h2 class="form-modal-title">Join our Newsletter</h2>
+                    <p class="form-modal-subtitle">Get the latest AI tools and guides directly in your inbox.</p>
                     <form id="newsletter-form" novalidate>
                         <div class="form-group">
-                            <label for="nl-name">Ime</label>
-                            <input type="text" id="nl-name" placeholder="Vaše ime" autocomplete="given-name" required>
+                            <label for="nl-name">Name</label>
+                            <input type="text" id="nl-name" placeholder="Your name" autocomplete="given-name" required>
                         </div>
                         <div class="form-group">
-                            <label for="nl-email">Email Adresa</label>
-                            <input type="email" id="nl-email" placeholder="vas@email.com" autocomplete="email" required>
+                            <label for="nl-email">Email Address</label>
+                            <input type="email" id="nl-email" placeholder="you@email.com" autocomplete="email" required>
                         </div>
                         <div class="form-checkbox">
                             <input type="checkbox" id="nl-terms" required>
-                            <label for="nl-terms">Prihvaćam <a href="uvjeti-koristenja.html" class="terms-link"
-                                    target="_blank">pravila i uvjete korištenja</a></label>
+                            <label for="nl-terms">I accept the <a href="uvjeti-koristenja.html" class="terms-link"
+                                    target="_blank">terms and conditions</a></label>
                         </div>
                         <button type="submit" class="btn-primary form-submit-btn" id="nl-submit-btn">
-                            <i class="fa-solid fa-paper-plane"></i> Pretplati me!
+                            <i class="fa-solid fa-paper-plane"></i> Subscribe!
                         </button>
                         <p class="form-error" id="nl-error"></p>
                     </form>
@@ -388,33 +384,35 @@
                 </button>
                 <div class="form-modal-body">
                     <div class="form-modal-icon contact-icon-color"><i class="fa-solid fa-rocket"></i></div>
-                    <h2 class="form-modal-title">Kontaktirajte nas</h2>
-                    <p class="form-modal-subtitle">Ispunite obrazac i ubrzo ćemo pregledati vaš upit i povratno vam se javiti.</p>
+                    <h2 class="form-modal-title">Contact Us</h2>
+                    <p class="form-modal-subtitle">Fill out the form and we will review your message and contact you back.</p>
                     <form id="contact-form" novalidate>
                         <div class="form-group">
-                            <label for="cf-name">Puno Ime</label>
-                            <input type="text" id="cf-name" placeholder="Ime i prezime" autocomplete="name" required>
+                            <label for="cf-name">Full Name</label>
+                            <input type="text" id="cf-name" placeholder="First and Last Name"
+                                autocomplete="name" required>
                         </div>
                         <div class="form-group">
-                            <label for="cf-email">Email Adresa</label>
-                            <input type="email" id="cf-email" placeholder="vas@email.com" autocomplete="email" required>
+                            <label for="cf-email">Email Address</label>
+                            <input type="email" id="cf-email" placeholder="you@email.com"
+                                autocomplete="email" required>
                         </div>
                         <div class="form-group">
-                            <label for="cf-phone">Link Alata (URL)</label>
+                            <label for="cf-phone">Tool Link (URL)</label>
                             <input type="url" id="cf-phone" placeholder="https://...">
                         </div>
                         <div class="form-group">
-                            <label for="cf-message">Poruka</label>
-                            <textarea id="cf-message" placeholder="Kako vam možemo pomoći?..."
+                            <label for="cf-message">Message</label>
+                            <textarea id="cf-message" placeholder="How can we help you?..."
                                 rows="4" required></textarea>
                         </div>
                         <div class="form-checkbox">
                             <input type="checkbox" id="cf-terms" required>
-                            <label for="cf-terms">Prihvaćam <a
-                                    href="uvjeti-koristenja.html" class="terms-link" target="_blank">pravila i uvjete korištenja</a></label>
+                            <label for="cf-terms">I accept the <a
+                                    href="uvjeti-koristenja.html" class="terms-link" target="_blank">terms and conditions</a></label>
                         </div>
                         <button type="submit" class="btn-primary form-submit-btn" id="cf-submit-btn">
-                            <i class="fa-solid fa-paper-plane"></i> Pošalji
+                            <i class="fa-solid fa-paper-plane"></i> Send
                         </button>
                         <p class="form-error" id="cf-error"></p>
                     </form>
@@ -428,10 +426,10 @@
             <div class="modal-content success-modal-content">
                 <div class="success-modal-body">
                     <div class="success-icon"><i class="fa-solid fa-circle-check"></i></div>
-                    <h2 id="success-title">Uspješno!</h2>
+                    <h2 id="success-title">Success!</h2>
                     <p id="success-message"></p>
                     <button class="btn-primary" id="success-close-btn"
-                        style="width:auto;padding:0.9rem 2.5rem;">Zatvori</button>
+                        style="width:auto;padding:0.9rem 2.5rem;">Close</button>
                 </div>
             </div>
         </div>
@@ -441,20 +439,25 @@
             <div class="container cookie-container">
                 <div class="cookie-content">
                     <i class="fa-solid fa-cookie-bite cookie-icon"></i>
-                    <p>Koristimo kolačiće kako bismo poboljšali vaše iskustvo, pratili posjećenost (Google Analytics) i
-                        omogućili rad formi. <a href="uvjeti-koristenja.html" class="cookie-link">Saznajte više</a>.</p>
+                    <p>We use cookies to improve your experience, track analytics, and enable forms. <a href="uvjeti-koristenja.html" class="cookie-link">Learn more</a>.</p>
                 </div>
                 <div class="cookie-actions">
-                    <button id="accept-cookies" class="btn-primary btn-sm">Prihvati</button>
+                    <button id="accept-cookies" class="btn-primary btn-sm">Accept</button>
                 </div>
             </div>
         </div>
 
         <!-- Main JS -->
-        <script src="../api_response.js"></script>
-        <script src="../script.js"></script>
-
+        <script>
+            window.WEBALATI_LANG = "en";
+            window.WEBALATI_TOOLS_API = "https://script.google.com/macros/s/AKfycbzMp540q3I00e_QDtTnHnDkKeDsDI26KTyr2gFnzvdGm6-0or-SWrDm_9e2LTswvfxfQQ/exec";
+            window.WEBALATI_NEWSLETTER_API = "https://script.google.com/macros/s/AKfycbw-6q8Q_LWaddm08JN9lLFKYBpUfiZaHXk0B9qpsq89nWR9TuYPqPKbYfmU-QGHL9PLJA/exec";
+            window.WEBALATI_CONTACT_API = "https://script.google.com/macros/s/AKfycbzMMzXs14OEjkye5wjNPGIVH2vY6-aA1dvMc0diOfWc612I1SpgNPKNCi4_0yYyt_HN/exec";
+            // Security: EN form token
+            window.WEBALATI_FORM_TOKEN = "en_form_v1_3p8zq6";
+        </script>
+        <script src="../../api_response_en.js"></script>
+        <script src="../../script.js"></script>
     </div>
 </body>
-
 </html>
