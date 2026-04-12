@@ -98,7 +98,7 @@ function Save-And-Compress-Image($url, $id, $target_dir) {
 # Handle both flat and nested JSON forms with multiple language keys
 function Get-Val($prop) {
     if ($null -eq $prop) { return "" }
-    if ($prop -is [string] -or $prop -is [int] -or $prop -is [double]) { return $prop }
+    if ($prop -is [string] -or $prop -is [int] -or $prop -is [double] -or $prop -is [array]) { return $prop }
     
     # Check for various language keys (Case-insensitive)
     $keys_to_check = @("HR", "hr", "ENGL", "engl", "EN", "en")

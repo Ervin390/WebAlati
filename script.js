@@ -249,6 +249,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     });
 
+                    resetOtherDropdowns('filter-category');
                     filterCategory.value = bestMatchValue;
 
                     // Re-sync UI
@@ -259,11 +260,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Filter Listeners
+        const resetOtherDropdowns = (activeId) => {
+            if (activeId !== 'filter-category' && filterCategory) filterCategory.value = 'all';
+            if (activeId !== 'filter-subcategory' && filterSubcategory) filterSubcategory.value = 'all';
+            if (activeId !== 'filter-access' && filterAccess) filterAccess.value = 'all';
+            if (activeId !== 'filter-tag' && filterTag) filterTag.value = 'all';
+        };
+
         if (searchInput) searchInput.addEventListener('input', applyFilters);
-        if (filterCategory) filterCategory.addEventListener('change', applyFilters);
-        if (filterSubcategory) filterSubcategory.addEventListener('change', applyFilters);
-        if (filterAccess) filterAccess.addEventListener('change', applyFilters);
-        if (filterTag) filterTag.addEventListener('change', applyFilters);
+        if (filterCategory) filterCategory.addEventListener('change', () => { resetOtherDropdowns('filter-category'); applyFilters(); });
+        if (filterSubcategory) filterSubcategory.addEventListener('change', () => { resetOtherDropdowns('filter-subcategory'); applyFilters(); });
+        if (filterAccess) filterAccess.addEventListener('change', () => { resetOtherDropdowns('filter-access'); applyFilters(); });
+        if (filterTag) filterTag.addEventListener('change', () => { resetOtherDropdowns('filter-tag'); applyFilters(); });
 
         if (loadMoreBtn) {
             loadMoreBtn.addEventListener('click', () => {
