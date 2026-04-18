@@ -62,6 +62,7 @@
 </head>
 
 <body>
+    <div id="scroll-progress-bar"></div>
     <div id="app">
 
         <!-- Header / Nav -->
@@ -138,7 +139,7 @@
 
             <!-- Trending AI Tools Section -->
             <section class="trending container section-padding">
-                <div class="section-header">
+                <div class="section-header" data-reveal>
                     <h2><i class="fa-solid fa-fire accent"></i> <span data-i18n="trending_title">Popularni AI
                             Alati</span></h2>
                 </div>
@@ -151,28 +152,28 @@
 
             <!-- Categories Section -->
             <section class="categories container section-padding" id="categories-section">
-                <div class="section-header">
+                <div class="section-header" data-reveal>
                     <h2><i class="fa-solid fa-layer-group accent"></i> <span
                             data-i18n="categories_title">Kategorije</span></h2>
                 </div>
                 <div class="categories-grid">
-                    <div class="category-card" data-category="Image">
+                    <div class="category-card" data-category="Image" data-reveal data-reveal-delay="0">
                         <div class="cat-icon"><i class="fa-solid fa-palette"></i></div>
                         <h3 data-i18n="cat_design">Dizajn</h3>
                     </div>
-                    <div class="category-card" data-category="Video">
+                    <div class="category-card" data-category="Video" data-reveal data-reveal-delay="80">
                         <div class="cat-icon"><i class="fa-solid fa-video"></i></div>
                         <h3 data-i18n="cat_video">Video</h3>
                     </div>
-                    <div class="category-card" data-category="Productivity">
+                    <div class="category-card" data-category="Productivity" data-reveal data-reveal-delay="160">
                         <div class="cat-icon"><i class="fa-solid fa-briefcase"></i></div>
                         <h3 data-i18n="cat_productivity">Produktivnost</h3>
                     </div>
-                    <div class="category-card" data-category="Earnings">
+                    <div class="category-card" data-category="Earnings" data-reveal data-reveal-delay="240">
                         <div class="cat-icon"><i class="fa-solid fa-sack-dollar"></i></div>
                         <h3 data-i18n="cat_earnings">Zarada</h3>
                     </div>
-                    <div class="category-card" data-category="Entertainment">
+                    <div class="category-card" data-category="Entertainment" data-reveal data-reveal-delay="320">
                         <div class="cat-icon"><i class="fa-solid fa-gamepad"></i></div>
                         <h3 data-i18n="cat_fun">Zabavno</h3>
                     </div>
@@ -237,7 +238,7 @@
             <div class="container">
                 <div class="mission-card">
                     <div class="mission-grid">
-                        <div class="mission-text">
+                        <div class="mission-text" data-reveal>
                             <span class="mission-badge" data-i18n="mission_badge">Naša Misija</span>
                             <h2 data-i18n="mission_title">Više od samo linkova — vaša prečica do uspjeha</h2>
                             <p class="mission-lead" data-i18n="mission_lead">Svaki dan objavljujemo nove AI i web alate
@@ -255,15 +256,15 @@
                             </div>
                         </div>
                         <div class="mission-stats">
-                            <div class="stat-item">
+                            <div class="stat-item" data-reveal data-reveal-delay="100">
                                 <i class="fa-solid fa-check-double"></i>
                                 <span>100% Testirano</span>
                             </div>
-                            <div class="stat-item">
+                            <div class="stat-item" data-reveal data-reveal-delay="200">
                                 <i class="fa-solid fa-graduation-cap"></i>
                                 <span>Edukativno</span>
                             </div>
-                            <div class="stat-item">
+                            <div class="stat-item" data-reveal data-reveal-delay="300">
                                 <i class="fa-solid fa-rocket"></i>
                                 <span>Brzi rast</span>
                             </div>
@@ -276,7 +277,7 @@
         <!-- Newsletter Section -->
         <section class="newsletter-section">
             <div class="container">
-                <div class="newsletter-card">
+                <div class="newsletter-card" data-reveal>
                     <div class="newsletter-icon"><i class="fa-solid fa-envelope-open-text"></i></div>
                     <div class="newsletter-content">
                         <h2 data-i18n="newsletter_title">Preuzmi besplatni PDF Vodič!</h2>
@@ -294,7 +295,7 @@
         <!-- Submit Tool CTA -->
         <section class="contact-cta">
             <div class="container">
-                <div class="contact-card">
+                <div class="contact-card" data-reveal>
                     <h2 data-i18n="contact_title">Želite dodati vaš AI alat ili SaaS?</h2>
                     <p data-i18n="contact_desc">Imate odličan alat a želite da se nađe u našem direktoriju? Ispunite naš
                         kratki obrazac i ubrzo ćemo ga pregledati i objaviti.</p>
@@ -451,6 +452,7 @@
         <!-- Main JS -->
         <script src="../api_response.js"></script>
         <script src="../script.js"></script>
+        <script src="../animations.js"></script>
 </body>
 
 </html>

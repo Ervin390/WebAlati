@@ -2525,3 +2525,762 @@ footer {
     padding: 1.2rem;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   PREMIUM UI/UX ENHANCEMENT SYSTEM — WebAlati Pro Max
+   Framer Motion-inspired patterns for vanilla CSS/JS
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── Extended Design Tokens ─── */
+:root {
+  /* Spring easing (expo out — matches Framer Motion default) */
+  --ease-spring:   cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-expo-out: cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-back-out: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-snappy:   cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Duration tokens */
+  --dur-fast:   120ms;
+  --dur-normal: 220ms;
+  --dur-enter:  420ms;
+  --dur-slow:   640ms;
+
+  /* Premium glow palette */
+  --glow-amber:   rgba(245, 158, 11, 0.35);
+  --glow-fuchsia: rgba(236, 72, 153, 0.25);
+  --glow-blue:    rgba(99, 102, 241, 0.3);
+
+  /* Cursor glow position (updated by animations.js) */
+  --cursor-x: 50%;
+  --cursor-y: 50%;
+  --scroll-progress: 0;
+}
+
+/* ─── Ambient cursor glow ─── */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    600px circle at var(--cursor-x) var(--cursor-y),
+    rgba(245, 158, 11, 0.04) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+  transition: background 0.1s ease;
+}
+
+/* ─── Scroll Progress Bar ─── */
+#scroll-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--accent-gradient);
+  transform-origin: left center;
+  transform: scaleX(0);
+  z-index: 9999;
+  border-radius: 0 2px 2px 0;
+  box-shadow: 0 0 12px var(--glow-amber), 0 0 4px rgba(236, 72, 153, 0.5);
+  pointer-events: none;
+}
+
+/* ─── Navbar Scroll-Shrink State ─── */
+.navbar {
+  transition: padding var(--dur-normal) var(--ease-snappy),
+              background-color var(--dur-normal) var(--ease-snappy),
+              box-shadow var(--dur-normal) var(--ease-snappy);
+}
+
+.navbar--scrolled {
+  padding: 0.65rem 0;
+  background-color: rgba(5, 5, 5, 0.88) !important;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04),
+              0 8px 32px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+}
+
+/* Nav link — refined animated underline */
+.nav-link {
+  transition: color var(--dur-normal) ease;
+}
+
+.nav-link::after {
+  height: 2px;
+  background: var(--accent-gradient);
+  box-shadow: 0 0 6px var(--glow-amber);
+  border-radius: 2px;
+  transition: width 0.3s var(--ease-spring);
+}
+
+/* Logo shimmer on hover */
+.logo-text {
+  transition: filter var(--dur-normal) ease;
+}
+.logo:hover .logo-text {
+  filter: drop-shadow(0 0 12px rgba(245, 158, 11, 0.4));
+}
+
+/* ─── Scroll Reveal System ─── */
+/* Elements with [data-reveal] start hidden and transition to visible */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity var(--dur-slow) var(--ease-spring),
+    transform var(--dur-slow) var(--ease-spring);
+  will-change: opacity, transform;
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger delays for siblings — set via data-reveal-delay in JS,
+   but we also pre-set for common patterns with nth-child */
+[data-reveal]:nth-child(2) { transition-delay: 60ms; }
+[data-reveal]:nth-child(3) { transition-delay: 120ms; }
+[data-reveal]:nth-child(4) { transition-delay: 180ms; }
+[data-reveal]:nth-child(5) { transition-delay: 240ms; }
+
+/* ─── Hero Section Premium Enhancements ─── */
+
+/* Animated moving mesh gradient behind hero */
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: -20% -10%;
+  background:
+    radial-gradient(ellipse at 25% 60%, rgba(236, 72, 153, 0.07) 0%, transparent 55%),
+    radial-gradient(ellipse at 75% 30%, rgba(245, 158, 11, 0.07) 0%, transparent 55%),
+    radial-gradient(ellipse at 50% 80%, rgba(99, 102, 241, 0.04) 0%, transparent 50%);
+  animation: meshDrift 14s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes meshDrift {
+  0%   { transform: translate(0%, 0%) scale(1); }
+  33%  { transform: translate(2%, -2%) scale(1.03); }
+  66%  { transform: translate(-2%, 1%) scale(0.98); }
+  100% { transform: translate(1%, -1%) scale(1.02); }
+}
+
+/* Profile image — enhanced glow ring + 3D tilt support */
+.profile-img-container {
+  transition: transform 0.08s linear, box-shadow var(--dur-normal) ease;
+  background: var(--accent-gradient);
+  box-shadow:
+    0 0 0 2px rgba(245, 158, 11, 0.15),
+    0 0 40px rgba(245, 158, 11, 0.2),
+    0 0 80px rgba(236, 72, 153, 0.1);
+}
+
+.profile-img-container:hover {
+  box-shadow:
+    0 0 0 3px rgba(245, 158, 11, 0.35),
+    0 0 60px rgba(245, 158, 11, 0.3),
+    0 0 120px rgba(236, 72, 153, 0.15);
+}
+
+/* Speech bubble — snappier spring pop */
+.speech-bubble {
+  animation: bubblePop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.8s both,
+             bubbleFloat 5s ease-in-out 1.6s infinite;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.45),
+    0 0 20px rgba(245, 158, 11, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Brand name — subtle shimmer animation on load */
+.brand-name {
+  animation: brandReveal 0.9s var(--ease-spring) 0.2s both;
+}
+
+@keyframes brandReveal {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.97);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* ─── Tool Cards — Premium Depth System ─── */
+
+/* Remove hover transform from base (JS tilt handles it) */
+.tool-card {
+  transition:
+    box-shadow var(--dur-normal) var(--ease-spring),
+    border-color var(--dur-normal) ease;
+  will-change: transform;
+}
+
+.tool-card:hover {
+  box-shadow:
+    0 24px 64px rgba(0, 0, 0, 0.75),
+    0 0 40px rgba(245, 158, 11, 0.15),
+    0 0 1px rgba(245, 158, 11, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+/* Shimmer sweep on hover — animated left to right */
+.tool-card::before {
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--accent-color) 50%, rgba(236, 72, 153, 0.8) 80%, transparent 100%);
+  background-size: 200% 100%;
+  transition: opacity var(--dur-normal) ease;
+  animation: none;
+}
+
+.tool-card:hover::before {
+  opacity: 1;
+  animation: shimmerSweep 0.7s var(--ease-expo-out) forwards;
+}
+
+@keyframes shimmerSweep {
+  from { background-position: 200% 0; }
+  to   { background-position: -200% 0; }
+}
+
+/* Image zoom — smoother with longer ease */
+.tool-card-image img,
+.tool-img-fallback {
+  transition: transform 0.6s var(--ease-expo-out);
+}
+
+.tool-card:hover .tool-card-image img,
+.tool-card:hover .tool-img-fallback {
+  transform: scale(1.09);
+}
+
+/* Tags — brighter reveal on hover */
+.tool-card:hover .tag {
+  border-color: rgba(245, 158, 11, 0.4);
+  background: rgba(245, 158, 11, 0.07);
+  color: var(--text-primary);
+  transition: all 0.25s var(--ease-spring);
+}
+
+/* ─── Category Cards — 3D Pop + Gradient Glow Border ─── */
+.category-card {
+  transition:
+    transform var(--dur-normal) var(--ease-spring),
+    box-shadow var(--dur-normal) var(--ease-spring),
+    background var(--dur-normal) ease;
+  will-change: transform;
+  position: relative;
+}
+
+/* Gradient border glow via box-shadow on hover */
+.category-card:hover {
+  transform: translateY(-10px) scale(1.03);
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.5),
+    0 0 0 1.5px rgba(245, 158, 11, 0.5),
+    0 0 40px rgba(245, 158, 11, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  background: linear-gradient(145deg, rgba(35, 25, 10, 0.85), rgba(20, 15, 5, 0.9));
+}
+
+/* Icon pop: spring scale + upward float */
+.cat-icon {
+  display: inline-block;
+  transition: transform var(--dur-enter) var(--ease-back-out),
+              text-shadow var(--dur-normal) ease,
+              filter var(--dur-normal) ease;
+}
+
+.category-card:hover .cat-icon {
+  transform: scale(1.2) translateY(-6px) rotateY(8deg);
+  text-shadow:
+    0 0 20px var(--glow-amber),
+    0 6px 16px rgba(0, 0, 0, 0.4);
+  filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.5));
+}
+
+/* ─── Section Headers — reveal with gradient pop ─── */
+.section-header h2 {
+  background: linear-gradient(
+    135deg,
+    var(--text-primary) 50%,
+    rgba(255, 255, 255, 0.55) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 2.2rem;
+}
+
+/* Keep accent icon visible */
+.section-header .accent {
+  -webkit-text-fill-color: var(--accent-color);
+}
+
+/* ─── Mission Section ─── */
+.mission-card {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animated radial glow sweep inside mission card */
+.mission-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 80% 30%,
+    rgba(245, 158, 11, 0.05) 0%,
+    transparent 60%
+  );
+  animation: missionGlow 8s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes missionGlow {
+  0%   { opacity: 0.5; transform: scale(1); }
+  100% { opacity: 1;   transform: scale(1.1) translate(5%, -5%); }
+}
+
+/* Stat items — slide-in on hover with left accent line */
+.stat-item {
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.3s var(--ease-spring),
+    background 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.stat-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%) scaleY(0);
+  width: 3px;
+  height: 60%;
+  background: var(--accent-gradient);
+  border-radius: 0 2px 2px 0;
+  transition: transform 0.3s var(--ease-back-out);
+}
+
+.stat-item:hover::before {
+  transform: translateY(-50%) scaleY(1);
+}
+
+.stat-item:hover {
+  transform: translateX(8px);
+  background: rgba(245, 158, 11, 0.06);
+  border-color: rgba(245, 158, 11, 0.25);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), 0 0 20px rgba(245, 158, 11, 0.08);
+}
+
+/* Mission badge — subtle pulse glow */
+.mission-badge {
+  animation: badgePulse 3s ease-in-out infinite;
+}
+
+@keyframes badgePulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+  50%       { box-shadow: 0 0 0 6px rgba(245, 158, 11, 0.06); }
+}
+
+/* ─── Newsletter Section ─── */
+.newsletter-section {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animated top/bottom border gradient */
+.newsletter-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(245, 158, 11, 0.4) 30%, rgba(236, 72, 153, 0.4) 70%, transparent 100%);
+  animation: borderFlow 4s ease-in-out infinite alternate;
+}
+
+@keyframes borderFlow {
+  0%   { opacity: 0.4; background-position: 0% 0%; }
+  100% { opacity: 1;   background-position: 100% 0%; }
+}
+
+/* Newsletter card — pulsing border glow */
+.newsletter-card {
+  position: relative;
+  transition:
+    box-shadow 0.4s var(--ease-spring),
+    border-color 0.4s ease;
+}
+
+.newsletter-card:hover {
+  border-color: rgba(245, 158, 11, 0.25);
+  box-shadow:
+    0 16px 50px rgba(0, 0, 0, 0.5),
+    0 0 40px rgba(245, 158, 11, 0.07),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+/* Newsletter floating icon — improved */
+.newsletter-card .newsletter-icon {
+  animation: iconFloat 4s ease-in-out infinite;
+  filter: drop-shadow(0 0 16px rgba(245, 158, 11, 0.45))
+          drop-shadow(0 0 6px rgba(245, 158, 11, 0.2));
+}
+
+@keyframes iconFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  30%       { transform: translateY(-7px) rotate(-3deg); }
+  70%       { transform: translateY(-4px) rotate(2deg); }
+}
+
+/* Newsletter + Contact buttons — shimmer sweep on hover */
+.btn-newsletter,
+.contact-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-newsletter::after,
+.contact-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.15) 50%,
+    transparent 70%
+  );
+  transform: translateX(-100%);
+  transition: transform 0s;
+}
+
+.btn-newsletter:hover::after,
+.contact-btn:hover::after {
+  transform: translateX(100%);
+  transition: transform 0.5s var(--ease-expo-out);
+}
+
+.btn-newsletter:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 12px 32px rgba(245, 158, 11, 0.45);
+}
+
+/* ─── Contact CTA Card ─── */
+.contact-card {
+  position: relative;
+  overflow: hidden;
+  transition:
+    box-shadow 0.4s var(--ease-spring),
+    border-color 0.4s ease;
+}
+
+.contact-card:hover {
+  border-color: rgba(245, 158, 11, 0.35);
+  box-shadow:
+    0 30px 70px rgba(0, 0, 0, 0.6),
+    0 0 60px rgba(245, 158, 11, 0.08);
+}
+
+/* Subtle animated gradient bg in contact card */
+.contact-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at 60% 20%,
+    rgba(245, 158, 11, 0.04) 0%,
+    transparent 60%
+  );
+  animation: contactGlow 6s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.contact-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes contactGlow {
+  0%   { opacity: 0.5; transform: scale(1); }
+  100% { opacity: 1;   transform: scale(1.15) translate(-5%, 5%); }
+}
+
+/* ─── Primary Button — universal tactile press ─── */
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform var(--dur-fast) var(--ease-snappy),
+    box-shadow var(--dur-normal) var(--ease-spring),
+    filter var(--dur-normal) ease;
+}
+
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.12) 50%,
+    transparent 70%
+  );
+  transform: translateX(-100%);
+  transition: transform 0s;
+}
+
+.btn-primary:hover::after {
+  transform: translateX(100%);
+  transition: transform 0.4s var(--ease-expo-out);
+}
+
+.btn-primary:active {
+  transform: scale(0.97) translateY(1px) !important;
+  transition: transform var(--dur-fast) ease-in;
+}
+
+/* ─── Modals — spring entrance / quick exit ─── */
+/* Base modal overlay — blur fade enhanced */
+.modal-overlay {
+  transition: opacity 0.3s ease;
+}
+
+.modal:not(.active) .modal-overlay {
+  opacity: 0;
+}
+
+/* Modal content spring — enhanced from existing */
+.modal-content {
+  transition:
+    opacity 0.4s var(--ease-spring),
+    transform 0.4s var(--ease-spring);
+}
+
+/* Closing state handled by animations.js MutationObserver */
+
+/* Close button — spin on hover */
+.close-modal {
+  transition:
+    background var(--dur-normal) ease,
+    border-color var(--dur-normal) ease,
+    transform 0.35s var(--ease-back-out);
+}
+
+.close-modal:hover {
+  transform: rotate(90deg) scale(1.1);
+}
+
+/* ─── Footer ─── */
+footer {
+  position: relative;
+}
+
+footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.3), rgba(236, 72, 153, 0.3), transparent);
+}
+
+.footer-link {
+  position: relative;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+.footer-link:hover {
+  color: var(--accent-color);
+  text-shadow: 0 0 12px rgba(245, 158, 11, 0.4);
+  text-decoration: none;
+}
+
+/* ─── Focus States — accessible & styled ─── */
+:focus-visible {
+  outline: 2px solid rgba(245, 158, 11, 0.7);
+  outline-offset: 3px;
+  border-radius: 4px;
+  box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.1);
+}
+
+/* ─── Scroll Behaviour ─── */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ─── Trending scroll container — ensure no transform override on desktop ─── */
+@media (hover: hover) {
+  .tool-card:hover {
+    /* Let JS tilt handle transform — only apply if JS hasn't set inline style */
+    transform: translateY(-8px) scale(1.015);
+  }
+  /* When JS tilt is active (data-tilt set), JS controls inline transform via mousemove */
+}
+
+/* ─── Trending cards gold border — enhanced glow ─── */
+#trending-container .tool-card:hover {
+  border-color: rgba(255, 215, 0, 0.75) !important;
+  box-shadow:
+    0 28px 64px rgba(0, 0, 0, 0.8),
+    0 0 50px rgba(255, 215, 0, 0.3),
+    0 0 100px rgba(255, 215, 0, 0.1) !important;
+}
+
+/* ─── Loading Spinner pulse upgrade ─── */
+.loading-spinner {
+  animation: spinnerPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes spinnerPulse {
+  0%, 100% { opacity: 0.4; }
+  50%       { opacity: 0.9; }
+}
+
+/* ─── Tags on hover — spring scale ─── */
+.modal-tag {
+  transition:
+    background var(--dur-normal) ease,
+    border-color var(--dur-normal) ease,
+    color var(--dur-normal) ease,
+    transform var(--dur-normal) var(--ease-back-out);
+}
+
+.modal-tag:hover {
+  transform: translateY(-3px) scale(1.05);
+}
+
+/* ─── Back button — enhanced arrow slide ─── */
+.back-btn {
+  transition:
+    background var(--dur-normal) ease,
+    color var(--dur-normal) ease,
+    transform var(--dur-normal) var(--ease-spring),
+    border-color var(--dur-normal) ease;
+}
+
+.back-btn:hover {
+  transform: translateX(-6px);
+  border-color: rgba(245, 158, 11, 0.35);
+}
+
+/* ─── Selection highlight ─── */
+::selection {
+  background: rgba(245, 158, 11, 0.25);
+  color: var(--text-primary);
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #09090b; }
+::-webkit-scrollbar-thumb {
+  background: rgba(245, 158, 11, 0.3);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(245, 158, 11, 0.5);
+}
+
+/* ─── Social buttons — enhanced press state ─── */
+.social-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.social-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.08) 50%,
+    transparent 70%
+  );
+  transform: translateX(-100%);
+  transition: transform 0s;
+}
+
+.social-btn:hover::after {
+  transform: translateX(100%);
+  transition: transform 0.5s var(--ease-expo-out);
+}
+
+.social-btn:active {
+  transform: scale(0.96);
+}
+
+/* ─── Lang switcher dropdown — spring entrance ─── */
+.lang-dropdown-list {
+  transition:
+    opacity 0.25s var(--ease-spring),
+    transform 0.25s var(--ease-spring),
+    visibility 0.25s;
+  transform-origin: top right;
+  transform: translateY(-8px) scale(0.96);
+}
+
+.lang-dropdown-list.active {
+  transform: translateY(0) scale(1);
+}
+
+.lang-option {
+  transition: background 0.15s ease, padding-left 0.2s var(--ease-spring);
+}
+
+.lang-option:hover {
+  padding-left: 1.6rem;
+}
+
+/* ─── Reduced Motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  body::before {
+    display: none;
+  }
+
+  #scroll-progress-bar {
+    display: none;
+  }
+
+  .profile-img-container,
+  .newsletter-card .newsletter-icon {
+    animation: none !important;
+  }
+}

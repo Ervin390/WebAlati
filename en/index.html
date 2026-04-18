@@ -64,6 +64,7 @@
 </head>
 
 <body>
+    <div id="scroll-progress-bar"></div>
     <div id="app">
 
         <!-- Header / Nav -->
@@ -121,7 +122,7 @@
 
             <!-- Trending AI Tools Section -->
             <section class="trending container section-padding">
-                <div class="section-header">
+                <div class="section-header" data-reveal>
                     <h2><i class="fa-solid fa-fire accent"></i> <span>Trending AI Tools</span></h2>
                 </div>
                 <!-- Horizontal scrolling container -->
@@ -133,27 +134,27 @@
 
             <!-- Categories Section -->
             <section class="categories container section-padding" id="categories-section">
-                <div class="section-header">
+                <div class="section-header" data-reveal>
                     <h2><i class="fa-solid fa-layer-group accent"></i> <span>Categories</span></h2>
                 </div>
                 <div class="categories-grid">
-                    <div class="category-card" data-category="Image">
+                    <div class="category-card" data-category="Image" data-reveal data-reveal-delay="0">
                         <div class="cat-icon"><i class="fa-solid fa-palette"></i></div>
                         <h3>Design</h3>
                     </div>
-                    <div class="category-card" data-category="Video">
+                    <div class="category-card" data-category="Video" data-reveal data-reveal-delay="80">
                         <div class="cat-icon"><i class="fa-solid fa-video"></i></div>
                         <h3>Video</h3>
                     </div>
-                    <div class="category-card" data-category="Productivity">
+                    <div class="category-card" data-category="Productivity" data-reveal data-reveal-delay="160">
                         <div class="cat-icon"><i class="fa-solid fa-briefcase"></i></div>
                         <h3 data-i18n="cat_productivity">Productivity</h3>
                     </div>
-                    <div class="category-card" data-category="Earnings">
+                    <div class="category-card" data-category="Earnings" data-reveal data-reveal-delay="240">
                         <div class="cat-icon"><i class="fa-solid fa-sack-dollar"></i></div>
                         <h3>Earnings</h3>
                     </div>
-                    <div class="category-card" data-category="Entertainment">
+                    <div class="category-card" data-category="Entertainment" data-reveal data-reveal-delay="320">
                         <div class="cat-icon"><i class="fa-solid fa-gamepad"></i></div>
                         <h3>Entertainment</h3>
                     </div>
@@ -216,7 +217,7 @@
             <div class="container">
                 <div class="mission-card">
                     <div class="mission-grid">
-                        <div class="mission-text">
+                        <div class="mission-text" data-reveal>
                             <span class="mission-badge" data-i18n="mission_badge">Our Mission</span>
                             <h2 data-i18n="mission_title">More than just links — your shortcut to excellence</h2>
                             <p class="mission-lead" data-i18n="mission_lead">We curate the most powerful AI and web tools to help you work smarter and achieve more in less time.</p>
@@ -226,15 +227,15 @@
                             </div>
                         </div>
                         <div class="mission-stats">
-                            <div class="stat-item">
+                            <div class="stat-item" data-reveal data-reveal-delay="100">
                                 <i class="fa-solid fa-check-double"></i>
                                 <span>100% Tested</span>
                             </div>
-                            <div class="stat-item">
+                            <div class="stat-item" data-reveal data-reveal-delay="200">
                                 <i class="fa-solid fa-graduation-cap"></i>
                                 <span>Educational</span>
                             </div>
-                            <div class="stat-item">
+                            <div class="stat-item" data-reveal data-reveal-delay="300">
                                 <i class="fa-solid fa-rocket"></i>
                                 <span>Fast Growth</span>
                             </div>
@@ -247,7 +248,7 @@
         <!-- Newsletter Section -->
         <section class="newsletter-section">
             <div class="container">
-                <div class="newsletter-card">
+                <div class="newsletter-card" data-reveal>
                     <div class="newsletter-icon"><i class="fa-solid fa-envelope-open-text"></i></div>
                     <div class="newsletter-content">
                         <h2 class="newsletter-title">Get Your Free PDF Guide!</h2>
@@ -263,7 +264,7 @@
         <!-- Submit Tool CTA -->
         <section class="contact-cta">
             <div class="container">
-                <div class="contact-card">
+                <div class="contact-card" data-reveal>
                     <h2>Want to list your AI tool or SaaS?</h2>
                     <p>Have a great tool and want it in our directory? Fill out the short form and we'll review and publish it shortly.</p>
                     <button class="btn-primary contact-btn" id="open-contact-btn">
@@ -403,6 +404,7 @@
         <!-- Main JS -->
         <script src="../api_response_en.js"></script>
         <script src="../script.js"></script>
+        <script src="../animations.js"></script>
 </body>
 
 </html>
