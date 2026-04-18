@@ -1264,9 +1264,35 @@ function showBlogList(e) {
     if (backNav) backNav.style.display = 'none';
 
     window.scrollTo({ top: 0, behavior: 'instant' });
-    history.pushState(null, "", "./");
+    // Use replaceState so the back button doesn't add an extra history step
+    history.replaceState(null, "", "./");
     renderBlogList();
 }
+
+// Handle browser back/forward: re-render blog list or post based on URL
+window.addEventListener('popstate', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const slug = urlParams.get('slug');
+    if (slug) {
+        // Navigated forward to a post
+        const listView = document.getElementById('blog-list-view');
+        const postView = document.getElementById('post-view');
+        const backNav = document.getElementById('back-nav-link');
+        if (listView) listView.style.display = 'none';
+        if (postView) postView.classList.add('active');
+        if (backNav) backNav.style.display = 'inline-block';
+        renderBlogPost();
+    } else {
+        // Navigated back to blog list
+        const listView = document.getElementById('blog-list-view');
+        const postView = document.getElementById('post-view');
+        const backNav = document.getElementById('back-nav-link');
+        if (listView) listView.style.display = 'block';
+        if (postView) postView.classList.remove('active');
+        if (backNav) backNav.style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+});
 
 function showBlogPost(slug) {
     const listView = document.getElementById('blog-list-view');
