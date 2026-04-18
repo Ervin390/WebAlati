@@ -43,7 +43,7 @@ function Get-ApiSignature($token, $ts, $secret) {
     return [Convert]::ToBase64String($hashBytes)
 }
 
-function Save-And-Compress-Image($url, $target_folder, $filename) {
+function Save-And-Compress-Image($url, $target_folder, $filename, $target_width = 400, $target_height = 400, $quality = 85) {
     if (!$url -or $url -notlike "http*") { return $url }
     
     $abs_target_dir = [System.IO.Path]::Combine($ABS_ROOT, $target_folder)
@@ -60,19 +60,19 @@ function Save-And-Compress-Image($url, $target_folder, $filename) {
         
         $img = [System.Drawing.Image]::FromFile($temp_file)
         # Create a new bitmap with the desired size and resolution
-        $newImg = New-Object System.Drawing.Bitmap(400, 400)
+        $newImg = New-Object System.Drawing.Bitmap($target_width, $target_height)
         $graph = [System.Drawing.Graphics]::FromImage($newImg)
         $graph.InterpolationMode = [System.Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic
         $graph.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::HighQuality
         $graph.PixelOffsetMode = [System.Drawing.Drawing2D.PixelOffsetMode]::HighQuality
         $graph.CompositingQuality = [System.Drawing.Drawing2D.CompositingQuality]::HighQuality
 
-        $graph.DrawImage($img, 0, 0, 400, 400)
+        $graph.DrawImage($img, 0, 0, $target_width, $target_height)
         
         # Save as high-quality JPEG
         $encoder = [System.Drawing.Imaging.ImageCodecInfo]::GetImageEncoders() | Where-Object { $_.FormatDescription -eq "JPEG" }
         $params = New-Object System.Drawing.Imaging.EncoderParameters(1)
-        $params.Param[0] = New-Object System.Drawing.Imaging.EncoderParameter([System.Drawing.Imaging.Encoder]::Quality, 85)
+        $params.Param[0] = New-Object System.Drawing.Imaging.EncoderParameter([System.Drawing.Imaging.Encoder]::Quality, $quality)
         
         $newImg.Save($local_path, $encoder, $params)
         
@@ -214,7 +214,7 @@ foreach ($cfg in $configs) {
             if (!$raw_blog) { continue }
             
             $photo_url = Get-Val $raw_blog.Photo $cfg.sheetLang
-            $compressed_img = Save-And-Compress-Image $photo_url $blog_dir "blog_$($cfg.lang)_$blog_index.jpg"
+            $compressed_img = Save-And-Compress-Image $photo_url $blog_dir "blog_$($cfg.lang)_$blog_index.jpg" 680 920 95
             
             $blog = @{
                 Language = $cfg.lang
