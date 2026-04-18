@@ -722,7 +722,16 @@ function fetchToolsFromAPI() {
         }
 
         // Combine for internal state
-        const fetchedTools = [...trendingArray, ...toolsArray];
+        // Deduplicate by name: if a tool appears in both trending and tools arrays,
+        // keep only the trending version to avoid showing the same tool twice.
+        const seenNames = new Map();
+        [...trendingArray, ...toolsArray].forEach(tool => {
+            const key = (tool.name || '').toLowerCase().trim();
+            if (!seenNames.has(key)) {
+                seenNames.set(key, tool);
+            }
+        });
+        const fetchedTools = Array.from(seenNames.values());
 
         // Ensure we render immediately
         allTools = fetchedTools;
@@ -1271,7 +1280,7 @@ function showBlogPost(slug) {
     if (backNav) backNav.style.display = 'inline-block';
 
     window.scrollTo({ top: 0, behavior: 'instant' });
-    history.pushState(null, "", "?slug=${slug}");
+    history.pushState(null, "", `?slug=${slug}`);
     renderBlogPost();
 }
 
