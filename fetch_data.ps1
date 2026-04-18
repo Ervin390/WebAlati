@@ -59,15 +59,24 @@ function Save-And-Compress-Image($url, $target_folder, $filename, $target_width 
         $wc.DownloadFile($url, $temp_file)
         
         $img = [System.Drawing.Image]::FromFile($temp_file)
-        # Create a new bitmap with the desired size and resolution
-        $newImg = New-Object System.Drawing.Bitmap($target_width, $target_height)
+        
+        # Calculate aspect-ratio preserving dimensions
+        $ratioX = [double]$target_width / $img.Width
+        $ratioY = [double]$target_height / $img.Height
+        $ratio = [Math]::Min($ratioX, $ratioY)
+        
+        $newWidth = [int]($img.Width * $ratio)
+        $newHeight = [int]($img.Height * $ratio)
+
+        # Create a new bitmap with the proportional size
+        $newImg = New-Object System.Drawing.Bitmap($newWidth, $newHeight)
         $graph = [System.Drawing.Graphics]::FromImage($newImg)
         $graph.InterpolationMode = [System.Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic
         $graph.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::HighQuality
         $graph.PixelOffsetMode = [System.Drawing.Drawing2D.PixelOffsetMode]::HighQuality
         $graph.CompositingQuality = [System.Drawing.Drawing2D.CompositingQuality]::HighQuality
 
-        $graph.DrawImage($img, 0, 0, $target_width, $target_height)
+        $graph.DrawImage($img, 0, 0, $newWidth, $newHeight)
         
         # Save as high-quality JPEG
         $encoder = [System.Drawing.Imaging.ImageCodecInfo]::GetImageEncoders() | Where-Object { $_.FormatDescription -eq "JPEG" }

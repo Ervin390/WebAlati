@@ -85,9 +85,9 @@
             height: 230px;
             margin: 0 auto;
             display: block;
-            object-fit: cover;
+            object-fit: contain;
             border-bottom: var(--glass-border);
-            background: var(--surface-hover);
+            background: transparent;
             /* Placeholder color during load */
         }
 
@@ -180,9 +180,10 @@
             height: 575px;
             margin: 0 auto 4rem auto;
             display: block;
-            object-fit: cover;
+            object-fit: contain;
             border-radius: var(--border-radius-lg);
             border: var(--glass-border);
+            background: transparent;
             animation: fadeInUp 0.8s ease backwards;
             animation-delay: 0.1s;
         }
