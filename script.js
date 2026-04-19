@@ -1454,6 +1454,93 @@ function renderBlogPost() {
             ` : ''}
         </div>
     `;
+
+    // --- SEO: inject per-post metadata (invisible to users, read by Google) ---
+    const siteName  = currentLang === 'hr' ? 'WebAlati' : 'WebTools';
+    const baseUrl   = currentLang === 'hr' ? 'https://webalati.tech/hr/blogs/' : 'https://webalati.tech/en/blogs/';
+    const postUrl   = `${baseUrl}?slug=${encodeURIComponent(slug)}`;
+    const imageUrl  = `https://webalati.tech/${photo}`;
+    const plainText = (mainText || text1 || '').replace(/<[^>]+>/g, '');
+    const metaDesc  = (plainText.substring(0, 155) + (plainText.length > 155 ? '...' : '')) || title;
+
+    // 1. Update <title>
+    document.title = `${title} – ${siteName}`;
+
+    // 2. Update <meta name="description">
+    let metaEl = document.querySelector('meta[name="description"]');
+    if (!metaEl) {
+        metaEl = document.createElement('meta');
+        metaEl.setAttribute('name', 'description');
+        document.head.appendChild(metaEl);
+    }
+    metaEl.setAttribute('content', metaDesc);
+
+    // 3. Update canonical
+    let canonicalEl = document.querySelector('link[rel="canonical"]');
+    if (!canonicalEl) {
+        canonicalEl = document.createElement('link');
+        canonicalEl.setAttribute('rel', 'canonical');
+        document.head.appendChild(canonicalEl);
+    }
+    canonicalEl.setAttribute('href', postUrl);
+
+    // 4. Update OG tags
+    const ogUpdates = {
+        'og:title': `${title} – ${siteName}`,
+        'og:description': metaDesc,
+        'og:url': postUrl,
+        'og:image': imageUrl,
+        'og:type': 'article'
+    };
+    Object.entries(ogUpdates).forEach(([prop, content]) => {
+        let el = document.querySelector(`meta[property="${prop}"]`);
+        if (!el) {
+            el = document.createElement('meta');
+            el.setAttribute('property', prop);
+            document.head.appendChild(el);
+        }
+        el.setAttribute('content', content);
+    });
+
+    // 5. Inject Article JSON-LD schema
+    const existingSchema = document.getElementById('blog-post-schema');
+    if (existingSchema) existingSchema.remove();
+
+    const articleSchema = {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": title,
+        "description": metaDesc,
+        "image": imageUrl,
+        "url": postUrl,
+        "datePublished": timestamp || new Date().toISOString().split('T')[0],
+        "dateModified": timestamp || new Date().toISOString().split('T')[0],
+        "author": {
+            "@type": "Organization",
+            "name": siteName,
+            "url": currentLang === 'hr' ? 'https://webalati.tech/hr/' : 'https://webalati.tech/en/'
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": siteName,
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://webalati.tech/images/favicon-rounded.png"
+            }
+        },
+        "inLanguage": currentLang === 'hr' ? 'hr' : 'en',
+        "isPartOf": {
+            "@type": "WebSite",
+            "name": siteName,
+            "url": currentLang === 'hr' ? 'https://webalati.tech/hr/' : 'https://webalati.tech/en/'
+        }
+    };
+
+    const schemaScript = document.createElement('script');
+    schemaScript.type = 'application/ld+json';
+    schemaScript.id = 'blog-post-schema';
+    schemaScript.textContent = JSON.stringify(articleSchema, null, 2);
+    document.head.appendChild(schemaScript);
 }
 
 /**

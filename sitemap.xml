@@ -1,19 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+   <!-- HR Homepage -->
    <url>
       <loc>https://webalati.tech/hr/</loc>
+      <xhtml:link rel="alternate" hreflang="hr" href="https://webalati.tech/hr/"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://webalati.tech/en/"/>
+      <lastmod>2026-04-19</lastmod>
+      <changefreq>weekly</changefreq>
       <priority>1.0</priority>
    </url>
+
+   <!-- EN Homepage -->
    <url>
       <loc>https://webalati.tech/en/</loc>
+      <xhtml:link rel="alternate" hreflang="en" href="https://webalati.tech/en/"/>
+      <xhtml:link rel="alternate" hreflang="hr" href="https://webalati.tech/hr/"/>
+      <lastmod>2026-04-19</lastmod>
+      <changefreq>weekly</changefreq>
       <priority>1.0</priority>
    </url>
+
+   <!-- HR Blog listing -->
    <url>
       <loc>https://webalati.tech/hr/blogs/</loc>
-      <priority>0.8</priority>
+      <xhtml:link rel="alternate" hreflang="hr" href="https://webalati.tech/hr/blogs/"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://webalati.tech/en/blogs/"/>
+      <lastmod>2026-04-19</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.9</priority>
    </url>
+
+   <!-- EN Blog listing -->
    <url>
       <loc>https://webalati.tech/en/blogs/</loc>
-      <priority>0.8</priority>
+      <xhtml:link rel="alternate" hreflang="en" href="https://webalati.tech/en/blogs/"/>
+      <xhtml:link rel="alternate" hreflang="hr" href="https://webalati.tech/hr/blogs/"/>
+      <lastmod>2026-04-19</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.9</priority>
    </url>
+
+   <!-- HR Terms of Use -->
+   <url>
+      <loc>https://webalati.tech/hr/uvjeti-koristenja.html</loc>
+      <lastmod>2026-04-19</lastmod>
+      <changefreq>yearly</changefreq>
+      <priority>0.3</priority>
+   </url>
+
+   <!-- EN Terms of Use -->
+   <url>
+      <loc>https://webalati.tech/en/uvjeti-koristenja.html</loc>
+      <lastmod>2026-04-19</lastmod>
+      <changefreq>yearly</changefreq>
+      <priority>0.3</priority>
+   </url>
+
 </urlset>
