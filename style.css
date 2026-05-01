@@ -3284,3 +3284,25 @@ html {
     animation: none !important;
   }
 }
+
+/* ─── Load More Button Spinner ─── */
+.load-more-spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2.5px solid rgba(245, 158, 11, 0.25);
+  border-top-color: var(--accent-color, #f59e0b);
+  border-radius: 50%;
+  animation: loadMoreSpin 0.7s linear infinite;
+  vertical-align: middle;
+}
+
+@keyframes loadMoreSpin {
+  to { transform: rotate(360deg); }
+}
+
+#load-more-btn:disabled {
+  cursor: default;
+  opacity: 0.75;
+  min-width: 120px;
+}

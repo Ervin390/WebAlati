@@ -11,6 +11,8 @@ const API_URL = window.WEBALATI_TOOLS_API || "https://script.google.com/macros/s
 // Pagination
 let currentDisplayCount = 20;
 const LOAD_MORE_STEP = 20;
+let lastRenderedCount = 0; // tracks how many cards are currently rendered
+let isLoadingMore = false;  // flag to trigger append-only render
 
 // Internal data state to track changes
 let lastDataFingerprint = "";
@@ -230,6 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 filterCategory.value = 'all';
                 showCategory(currentLang === 'hr' ? 'Svi Alati' : 'All Tools');
                 applyFilters();
+                updateURL();
             });
         }
 
@@ -257,6 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Re-sync UI
                     showCategory(bestMatchValue === 'all' ? 'Svi Alati' : bestMatchValue);
                     applyFilters();
+                    updateURL();
                 });
             });
         }
@@ -269,16 +273,26 @@ document.addEventListener('DOMContentLoaded', () => {
             if (activeId !== 'filter-tag' && filterTag) filterTag.value = 'all';
         };
 
-        if (searchInput) searchInput.addEventListener('input', applyFilters);
-        if (filterCategory) filterCategory.addEventListener('change', () => { resetOtherDropdowns('filter-category'); applyFilters(); });
-        if (filterSubcategory) filterSubcategory.addEventListener('change', () => { resetOtherDropdowns('filter-subcategory'); applyFilters(); });
-        if (filterAccess) filterAccess.addEventListener('change', () => { resetOtherDropdowns('filter-access'); applyFilters(); });
-        if (filterTag) filterTag.addEventListener('change', () => { resetOtherDropdowns('filter-tag'); applyFilters(); });
+        if (searchInput) searchInput.addEventListener('input', applyFilters); // search not in URL (thin content)
+        if (filterCategory) filterCategory.addEventListener('change', () => { resetOtherDropdowns('filter-category'); applyFilters(); updateURL(); });
+        if (filterSubcategory) filterSubcategory.addEventListener('change', () => { resetOtherDropdowns('filter-subcategory'); applyFilters(); updateURL(); });
+        if (filterAccess) filterAccess.addEventListener('change', () => { resetOtherDropdowns('filter-access'); applyFilters(); updateURL(); });
+        if (filterTag) filterTag.addEventListener('change', () => { resetOtherDropdowns('filter-tag'); applyFilters(); updateURL(); });
 
         if (loadMoreBtn) {
             loadMoreBtn.addEventListener('click', () => {
+                // Show inline spinner while new cards load
+                loadMoreBtn.disabled = true;
+                loadMoreBtn.innerHTML = '<span class="load-more-spinner"></span>';
+                isLoadingMore = true;
                 currentDisplayCount += LOAD_MORE_STEP;
-                applyFilters();
+                // Use rAF so the spinner paints before the heavy DOM work
+                requestAnimationFrame(() => {
+                    applyFilters();
+                    loadMoreBtn.disabled = false;
+                    loadMoreBtn.innerHTML = currentLang === 'hr' ? 'Učitaj Više' : 'Load More';
+                    isLoadingMore = false;
+                });
             });
         }
 
@@ -414,6 +428,7 @@ function showHome() {
     if (categoryView) categoryView.classList.remove('active');
     if (homeView) homeView.classList.add('active');
     window.scrollTo(0, 0);
+    if (!_skipNextURLUpdate) updateURL();
 }
 
 function showCategory(categoryName) {
@@ -422,9 +437,67 @@ function showCategory(categoryName) {
     if (categoryTitle) categoryTitle.textContent = categoryName;
     window.scrollTo(0, 0);
 
-    // Reset display count for fresh category view
+    // Reset display count and rendered count for fresh category view
     currentDisplayCount = 20;
+    lastRenderedCount = 0;
 }
+
+// --- URL Sync Layer ---
+// Reads current UI state and pushes a clean URL so every view is bookmarkable/indexable.
+// Only pushes a new entry; does NOT change any rendering logic.
+function updateURL() {
+    const params = new URLSearchParams();
+
+    // Preserve ?tool= if a modal is open
+    const existingTool = new URLSearchParams(window.location.search).get('tool');
+    if (existingTool) params.set('tool', existingTool);
+
+    if (categoryView && categoryView.classList.contains('active')) {
+        params.set('view', 'all'); // always set when tools grid is visible
+        const cat = filterCategory ? filterCategory.value : 'all';
+        if (cat && cat !== 'all') params.set('category', cat);
+        const sub = filterSubcategory ? filterSubcategory.value : 'all';
+        if (sub && sub !== 'all') params.set('subcategory', sub);
+        const acc = filterAccess ? filterAccess.value : 'all';
+        if (acc && acc !== 'all') params.set('access', acc);
+        const tag = filterTag ? filterTag.value : 'all';
+        if (tag && tag !== 'all') params.set('tag', tag);
+    }
+    // If homepage: all view params are dropped (only ?tool= preserved if open)
+
+    const newUrl = new URL(window.location);
+    newUrl.search = params.toString();
+    window.history.pushState({ view: params.get('view') || 'home' }, '', newUrl.href);
+}
+
+// Reads URL params and reconstructs the correct view + filter state.
+// Called after data is loaded (so dropdown options already exist) and on popstate.
+function restoreStateFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    const hasViewParam = params.has('view') || params.has('category') ||
+                         params.has('subcategory') || params.has('access') || params.has('tag');
+
+    if (!hasViewParam) return; // homepage — nothing to restore
+
+    // Restore dropdown values (safely — value stays at 'all' if option doesn't exist yet)
+    if (filterCategory && params.has('category')) filterCategory.value = params.get('category');
+    if (filterSubcategory && params.has('subcategory')) filterSubcategory.value = params.get('subcategory');
+    if (filterAccess && params.has('access')) filterAccess.value = params.get('access');
+    if (filterTag && params.has('tag')) filterTag.value = params.get('tag');
+
+    const catVal = (filterCategory && filterCategory.value !== 'all') ? filterCategory.value : '';
+    const catLabel = catVal || (currentLang === 'hr' ? 'Svi Alati' : 'All Tools');
+
+    // Use internal flag to avoid double-pushing history on restore
+    _skipNextURLUpdate = true;
+    showCategory(catLabel);
+    applyFilters();
+    _skipNextURLUpdate = false;
+}
+
+// Internal flag: prevents updateURL() from pushing a history entry during restore
+let _skipNextURLUpdate = false;
+
 
 // --- Clean Slug Generator ---
 function createSlug(name) {
@@ -590,21 +663,36 @@ function closeToolModal(event) {
 window.addEventListener('popstate', (e) => {
     const urlParams = new URLSearchParams(window.location.search);
     const requestedSlug = urlParams.get('tool');
+    const hasViewParam = urlParams.has('view') || urlParams.has('category') ||
+                         urlParams.has('subcategory') || urlParams.has('access') || urlParams.has('tag');
 
+    // 1. Handle tool modal
     if (requestedSlug) {
         const foundTool = allTools.find(t => createSlug(t.name) === requestedSlug);
         if (foundTool) {
-            // Prevent pushing state again since we are navigating
             openToolModalWithoutHistory(foundTool);
         }
     } else {
+        // Close modal if it was open (e.g. user pressed Back from ?tool=)
         if (toolModal.classList.contains('active')) {
             toolModal.classList.remove('active');
-            document.body.style.overflow = ''; 
+            document.body.style.overflow = '';
             resetSEO();
         }
     }
+
+    // 2. Handle view changes (category/filter views or homepage)
+    if (hasViewParam) {
+        // Restore the filter view from URL params — suppress URL double-push
+        restoreStateFromURL();
+    } else if (!requestedSlug) {
+        // No view params and no tool slug = homepage
+        _skipNextURLUpdate = true;
+        showHome();
+        _skipNextURLUpdate = false;
+    }
 });
+
 
 // Helper for popstate to avoid history loop
 function openToolModalWithoutHistory(tool) {
@@ -738,7 +826,18 @@ function fetchToolsFromAPI() {
         allBlogs = data.blogs || [];
 
         populateFilters();
-        if (homeView && homeView.classList.contains('active')) {
+
+        // Restore view from URL if user landed on a direct link (e.g. /hr/?category=Video)
+        // restoreStateFromURL() handles the render in that case; otherwise the block below runs.
+        const _urlHasView = new URLSearchParams(window.location.search).has('view') ||
+                            new URLSearchParams(window.location.search).has('category') ||
+                            new URLSearchParams(window.location.search).has('subcategory') ||
+                            new URLSearchParams(window.location.search).has('access') ||
+                            new URLSearchParams(window.location.search).has('tag');
+
+        if (_urlHasView) {
+            restoreStateFromURL();
+        } else if (homeView && homeView.classList.contains('active')) {
             renderTrendingTools();
         } else if (categoryView && categoryView.classList.contains('active')) {
             applyFilters();
@@ -1221,24 +1320,53 @@ function renderToolsList(toolsArray) {
     if (!categoryToolsContainer) return;
     if (toolsArray.length === 0) {
         categoryToolsContainer.innerHTML = `<p class="error-msg">Nema rezultata za odabrane filtere.</p>`;
-        loadMoreContainer.style.display = 'none';
+        if (loadMoreContainer) loadMoreContainer.style.display = 'none';
+        lastRenderedCount = 0;
         return;
     }
 
     const paginatedTools = toolsArray.slice(0, currentDisplayCount);
 
-    const fragment = document.createDocumentFragment();
-    const tempDiv = document.createElement('div');
+    // Append-only when Load More was clicked and existing cards match expectation
+    // This prevents clearing the screen and avoids lazy-image reload flicker
+    if (isLoadingMore && categoryToolsContainer.children.length === lastRenderedCount && lastRenderedCount > 0) {
+        const newTools = toolsArray.slice(lastRenderedCount, currentDisplayCount);
+        const fragment = document.createDocumentFragment();
+        const tempDiv = document.createElement('div');
+        newTools.forEach(tool => {
+            tempDiv.innerHTML = createToolCardHTML(tool);
+            const card = tempDiv.firstElementChild;
+            // Animate new cards in
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(16px)';
+            fragment.appendChild(card);
+        });
+        categoryToolsContainer.appendChild(fragment);
+        // Trigger animation after paint
+        requestAnimationFrame(() => {
+            const allCards = categoryToolsContainer.querySelectorAll('.tool-card');
+            for (let i = lastRenderedCount; i < allCards.length; i++) {
+                const card = allCards[i];
+                card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }
+        });
+        lastRenderedCount = categoryToolsContainer.children.length;
+    } else {
+        // Full re-render (filter change, search, category switch, etc.)
+        const fragment = document.createDocumentFragment();
+        const tempDiv = document.createElement('div');
+        paginatedTools.forEach(tool => {
+            tempDiv.innerHTML = createToolCardHTML(tool);
+            fragment.appendChild(tempDiv.firstElementChild);
+        });
+        categoryToolsContainer.innerHTML = '';
+        categoryToolsContainer.appendChild(fragment);
+        lastRenderedCount = paginatedTools.length;
+    }
 
-    paginatedTools.forEach(tool => {
-        tempDiv.innerHTML = createToolCardHTML(tool);
-        fragment.appendChild(tempDiv.firstElementChild);
-    });
-
-    categoryToolsContainer.innerHTML = '';
-    categoryToolsContainer.appendChild(fragment);
-
-    loadMoreContainer.style.display = toolsArray.length > currentDisplayCount ? 'block' : 'none';
+    if (loadMoreContainer) loadMoreContainer.style.display = toolsArray.length > currentDisplayCount ? 'block' : 'none';
 }
 
 // --- Safe Multi-Language Accessor ---
