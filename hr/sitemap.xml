@@ -7,7 +7,7 @@
       <loc>https://webalati.tech/hr/</loc>
       <xhtml:link rel="alternate" hreflang="hr" href="https://webalati.tech/hr/"/>
       <xhtml:link rel="alternate" hreflang="en" href="https://webalati.tech/en/"/>
-      <lastmod>2026-05-13</lastmod>
+      <lastmod>2026-05-14</lastmod>
       <changefreq>weekly</changefreq>
       <priority>1.0</priority>
    </url>
@@ -17,17 +17,100 @@
       <loc>https://webalati.tech/hr/blogs/</loc>
       <xhtml:link rel="alternate" hreflang="hr" href="https://webalati.tech/hr/blogs/"/>
       <xhtml:link rel="alternate" hreflang="en" href="https://webalati.tech/en/blogs/"/>
-      <lastmod>2026-05-13</lastmod>
+      <lastmod>2026-05-14</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.9</priority>
+   </url>
+
+   <!-- HR Category Pages -->
+   <url>
+      <loc>https://webalati.tech/hr/ai-video-alati.html</loc>
+      <xhtml:link rel="alternate" hreflang="hr" href="https://webalati.tech/hr/ai-video-alati.html"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://webalati.tech/en/best-ai-video-tools.html"/>
+      <lastmod>2026-05-14</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+   </url>
+
+   <url>
+      <loc>https://webalati.tech/hr/ai-produktivnost-alati.html</loc>
+      <xhtml:link rel="alternate" hreflang="hr" href="https://webalati.tech/hr/ai-produktivnost-alati.html"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://webalati.tech/en/best-ai-productivity-tools.html"/>
+      <lastmod>2026-05-14</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+   </url>
+
+   <url>
+      <loc>https://webalati.tech/hr/ai-marketing-alati.html</loc>
+      <xhtml:link rel="alternate" hreflang="hr" href="https://webalati.tech/hr/ai-marketing-alati.html"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://webalati.tech/en/best-ai-marketing-tools.html"/>
+      <lastmod>2026-05-14</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+   </url>
+
+   <url>
+      <loc>https://webalati.tech/hr/ai-audio-alati.html</loc>
+      <xhtml:link rel="alternate" hreflang="hr" href="https://webalati.tech/hr/ai-audio-alati.html"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://webalati.tech/en/best-ai-audio-tools.html"/>
+      <lastmod>2026-05-14</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+   </url>
+
+   <url>
+      <loc>https://webalati.tech/hr/ai-image-alati.html</loc>
+      <xhtml:link rel="alternate" hreflang="hr" href="https://webalati.tech/hr/ai-image-alati.html"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://webalati.tech/en/best-ai-image-tools.html"/>
+      <lastmod>2026-05-14</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+   </url>
+
+   <url>
+      <loc>https://webalati.tech/hr/ai-coding-alati.html</loc>
+      <xhtml:link rel="alternate" hreflang="hr" href="https://webalati.tech/hr/ai-coding-alati.html"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://webalati.tech/en/best-ai-coding-tools.html"/>
+      <lastmod>2026-05-14</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+   </url>
+
+   <url>
+      <loc>https://webalati.tech/hr/ai-edukacija-alati.html</loc>
+      <xhtml:link rel="alternate" hreflang="hr" href="https://webalati.tech/hr/ai-edukacija-alati.html"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://webalati.tech/en/best-ai-education-tools.html"/>
+      <lastmod>2026-05-14</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+   </url>
+
+   <url>
+      <loc>https://webalati.tech/hr/zarada-ai.html</loc>
+      <xhtml:link rel="alternate" hreflang="hr" href="https://webalati.tech/hr/zarada-ai.html"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://webalati.tech/en/earn-money-with-ai.html"/>
+      <lastmod>2026-05-14</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+   </url>
+
+   <url>
+      <loc>https://webalati.tech/hr/zabava-alati.html</loc>
+      <xhtml:link rel="alternate" hreflang="hr" href="https://webalati.tech/hr/zabava-alati.html"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://webalati.tech/en/best-entertainment-tools.html"/>
+      <lastmod>2026-05-14</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
    </url>
 
    <!-- HR Terms of Use -->
    <url>
       <loc>https://webalati.tech/hr/uvjeti-koristenja.html</loc>
-      <lastmod>2026-05-13</lastmod>
+      <lastmod>2026-05-14</lastmod>
       <changefreq>yearly</changefreq>
       <priority>0.3</priority>
    </url>
 
 </urlset>
+

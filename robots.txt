@@ -2,3 +2,5 @@ User-agent: *
 Allow: /
 
 Sitemap: https://webalati.tech/sitemap.xml
+Sitemap: https://webalati.tech/en/sitemap.xml
+Sitemap: https://webalati.tech/hr/sitemap.xml
