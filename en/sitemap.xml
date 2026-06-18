@@ -21,6 +21,30 @@
       <changefreq>weekly</changefreq>
       <priority>0.9</priority>
    </url>
+   <url>
+      <loc>https://webalati.tech/en/blogs/best-ai-education-platforms-2026.html</loc>
+      <xhtml:link rel="alternate" hreflang="en" href="https://webalati.tech/en/blogs/best-ai-education-platforms-2026.html"/>
+      <xhtml:link rel="alternate" hreflang="hr" href="https://webalati.tech/hr/blogs/ai-edukacijske-platforme-2026.html"/>
+      <lastmod>2026-05-28</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.7</priority>
+   </url>
+   <url>
+      <loc>https://webalati.tech/en/blogs/ai-learning-tools-personal-experience.html</loc>
+      <xhtml:link rel="alternate" hreflang="en" href="https://webalati.tech/en/blogs/ai-learning-tools-personal-experience.html"/>
+      <xhtml:link rel="alternate" hreflang="hr" href="https://webalati.tech/hr/blogs/ai-alati-za-ucenje-iskustvo.html"/>
+      <lastmod>2026-06-05</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.7</priority>
+   </url>
+   <url>
+      <loc>https://webalati.tech/en/blogs/ai-productivity-platforms-learning.html</loc>
+      <xhtml:link rel="alternate" hreflang="en" href="https://webalati.tech/en/blogs/ai-productivity-platforms-learning.html"/>
+      <xhtml:link rel="alternate" hreflang="hr" href="https://webalati.tech/hr/blogs/ai-produktivnost-platforme.html"/>
+      <lastmod>2026-06-14</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.7</priority>
+   </url>
 
    <!-- EN Category Pages -->
    <url>
