@@ -88,6 +88,22 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="../style.css">
 
+    <!-- Mobile overrides for inline-CSS Obsidian Luxe sections -->
+    <style>
+      @media (max-width: 768px) {
+        .obsidian-hero-grid { grid-template-columns: 1fr !important; gap: 2rem !important; padding: 3rem 0 2.5rem !important; }
+        .obsidian-trending-grid { grid-template-columns: repeat(2,1fr) !important; gap: 16px !important; }
+        .obsidian-cat-grid { grid-template-columns: repeat(2,1fr) !important; gap: 10px !important; }
+        .obsidian-submit-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
+        .obsidian-hero-card { display: none !important; }
+        .obsidian-hero-text { text-align: center !important; }
+      }
+      @media (max-width: 480px) {
+        .obsidian-trending-grid { grid-template-columns: 1fr !important; }
+        .obsidian-cat-grid { grid-template-columns: repeat(2,1fr) !important; }
+      }
+    </style>
+
 
 
     <script>
@@ -156,7 +172,7 @@
   <!-- HERO — Obsidian Luxe 2-col -->
   <section style="position:relative;overflow:hidden;background:radial-gradient(120% 80% at 78% -10%,rgba(23,178,120,.22),transparent 55%),radial-gradient(90% 70% at -5% 110%,rgba(22,86,68,.18),transparent 60%),#FDFCF8;padding:80px 0 100px;">
     <div style="position:absolute;top:-140px;right:-60px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(23,178,120,.2),transparent 62%);opacity:.6;filter:blur(10px);animation:glowPulse 8s ease-in-out infinite;pointer-events:none;"></div>
-    <div class="container" style="display:grid;grid-template-columns:1.1fr .9fr;gap:52px;align-items:center;">
+    <div class="container obsidian-hero-grid" style="display:grid;grid-template-columns:1.1fr .9fr;gap:52px;align-items:center;">
 
       <!-- Left -->
       <div>
@@ -230,7 +246,7 @@
         </div>
         <a href="javascript:void(0)" id="view-all-from-hero" style="color:#0D7A52;text-decoration:none;font-weight:600;font-size:.875rem;display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:100px;border:1px solid rgba(23,178,120,.4);">View all tools →</a>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:22px;">
+      <div class="obsidian-trending-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:22px;">
 
         <!-- Card 1: ElevenLabs -->
         <div style="border-radius:18px;background:linear-gradient(155deg,rgba(214,169,74,.8),rgba(214,169,74,.18) 42%,rgba(214,169,74,.04));padding:1px;cursor:pointer;box-shadow:0 4px 22px -8px rgba(214,169,74,.28);transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s;" onmouseover="this.style.transform='translateY(-8px)';this.style.boxShadow='0 32px 60px -24px rgba(0,0,0,.2),0 0 48px -12px rgba(214,169,74,.55)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 22px -8px rgba(214,169,74,.28)'">
@@ -326,7 +342,7 @@
         <h2 style="font-size:clamp(1.6rem,3vw,2.4rem);font-weight:800;letter-spacing:-.03em;color:#1A1814;margin:0 0 12px;">Eleven lanes. Eighty-eight tools.</h2>
         <p style="font-size:1rem;line-height:1.6;color:#6B6458;margin:0;">Every tool tested by hand and sorted. Pick a lane and start exploring.</p>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:960px;margin:0 auto 40px;">
+      <div class="obsidian-cat-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:960px;margin:0 auto 40px;">
         <a href="best-ai-video-tools.html" style="display:flex;justify-content:space-between;align-items:center;background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.025));border:1px solid rgba(0,0,0,.1);border-radius:12px;padding:20px 22px;text-decoration:none;transition:border-color .35s,background .35s,transform .35s;" onmouseover="this.style.borderColor='rgba(23,178,120,.6)';this.style.transform='translateY(-3px)';this.style.background='linear-gradient(160deg,rgba(23,178,120,.15),rgba(255,255,255,.04))'" onmouseout="this.style.borderColor='rgba(0,0,0,.08)';this.style.transform='';this.style.background='linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.025))'"><div style="display:flex;align-items:baseline;gap:12px;"><span style="font-size:13px;color:#0D7A52;font-weight:600;">01</span><span style="font-weight:700;font-size:1rem;color:#1A1814;">Video</span></div><span style="font-size:12px;font-weight:700;color:#17B278;">14 tools</span></a>
         <a href="best-ai-productivity-tools.html" style="display:flex;justify-content:space-between;align-items:center;background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.025));border:1px solid rgba(0,0,0,.1);border-radius:12px;padding:20px 22px;text-decoration:none;transition:border-color .35s,background .35s,transform .35s;" onmouseover="this.style.borderColor='rgba(23,178,120,.6)';this.style.transform='translateY(-3px)';this.style.background='linear-gradient(160deg,rgba(23,178,120,.15),rgba(255,255,255,.04))'" onmouseout="this.style.borderColor='rgba(0,0,0,.08)';this.style.transform='';this.style.background='linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.025))'"><div style="display:flex;align-items:baseline;gap:12px;"><span style="font-size:13px;color:#0D7A52;font-weight:600;">02</span><span style="font-weight:700;font-size:1rem;color:#1A1814;">Productivity</span></div><span style="font-size:12px;font-weight:700;color:#17B278;">12 tools</span></a>
         <a href="best-ai-marketing-tools.html" style="display:flex;justify-content:space-between;align-items:center;background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.025));border:1px solid rgba(0,0,0,.1);border-radius:12px;padding:20px 22px;text-decoration:none;transition:border-color .35s,background .35s,transform .35s;" onmouseover="this.style.borderColor='rgba(23,178,120,.6)';this.style.transform='translateY(-3px)';this.style.background='linear-gradient(160deg,rgba(23,178,120,.15),rgba(255,255,255,.04))'" onmouseout="this.style.borderColor='rgba(0,0,0,.08)';this.style.transform='';this.style.background='linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.025))'"><div style="display:flex;align-items:baseline;gap:12px;"><span style="font-size:13px;color:#0D7A52;font-weight:600;">03</span><span style="font-weight:700;font-size:1rem;color:#1A1814;">Marketing</span></div><span style="font-size:12px;font-weight:700;color:#17B278;">9 tools</span></a>
@@ -347,7 +363,7 @@
   <!-- LIST YOUR TOOL -->
   <section style="position:relative;overflow:hidden;padding:84px 0;background:#FDFCF8;border-top:1px solid rgba(255,255,255,.09);">
     <div style="position:absolute;bottom:-140px;right:-80px;width:480px;height:480px;border-radius:50%;background:radial-gradient(circle,rgba(23,178,120,.12),transparent 62%);pointer-events:none;"></div>
-    <div class="container" style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;max-width:1040px;">
+    <div class="container obsidian-submit-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;max-width:1040px;">
       <div>
         <div style="display:inline-flex;align-items:center;gap:9px;padding:7px 15px;border-radius:100px;background:rgba(255,255,255,.85);border:1px solid rgba(23,178,120,.35);margin-bottom:22px;"><span style="width:6px;height:6px;border-radius:50%;background:#17B278;box-shadow:0 0 8px #17B278;"></span><span style="font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#0D7A52;">For tool makers</span></div>
         <h2 style="font-size:clamp(1.6rem,3vw,2.3rem);font-weight:800;letter-spacing:-.03em;color:#1A1814;margin:0 0 14px;">List your AI tool in the directory.</h2>
