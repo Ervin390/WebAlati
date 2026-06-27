@@ -93,14 +93,16 @@
       @media (max-width: 768px) {
         .obsidian-hero-grid { grid-template-columns: 1fr !important; gap: 2rem !important; padding: 3rem 0 2.5rem !important; }
         .obsidian-trending-grid { grid-template-columns: repeat(2,1fr) !important; gap: 16px !important; }
-        .obsidian-cat-grid { grid-template-columns: repeat(2,1fr) !important; gap: 10px !important; }
+        .obsidian-cat-grid { grid-template-columns: 1fr !important; gap: 10px !important; }
         .obsidian-submit-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
         .obsidian-hero-card { display: none !important; }
         .obsidian-hero-text { text-align: center !important; }
+        .obsidian-newsletter-grid { grid-template-columns: 1fr !important; gap: 2rem !important; padding: 2.5rem 1.5rem !important; text-align: center !important; }
+        .obsidian-newsletter-grid > div:first-child { text-align: center !important; }
+        .obsidian-newsletter-input-group { flex-direction: column !important; }
       }
       @media (max-width: 480px) {
         .obsidian-trending-grid { grid-template-columns: 1fr !important; }
-        .obsidian-cat-grid { grid-template-columns: repeat(2,1fr) !important; }
       }
     </style>
 
@@ -339,7 +341,7 @@
     <div class="container">
       <div style="text-align:center;max-width:580px;margin:0 auto 44px;">
         <div style="font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;background:linear-gradient(120deg,#17B278,#0A6845);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:14px;">The repository</div>
-        <h2 style="font-size:clamp(1.6rem,3vw,2.4rem);font-weight:800;letter-spacing:-.03em;color:#1A1814;margin:0 0 12px;">Eleven lanes. Eighty-eight tools.</h2>
+        <h2 style="font-size:clamp(1.6rem,3vw,2.4rem);font-weight:800;letter-spacing:-.03em;color:#1A1814;margin:0 0 12px;"><span class="cat-count-dynamic">8</span> lanes. <span class="tool-count-dynamic">50</span> tools.</h2>
         <p style="font-size:1rem;line-height:1.6;color:#6B6458;margin:0;">Every tool tested by hand and sorted. Pick a lane and start exploring.</p>
       </div>
       <div class="obsidian-cat-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:960px;margin:0 auto 40px;">
@@ -650,17 +652,22 @@
         </div>
 
         <!-- Cookie Consent Banner -->
-        <div id="cookie-banner" class="cookie-banner hidden">
-            <div class="container cookie-container">
-                <div class="cookie-content">
-                    <i class="fa-solid fa-cookie-bite cookie-icon"></i>
-                    <p>We use cookies to improve your experience, track analytics, and enable forms. <a href="uvjeti-koristenja.html" class="cookie-link">Learn more</a>.</p>
-                </div>
-                <div class="cookie-actions">
-                    <button id="accept-cookies" class="btn-primary btn-sm">Accept</button>
-                </div>
-            </div>
+        <div id="cookie-banner" style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%);width:calc(100% - 48px);max-width:440px;background:linear-gradient(160deg,#1A1814,#11100C);border:1px solid rgba(255,255,255,.1);border-radius:100px;padding:12px 14px 12px 24px;box-shadow:0 24px 60px rgba(0,0,0,.4);z-index:9999;display:none;align-items:center;justify-content:space-between;gap:16px;">
+            <p style="font-size:.85rem;color:rgba(255,255,255,.8);margin:0;line-height:1.4;">We use cookies to improve your experience. <a href="uvjeti-koristenja.html" style="color:#17B278;text-decoration:underline;">Learn more</a>.</p>
+            <button onclick="acceptCookies()" style="background:var(--accent-gradient);color:#fff;border:none;border-radius:100px;padding:10px 20px;font-size:.85rem;font-weight:700;cursor:pointer;white-space:nowrap;box-shadow:0 4px 16px rgba(23,178,120,.3);">OK</button>
         </div>
+        <script>
+        function acceptCookies() {
+            localStorage.setItem('cookies_accepted', 'true');
+            document.getElementById('cookie-banner').style.opacity = '0';
+            setTimeout(()=>document.getElementById('cookie-banner').style.display='none', 300);
+        }
+        window.addEventListener('DOMContentLoaded', function() {
+            if(!localStorage.getItem('cookies_accepted')) {
+                document.getElementById('cookie-banner').style.display='flex';
+            }
+        });
+        </script>
 
         <!-- Main JS -->
         <script src="../api_response_en.js" defer></script>

@@ -96,37 +96,18 @@
     <!-- Mobile overrides for inline-CSS Obsidian Luxe sections -->
     <style>
       @media (max-width: 768px) {
-        /* Hero 2-col → 1-col */
-        .obsidian-hero-grid {
-          grid-template-columns: 1fr !important;
-          gap: 2rem !important;
-          padding: 3rem 0 2.5rem !important;
-        }
-        /* Trending 4-col → 2-col */
-        .obsidian-trending-grid {
-          grid-template-columns: repeat(2,1fr) !important;
-          gap: 16px !important;
-        }
-        /* Category tiles 3-col stays on mobile */
-        .obsidian-cat-grid {
-          grid-template-columns: repeat(2,1fr) !important;
-          gap: 10px !important;
-        }
-        /* Submit tool 2-col → 1-col */
-        .obsidian-submit-grid {
-          grid-template-columns: 1fr !important;
-          gap: 2rem !important;
-        }
-        /* Hero floating card — hide on mobile */
+        .obsidian-hero-grid { grid-template-columns: 1fr !important; gap: 2rem !important; padding: 3rem 0 2.5rem !important; }
+        .obsidian-trending-grid { grid-template-columns: repeat(2,1fr) !important; gap: 16px !important; }
+        .obsidian-cat-grid { grid-template-columns: 1fr !important; gap: 10px !important; }
+        .obsidian-submit-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
         .obsidian-hero-card { display: none !important; }
-        /* Fix hero text centering on mobile */
         .obsidian-hero-text { text-align: center !important; }
-        .obsidian-hero-text > div[style*="display:inline-flex"] { justify-content: center !important; }
-        .obsidian-hero-text > div[style*="display:flex"] { justify-content: center !important; }
+        .obsidian-newsletter-grid { grid-template-columns: 1fr !important; gap: 2rem !important; padding: 2.5rem 1.5rem !important; text-align: center !important; }
+        .obsidian-newsletter-grid > div:first-child { text-align: center !important; }
+        .obsidian-newsletter-input-group { flex-direction: column !important; }
       }
       @media (max-width: 480px) {
         .obsidian-trending-grid { grid-template-columns: 1fr !important; }
-        .obsidian-cat-grid { grid-template-columns: repeat(2,1fr) !important; }
       }
     </style>
 
@@ -421,14 +402,14 @@
   <!-- NEWSLETTER — dark glass panel -->
   <section style="position:relative;overflow:hidden;padding:80px 0;background:radial-gradient(80% 120% at 50% 0%,rgba(23,178,120,.18),transparent 60%),#F5F0E8;border-top:1px solid rgba(255,255,255,.09);">
     <div style="border-radius:24px;background:linear-gradient(150deg,rgba(23,178,120,.65),rgba(255,255,255,.12) 40%,rgba(255,255,255,.04));padding:1px;max-width:880px;margin:0 auto;box-shadow:0 40px 90px -40px rgba(0,0,0,.5);">
-      <div style="border-radius:23px;background:linear-gradient(168deg,#FFFFFF,#FAF7F0);padding:48px 52px;display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center;">
+      <div class="obsidian-newsletter-grid" style="border-radius:23px;background:linear-gradient(168deg,#FFFFFF,#FAF7F0);padding:48px 52px;display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center;">
         <div>
           <div style="font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#17B278;margin-bottom:12px;">Tjedni newsletter</div>
           <h2 style="font-size:1.9rem;font-weight:800;letter-spacing:-.03em;color:#1A1814;margin:0 0 10px;line-height:1.1;">Novi AI alati u vašem inboxu, svaki tjedan.</h2>
           <p style="font-size:.9rem;line-height:1.6;color:#6B6458;margin:0;">Prijavite se i odmah besplatno preuzmite ultimativni Prompt Engineering Vodič u obliku PDF-a.</p>
         </div>
         <div>
-          <div style="display:flex;gap:10px;margin-bottom:12px;">
+          <div class="obsidian-newsletter-input-group" style="display:flex;gap:10px;margin-bottom:12px;">
             <input type="email" placeholder="you@email.com" style="flex:1;background:rgba(255,255,255,.05);border:1px solid rgba(0,0,0,.1);border-radius:100px;padding:14px 18px;color:#1A1814;font-size:.9rem;font-family:'Plus Jakarta Sans',sans-serif;outline:none;">
             <button id="open-newsletter-btn" aria-label="Subscribe to newsletter" style="background:linear-gradient(135deg,#17B278,#0A6845);color:#1A1206;border:none;padding:14px 24px;border-radius:100px;font-weight:700;font-size:.9rem;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;white-space:nowrap;">Pretplati se</button>
           </div>
@@ -676,17 +657,23 @@
         </div>
 
         <!-- Cookie Consent Banner -->
-        <div id="cookie-banner" class="cookie-banner hidden">
-            <div class="container cookie-container">
-                <div class="cookie-content">
-                    <i class="fa-solid fa-cookie-bite cookie-icon"></i>
-                    <p>Koristimo kolačiće kako bismo poboljšali vaše iskustvo, pratili posjećenost i omogućili rad formi. <a href="uvjeti-koristenja.html" class="cookie-link">Saznajte više</a>.</p>
-                </div>
-                <div class="cookie-actions">
-                    <button id="accept-cookies" class="btn-primary btn-sm">Prihvati</button>
-                </div>
-            </div>
+        <!-- Cookie Consent Banner -->
+        <div id="cookie-banner" style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%);width:calc(100% - 48px);max-width:440px;background:linear-gradient(160deg,#1A1814,#11100C);border:1px solid rgba(255,255,255,.1);border-radius:100px;padding:12px 14px 12px 24px;box-shadow:0 24px 60px rgba(0,0,0,.4);z-index:9999;display:none;align-items:center;justify-content:space-between;gap:16px;">
+            <p style="font-size:.85rem;color:rgba(255,255,255,.8);margin:0;line-height:1.4;">Koristimo kolačiće za bolje iskustvo. <a href="uvjeti-koristenja.html" style="color:#17B278;text-decoration:underline;">Saznaj više</a>.</p>
+            <button onclick="acceptCookies()" style="background:var(--accent-gradient);color:#fff;border:none;border-radius:100px;padding:10px 20px;font-size:.85rem;font-weight:700;cursor:pointer;white-space:nowrap;box-shadow:0 4px 16px rgba(23,178,120,.3);">OK</button>
         </div>
+        <script>
+        function acceptCookies() {
+            localStorage.setItem('cookies_accepted', 'true');
+            document.getElementById('cookie-banner').style.opacity = '0';
+            setTimeout(()=>document.getElementById('cookie-banner').style.display='none', 300);
+        }
+        window.addEventListener('DOMContentLoaded', function() {
+            if(!localStorage.getItem('cookies_accepted')) {
+                document.getElementById('cookie-banner').style.display='flex';
+            }
+        });
+        </script>
 
         <!-- Main JS -->
         <script src="../api_response.js" defer></script>
