@@ -624,7 +624,14 @@ function resolveAndOpenToolCard(cardEl) {
 
 // --- Modal Functions ---
 function openToolModal(toolId) {
-    const tool = allTools.find(t => t.id === toolId);
+    // Primary lookup: by exact ID (dynamically generated cards e.g. 'trending-0')
+    let tool = allTools.find(t => t.id === toolId);
+    // Fallback: if not found by ID, try matching by name slug (for hardcoded trending cards
+    // e.g. openToolModal('elevenlabs') should match tool with name 'ElevenLabs')
+    if (!tool) {
+        const slug = toolId.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        tool = allTools.find(t => createSlug(t.name) === slug);
+    }
     if (!tool) return;
 
     const badgeClass = tool.free === 'Free' ? 'badge-free' :
@@ -648,7 +655,7 @@ function openToolModal(toolId) {
     const modalImgHTML = logoSrc
         ? `<img src="${logoSrc}" alt="${tool.name} logo" loading="lazy"
               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-           <div class="mpop-logo-fallback" style="background:${gradientBg};">${initial}</div>`
+           <div class="mpop-logo-fallback" style="display:none; background:${gradientBg};">${initial}</div>`
         : `<div class="mpop-logo-fallback" style="background:${gradientBg};">${initial}</div>`;
 
     // Use English description if available and selected
@@ -668,8 +675,10 @@ function openToolModal(toolId) {
                 <div class="mpop-logo-frame">
                     ${modalImgHTML}
                 </div>
-                <span class="tool-badge ${badgeClass} mpop-access-badge">${accessLabel}</span>
-                ${tool.category ? `<div class="mpop-category-tag"><i class="fa-solid fa-layer-group"></i> ${tool.category}</div>` : ''}
+                <div class="mpop-logo-meta">
+                    <span class="tool-badge ${badgeClass} mpop-access-badge">${accessLabel}</span>
+                    ${tool.category ? `<div class="mpop-category-tag"><i class="fa-solid fa-layer-group"></i> ${tool.category}</div>` : ''}
+                </div>
             </div>
             <div class="mpop-info-col">
                 <h2 class="mpop-title">${tool.name}</h2>

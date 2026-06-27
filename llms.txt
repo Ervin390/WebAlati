@@ -1,0 +1,36 @@
+# webalati.tech
+
+> A bilingual (English + Croatian) directory of 88 hand-tested AI tools across 11 categories. Updated weekly. All tools are evaluated for real-world usability, pricing, and features before being listed.
+
+## What this site covers
+
+webalati.tech is an independent AI tools directory for content creators, marketers, developers, and businesses. Every listed tool has been tested hands-on by the WebAlati editorial team. The site is available in English (/en/) and Croatian (/hr/).
+
+## Key pages
+
+- Homepage (EN): https://webalati.tech/en/
+- Homepage (HR): https://webalati.tech/hr/
+- AI Video Tools: https://webalati.tech/en/best-ai-video-tools.html
+- AI Audio & Voice Tools: https://webalati.tech/en/best-ai-audio-tools.html
+- AI Marketing Tools: https://webalati.tech/en/best-ai-marketing-tools.html
+- AI Productivity Tools: https://webalati.tech/en/best-ai-productivity-tools.html
+- AI Coding Tools: https://webalati.tech/en/best-ai-coding-tools.html
+- AI Education Tools: https://webalati.tech/en/best-ai-education-tools.html
+- AI Image & Design Tools: https://webalati.tech/en/best-ai-image-tools.html
+- Earn Money with AI: https://webalati.tech/en/earn-money-with-ai.html
+- AI Social Media Tools: https://webalati.tech/en/best-ai-social-media-tools.html
+- AI Tools for Content Creators: https://webalati.tech/en/best-ai-tools-content-creators.html
+- Blog (EN): https://webalati.tech/en/blogs/
+- ElevenLabs vs Murf comparison: https://webalati.tech/en/compare/elevenlabs-vs-murf.html
+
+## Notable tools covered
+
+ElevenLabs, Syllaby, Opus Clip, Midjourney, ChatGPT, Claude, Runway ML, Canva AI, i10x, Moose, Kling AI, Klap, KreadoAI, Hedra, GitHub Copilot, Cursor, Jasper, Copy.ai, Suno, Adobe Firefly, DALL-E 3, and 67 more.
+
+## Categories
+
+Video · Audio & Voice · Image & Design · Marketing · Productivity · Coding · Education · Entertainment · Earn Money · Social Media · Content Creators
+
+## Last updated
+
+June 2026

@@ -1820,46 +1820,60 @@ footer .copyright {
 /* Two-column popup layout */
 .mpop-layout {
   display: grid;
-  grid-template-columns: 148px 1fr;
-  gap: 1.75rem;
+  grid-template-columns: 1fr;
+  gap: 0;
   align-items: flex-start;
 }
 .mpop-logo-col {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  gap: 10px;
+  justify-content: space-between;
+  gap: 12px;
   flex-shrink: 0;
+  margin-bottom: 1.1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
 }
 .mpop-logo-frame {
-  width: 148px;
-  height: 148px;
-  border-radius: 22px;
+  width: 200px;
+  height: 80px;
+  border-radius: 14px;
   overflow: hidden;
   border: 1px solid var(--border-md);
-  background: var(--raised);
-  box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+  background: linear-gradient(135deg, #FAFAF8, #F5F3EF);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07), inset 0 1px 2px rgba(255,255,255,0.9);
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
+  padding: 0;
+  flex-shrink: 0;
 }
 .mpop-logo-frame img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  border-radius: 22px;
+  object-fit: contain;
+  border-radius: 6px;
 }
 .mpop-logo-fallback {
-  width: 100%;
-  height: 100%;
+  width: 64px;
+  height: 64px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 3rem;
+  font-size: 2rem;
   font-weight: 900;
   color: #fff;
-  border-radius: 22px;
+  border-radius: 14px;
+}
+.mpop-logo-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
+  flex: 1;
+  min-width: 0;
 }
 .mpop-access-badge {
   font-size: 0.73rem;
@@ -1876,7 +1890,7 @@ footer .copyright {
 }
 .mpop-info-col {
   min-width: 0;
-  padding-top: 0.15rem;
+  padding-top: 0;
 }
 .mpop-title {
   font-size: 1.55rem;
@@ -1974,22 +1988,15 @@ footer .copyright {
   margin-top: 0.65rem;
   margin-bottom: 0;
 }
-/* Responsive: stack columns on mobile */
+/* Responsive: compact logo on mobile */
 @media (max-width: 540px) {
-  .mpop-layout {
-    grid-template-columns: 1fr;
-    gap: 1.1rem;
-  }
   .mpop-logo-col {
-    flex-direction: row;
-    align-items: center;
-    gap: 12px;
+    gap: 8px;
   }
   .mpop-logo-frame {
-    width: 80px;
-    height: 80px;
-    border-radius: 16px;
-    flex-shrink: 0;
+    width: 140px;
+    height: 56px;
+    padding: 0;
   }
   .mpop-title { font-size: 1.25rem; }
 }
