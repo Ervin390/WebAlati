@@ -2241,7 +2241,13 @@ footer .copyright {
   text-align: center;
 }
 
-.success-modal-body { padding: 1rem 0; }
+.success-modal-body {
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
 
 .success-icon {
   font-size: 3.5rem;
