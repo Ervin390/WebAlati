@@ -14,7 +14,7 @@
       gtag('config', 'G-7E0TG7F51M');
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terms of Use and Privacy Policy - WebTools</title>
+    <title>Terms of Use and Privacy Policy - WebAlati</title>
 
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,6 +27,26 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="../style.css">
+
+    <script type="application/ld+json">
+    {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://webalati.tech/en/"
+        },
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Terms of Use and Privacy Policy - WebAlati"
+        }
+    ]
+}
+    </script>
 </head>
 
 <body>
@@ -42,15 +62,15 @@
                     <a href="blog.html" class="nav-link">Blog</a>
                     <div class="custom-lang-switcher" id="lang-switcher" style="margin-left: 1.5rem;">
                         <div class="lang-current" id="lang-current">
-                            <img src="https://flagcdn.com/w40/gb.png" alt="EN" class="lang-flag"> <span>EN</span>
+                            <img loading="lazy" src="https://flagcdn.com/w40/gb.png" alt="EN" class="lang-flag"> <span>EN</span>
                             <i class="fa-solid fa-chevron-down" style="font-size: 0.7rem; opacity: 0.7;"></i>
                         </div>
                         <div class="lang-dropdown-list" id="lang-list">
                             <div class="lang-option" data-value="../hr/uvjeti-koristenja.html">
-                                <img src="https://flagcdn.com/w40/hr.png" alt="HR" class="lang-flag"> <span>Hrvatski</span>
+                                <img loading="lazy" src="https://flagcdn.com/w40/hr.png" alt="HR" class="lang-flag"> <span>Hrvatski</span>
                             </div>
                             <div class="lang-option" data-value="uvjeti-koristenja.html">
-                                <img src="https://flagcdn.com/w40/gb.png" alt="EN" class="lang-flag"> <span>English</span>
+                                <img loading="lazy" src="https://flagcdn.com/w40/gb.png" alt="EN" class="lang-flag"> <span>English</span>
                             </div>
                         </div>
                     </div>
@@ -64,14 +84,14 @@
                 <span class="last-updated">Last updated: April 3, 2026</span>
 
                 <div class="legal-section">
-                    <p>Welcome to <strong>WebTools</strong>. By using this website, you agree to these
+                    <p>Welcome to <strong>WebAlati</strong>. By using this website, you agree to these
                         terms of use and privacy policy. If you do not agree with them, please do not use the
                         website.</p>
                 </div>
 
                 <div class="legal-section">
                     <h2>1. General</h2>
-                    <p>The WebTools website is a repository of AI and web tools, an addition to our social networks
+                    <p>The WebAlati website is a repository of AI and web tools, an addition to our social networks
                         (YouTube, TikTok, Instagram).</p>
                     <ul>
                         <li>Users can browse content and open links without registration or creating a profile.</li>
@@ -81,7 +101,7 @@
 
                 <div class="legal-section">
                     <h2>2. Content and Responsibility</h2>
-                    <p>WebTools does not guarantee the complete accuracy, timeliness, or functionality of the tools.</p>
+                    <p>WebAlati does not guarantee the complete accuracy, timeliness, or functionality of the tools.</p>
                     <p>The site may contain affiliate links and regular links to third parties. The site owner
                         is not responsible for the content or privacy policies of those sites.</p>
                     <p>Use of the site and tools is at your own risk.</p>
@@ -141,7 +161,7 @@
         <!-- Footer -->
         <footer>
             <div class="container">
-                <p>&copy; 2026 WebTools. <a href="javascript:void(0)" class="footer-link open-contact-link">Contact Us</a> | All rights reserved.</p>
+                <p>&copy; 2026 WebAlati. <a href="javascript:void(0)" class="footer-link open-contact-link">Contact Us</a> | All rights reserved.</p>
             </div>
         </footer>
 
@@ -170,7 +190,7 @@
                             <label for="nl-terms">I accept the <a href="uvjeti-koristenja.html" class="terms-link"
                                     target="_blank">terms and conditions</a></label>
                         </div>
-                        <button type="submit" class="btn-primary form-submit-btn" id="nl-submit-btn">
+                        <button type="submit" class="btn-primary form-submit-btn" aria-label="Submit" id="nl-submit-btn">
                             <i class="fa-solid fa-paper-plane"></i> Subscribe!
                         </button>
                         <p class="form-error" id="nl-error"></p>
@@ -215,7 +235,7 @@
                             <label for="cf-terms">I accept the <a
                                     href="uvjeti-koristenja.html" class="terms-link" target="_blank">terms and conditions</a></label>
                         </div>
-                        <button type="submit" class="btn-primary form-submit-btn" id="cf-submit-btn">
+                        <button type="submit" class="btn-primary form-submit-btn" aria-label="Submit" id="cf-submit-btn">
                             <i class="fa-solid fa-paper-plane"></i> Send
                         </button>
                         <p class="form-error" id="cf-error"></p>

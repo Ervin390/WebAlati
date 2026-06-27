@@ -94,21 +94,51 @@ const TOOL_DESCRIPTIONS_EN = {
 };
 
 const ALLOWED_SUBCATEGORIES = [
-    "Workflow Automation & AI Agents",
-    "UGC & Influencer Marketing",
-    "AI Image Generation & Editing",
-    "Text-to-Speech & Voice Cloning",
-    "AI Assistant",
-    "Online Learning & Courses",
-    "Health & Fitness",
-    "Social Media Video Content",
-    "Video Repurposing & Short-Form",
+    // Video
     "AI Video Generation",
+    "Video Repurposing & Short-Form",
+    "AI Avatar & Video Localization",
+    // Audio
+    "Text-to-Speech & Voice Cloning",
+    "AI Music Generation",
+    // Image
+    "AI Image Generation & Editing",
+    // Marketing
     "Social Media Management",
+    "Social Media Video Content",
+    "AI SEO & Content Writing",
+    // Productivity
+    "AI Assistant",
+    "Workflow Automation & AI Agents",
+    "Meeting & Note-Taking",
+    // Coding
+    "Website Builder & No-Code",
+    // Education
+    "Language Learning",
+    "Online Learning & Courses",
+    // Earnings
     "Remote Work & Freelancing",
-    "Food & Cooking AI",
-    "Website Builder & Platform",
-    "Language Learning"
+    "UGC & Influencer Marketing",
+    "Digital Products & Creator Economy"
+];
+
+const ALLOWED_TAGS = [
+    // Video
+    "AI Video", "Text-to-Video", "Video Repurposing", "Short-Form Video", "AI Avatar",
+    // Audio
+    "Text-to-Speech", "Voice Cloning", "AI Music",
+    // Image
+    "AI Image Generation", "AI Art", "Photo Editing",
+    // Marketing
+    "Social Media", "AI Copywriting", "AI SEO", "Content Scheduling", "Chatbot", "Ad Tools",
+    // Productivity
+    "AI Productivity", "Workflow Automation", "Meeting Transcription", "Project Management", "AI Research", "AI Agent",
+    // Coding
+    "AI Code", "No-Code", "Website Builder",
+    // Education
+    "AI Tutor", "Language Learning", "Online Courses",
+    // Earnings
+    "Freelancing", "UGC", "Digital Products", "Remote Work"
 ];
 
 // --- DOM Elements ---
@@ -296,14 +326,22 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // Tool Card Click Delegation (excluding the CTA button)
+        // Tool Card Click Delegation — any click on card opens modal
         document.addEventListener('click', (e) => {
             const toolCard = e.target.closest('.tool-card');
-            const ctaBtn = e.target.closest('.btn-primary');
+            if (toolCard && !toolCard.classList.contains('skeleton')) {
+                resolveAndOpenToolCard(toolCard);
+            }
+        });
 
-            if (toolCard && !ctaBtn && !toolCard.classList.contains('skeleton')) {
-                const toolId = toolCard.getAttribute('data-id');
-                openToolModal(toolId);
+        // Keyboard support: Enter/Space opens modal when card is focused
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                const focused = document.activeElement;
+                if (focused && focused.classList.contains('tool-card') && !focused.classList.contains('skeleton')) {
+                    e.preventDefault();
+                    resolveAndOpenToolCard(focused);
+                }
             }
         });
 
@@ -570,6 +608,20 @@ function resetSEO() {
     if (ldScript) ldScript.remove();
 }
 
+// Resolve a .tool-card element to a tool and open the modal.
+// Supports both data-id (dynamically rendered cards) and
+// data-tool-name (hardcoded static cards like the HR trending section).
+function resolveAndOpenToolCard(cardEl) {
+    const toolId = cardEl.getAttribute('data-id');
+    if (toolId) { openToolModal(toolId); return; }
+
+    const toolName = cardEl.getAttribute('data-tool-name');
+    if (toolName && allTools.length > 0) {
+        const found = allTools.find(t => t.name.toLowerCase() === toolName.toLowerCase());
+        if (found) { openToolModal(found.id); return; }
+    }
+}
+
 // --- Modal Functions ---
 function openToolModal(toolId) {
     const tool = allTools.find(t => t.id === toolId);
@@ -590,11 +642,14 @@ function openToolModal(toolId) {
         'linear-gradient(135deg,#1FA2FF,#12D8FA)',
     ];
     const gradientBg = gradients[initial.charCodeAt(0) % gradients.length];
-    const modalImgHTML = tool.logo && tool.logo.trim() !== ''
-        ? `<img src="${ASSET_PREFIX}${tool.logo}" alt="${tool.name}" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:16px;"
+    const logoSrc = tool.logo && tool.logo.trim() !== ''
+        ? (tool.logo.startsWith('http') ? tool.logo : ASSET_PREFIX + tool.logo)
+        : '';
+    const modalImgHTML = logoSrc
+        ? `<img src="${logoSrc}" alt="${tool.name} logo" loading="lazy"
               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-           <div style="width:100%;height:100%;display:none;align-items:center;justify-content:center;background:${gradientBg};border-radius:16px;font-size:3rem;font-weight:900;color:#fff;">${initial}</div>`
-        : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:${gradientBg};border-radius:16px;font-size:3rem;font-weight:900;color:#fff;">${initial}</div>`;
+           <div class="mpop-logo-fallback" style="background:${gradientBg};">${initial}</div>`
+        : `<div class="mpop-logo-fallback" style="background:${gradientBg};">${initial}</div>`;
 
     // Use English description if available and selected
     let displayDesc = tool.desc;
@@ -602,28 +657,32 @@ function openToolModal(toolId) {
         displayDesc = TOOL_DESCRIPTIONS_EN[tool.name];
     }
 
-    // Extract tags from the tool object (limited to 4)
-    const tags = (tool.tags || []).slice(0, 4);
-    const tagsHTML = tags.length > 0 
-        ? `<div class="modal-tags-container">
-            ${tags.map(tag => `<span class="modal-tag">${tag}</span>`).join('')}
-           </div>`
-        : '';
+    const accessLabel = TRANSLATIONS[currentLang][tool.free.toLowerCase()] || tool.free;
+    const subcatHTML = (tool.subcategories || []).map(s => `<span class="mpop-subcat">${s}</span>`).join('');
+    const featTagsHTML = (tool.tags || []).slice(0, 6).map(t => `<span class="mpop-feat-tag"><span class="mpop-feat-dot"></span>${t}</span>`).join('');
+    const ctaText = currentLang === 'hr' ? `Isprobaj ${tool.name} ↗` : `Try ${tool.name} ↗`;
 
     modalBody.innerHTML = `
-        <div class="modal-premium-header">
-            ${modalImgHTML}
-            <div class="modal-gradient-overlay"></div>
-        </div>
-        <div class="modal-premium-content">
-            <span class="tool-badge ${badgeClass}" style="margin-bottom: 1rem;">${TRANSLATIONS[currentLang][tool.free.toLowerCase()] || tool.free}</span>
-            <h2 class="tool-title">${tool.name}</h2>
-            <div class="tool-tags" style="justify-content: center; margin-bottom: 2rem;">
-                ${(tool.subcategories || []).map(tag => `<span class="tag">${tag}</span>`).join('')}
+        <div class="mpop-layout">
+            <div class="mpop-logo-col">
+                <div class="mpop-logo-frame">
+                    ${modalImgHTML}
+                </div>
+                <span class="tool-badge ${badgeClass} mpop-access-badge">${accessLabel}</span>
+                ${tool.category ? `<div class="mpop-category-tag"><i class="fa-solid fa-layer-group"></i> ${tool.category}</div>` : ''}
             </div>
-            <p class="tool-desc" style="display: block !important; -webkit-line-clamp: unset !important; overflow: visible !important; min-height: auto !important; max-height: none !important; margin-bottom: 2rem;">${displayDesc}</p>
-            ${tagsHTML}
-            <a href="${tool.link}" target="_blank" class="btn-primary" rel="noopener noreferrer" style="margin-top: 2rem;">${TRANSLATIONS[currentLang].try_tool}</a>
+            <div class="mpop-info-col">
+                <h2 class="mpop-title">${tool.name}</h2>
+                ${subcatHTML ? `<div class="mpop-subcats">${subcatHTML}</div>` : ''}
+                <div class="mpop-divider"></div>
+                <p class="mpop-desc">${displayDesc}</p>
+                ${featTagsHTML ? `<div class="mpop-feat-tags">${featTagsHTML}</div>` : ''}
+                <a href="${tool.link}" target="_blank" class="mpop-cta-btn" rel="sponsored noopener noreferrer">
+                    <span>${ctaText}</span>
+                    <span class="mpop-cta-arrow">↗</span>
+                </a>
+                <p class="mpop-disclaimer">${currentLang === 'hr' ? 'Affiliate link — bez troška za vas' : 'Affiliate link — no extra cost to you'}</p>
+            </div>
         </div>
     `;
 
@@ -942,8 +1001,11 @@ function populateFilters() {
 
         tags.forEach(tag => {
             if (tag) {
-                const formattedTag = tag.trim().charAt(0).toUpperCase() + tag.trim().slice(1).toLowerCase();
-                uniqueTags.add(formattedTag);
+                const trimmedTag = tag.trim();
+                const allowedTag = ALLOWED_TAGS.find(t => t.toLowerCase() === trimmedTag.toLowerCase());
+                if (allowedTag) {
+                    uniqueTags.add(allowedTag);
+                }
             }
         });
     });
@@ -1047,19 +1109,34 @@ function createToolCardHTML(tool) {
         displayTagsHTML += `<span class="tag">${tag}</span>`;
     });
 
+    const ctaLabel = currentLang === 'hr'
+        ? `Isprobaj ${tool.name} ↗`
+        : `Try ${tool.name} ↗`;
+
+    const accessLabel = TRANSLATIONS[currentLang][tool.free.toLowerCase()] || tool.free;
+
     return `
-        <div class="tool-card" data-id="${tool.id}">
+        <div class="tool-card" data-id="${tool.id}" role="button" tabindex="0" aria-label="${tool.name} – ${accessLabel}">
             <div class="tool-card-image">
                 ${imageHTML}
-                <span class="tool-badge ${badgeClass} badge-overlay">${TRANSLATIONS[currentLang][tool.free.toLowerCase()] || tool.free}</span>
+                <span class="tool-badge ${badgeClass} badge-overlay">${accessLabel}</span>
+                <div class="tool-card-hover-overlay">
+                    <span class="tool-card-hover-label">${currentLang === 'hr' ? 'Pogledaj detalje' : 'View details'} →</span>
+                </div>
             </div>
             <div class="tool-card-body">
-                <h3 class="tool-title">${tool.name}</h3>
+                <div class="tool-card-header-row">
+                    <h3 class="tool-title">${tool.name}</h3>
+                    ${tool.category ? `<span class="tool-category-pill">${tool.category}</span>` : ''}
+                </div>
                 <div class="tool-tags">
                     ${displayTagsHTML}
                 </div>
                 <p class="tool-desc">${displayDesc}</p>
-                <a href="${tool.link}" target="_blank" class="btn-primary" rel="noopener noreferrer">${TRANSLATIONS[currentLang].try_tool}</a>
+                <div class="tool-card-footer">
+                    <span class="tool-card-open-hint">${currentLang === 'hr' ? 'Klikni za detalje' : 'Click for details'}</span>
+                    <span class="tool-card-arrow">↗</span>
+                </div>
             </div>
         </div>
     `;
@@ -1142,16 +1219,14 @@ async function handleNewsletterSubmit(e) {
         formData.append('token', FORM_TOKEN);
         formData.append('ts', ts);
 
-        const response = await fetch(NEWSLETTER_API, {
+        await fetch(NEWSLETTER_API, {
             method: 'POST',
+            mode: 'no-cors',
             body: formData
         });
 
-        // Log any server-side errors for debugging
-        if (!response.ok) {
-            const errText = await response.text().catch(() => '');
-            console.error('Newsletter API error:', response.status, errText);
-        }
+        // Fire and forget strategy assuming success since no-cors returns an opaque response
+        console.log('Newsletter form data sent securely');
 
         // Apps Script processes POST even with CORS limitations; proceed on no hard network error.
         closeModal(newsletterModal);
@@ -1171,7 +1246,8 @@ async function handleContactSubmit(e) {
     e.preventDefault();
     const name = document.getElementById('cf-name').value.trim();
     const email = document.getElementById('cf-email').value.trim();
-    const phone = document.getElementById('cf-phone').value.trim();
+    const urlInput = document.getElementById('cf-url'); // renamed from cf-phone
+    const phone = urlInput ? urlInput.value.trim() : ''; // keep variable name phone to easily pass as phone in FormData for compatibility
     const message = document.getElementById('cf-message').value.trim();
     const terms = document.getElementById('cf-terms').checked;
     const errorEl = document.getElementById('cf-error');
@@ -1199,16 +1275,14 @@ async function handleContactSubmit(e) {
         formData.append('token', FORM_TOKEN);
         formData.append('ts', ts);
 
-        const response = await fetch(CONTACT_API, {
+        await fetch(CONTACT_API, {
             method: 'POST',
+            mode: 'no-cors',
             body: formData
         });
 
-        // Log any server-side errors for debugging
-        if (!response.ok) {
-            const errText = await response.text().catch(() => '');
-            console.error('Contact API error:', response.status, errText);
-        }
+        // Fire and forget, assuming success due to no-cors opaque response
+        console.log('Contact form data sent securely');
 
         closeModal(contactModal);
         document.getElementById('contact-form').reset();

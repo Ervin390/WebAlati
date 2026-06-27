@@ -27,6 +27,26 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="../style.css">
+
+    <script type="application/ld+json">
+    {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Po\u010detna",
+            "item": "https://webalati.tech/hr/"
+        },
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Uvjeti kori\u0161tenja i Pravila privatnosti - Web-AI-Alati"
+        }
+    ]
+}
+    </script>
 </head>
 
 <body>
@@ -42,15 +62,15 @@
                     <a href="blog.html" class="nav-link">Blog</a>
                     <div class="custom-lang-switcher" id="lang-switcher" style="margin-left: 1.5rem;">
                         <div class="lang-current" id="lang-current">
-                            <img src="https://flagcdn.com/w40/hr.png" alt="HR" class="lang-flag"> <span>HR</span>
+                            <img loading="lazy" src="https://flagcdn.com/w40/hr.png" alt="HR" class="lang-flag"> <span>HR</span>
                             <i class="fa-solid fa-chevron-down" style="font-size: 0.7rem; opacity: 0.7;"></i>
                         </div>
                         <div class="lang-dropdown-list" id="lang-list">
                             <div class="lang-option" data-value="uvjeti-koristenja.html">
-                                <img src="https://flagcdn.com/w40/hr.png" alt="HR" class="lang-flag"> <span>Hrvatski</span>
+                                <img loading="lazy" src="https://flagcdn.com/w40/hr.png" alt="HR" class="lang-flag"> <span>Hrvatski</span>
                             </div>
                             <div class="lang-option" data-value="../en/uvjeti-koristenja.html">
-                                <img src="https://flagcdn.com/w40/gb.png" alt="EN" class="lang-flag"> <span>English</span>
+                                <img loading="lazy" src="https://flagcdn.com/w40/gb.png" alt="EN" class="lang-flag"> <span>English</span>
                             </div>
                         </div>
                     </div>
@@ -172,7 +192,7 @@
                             <label for="nl-terms">Prihvaćam <a href="uvjeti-koristenja.html" class="terms-link"
                                     target="_blank">pravila i uvjete korištenja</a></label>
                         </div>
-                        <button type="submit" class="btn-primary form-submit-btn" id="nl-submit-btn">
+                        <button type="submit" class="btn-primary form-submit-btn" aria-label="Submit" id="nl-submit-btn">
                             <i class="fa-solid fa-paper-plane"></i> Pretplati me!
                         </button>
                         <p class="form-error" id="nl-error"></p>
@@ -215,7 +235,7 @@
                             <label for="cf-terms">Prihvaćam <a
                                     href="uvjeti-koristenja.html" class="terms-link" target="_blank">pravila i uvjete korištenja</a></label>
                         </div>
-                        <button type="submit" class="btn-primary form-submit-btn" id="cf-submit-btn">
+                        <button type="submit" class="btn-primary form-submit-btn" aria-label="Submit" id="cf-submit-btn">
                             <i class="fa-solid fa-paper-plane"></i> Pošalji
                         </button>
                         <p class="form-error" id="cf-error"></p>
