@@ -577,6 +577,42 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  
-  
+  <url>
+    <loc>https://webalati.tech/en/blogs/bmi-calculator-guide-2026.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webalati.tech/en/blogs/bmi-calculator-guide-2026.html" />
+    <xhtml:link rel="alternate" hreflang="hr" href="https://webalati.tech/hr/blogs/bmi-kalkulator-vodic-2026.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webalati.tech/en/blogs/bmi-calculator-guide-2026.html" />
+    <lastmod>2026-08-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webalati.tech/en/blogs/compound-interest-calculator-guide-2026.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webalati.tech/en/blogs/compound-interest-calculator-guide-2026.html" />
+    <xhtml:link rel="alternate" hreflang="hr" href="https://webalati.tech/hr/blogs/kalkulator-slozene-kamate-2026.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webalati.tech/en/blogs/compound-interest-calculator-guide-2026.html" />
+    <lastmod>2026-08-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webalati.tech/hr/blogs/bmi-kalkulator-vodic-2026.html</loc>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://webalati.tech/hr/blogs/bmi-kalkulator-vodic-2026.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://webalati.tech/en/blogs/bmi-calculator-guide-2026.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webalati.tech/en/blogs/bmi-calculator-guide-2026.html" />
+    <lastmod>2026-08-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webalati.tech/hr/blogs/kalkulator-slozene-kamate-2026.html</loc>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://webalati.tech/hr/blogs/kalkulator-slozene-kamate-2026.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://webalati.tech/en/blogs/compound-interest-calculator-guide-2026.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webalati.tech/en/blogs/compound-interest-calculator-guide-2026.html" />
+    <lastmod>2026-08-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
 </urlset>
+
