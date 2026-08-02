@@ -96,7 +96,25 @@
 
     <!-- Mobile overrides for inline-CSS Obsidian Luxe sections -->
     <style>
+      @keyframes pulseCalc {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.04); }
+      }
       @media (max-width: 768px) {
+        .quix-banner {
+          flex-direction: column !important;
+          align-items: stretch !important;
+          text-align: center !important;
+          padding: 20px 20px !important;
+        }
+        .quix-banner > div:first-child {
+          flex-direction: column !important;
+          gap: 12px !important;
+        }
+        .quix-banner-btn {
+          width: 100% !important;
+          justify-content: center !important;
+        }
         .obsidian-hero-grid { grid-template-columns: 1fr !important; gap: 2rem !important; padding: 3rem 0 2.5rem !important; }
         .obsidian-trending-grid { grid-template-columns: repeat(2,1fr) !important; gap: 16px !important; }
         .obsidian-cat-grid { grid-template-columns: 1fr !important; gap: 10px !important; }
@@ -242,6 +260,31 @@
         </div>
       </div>
 
+    </div>
+  </section>
+
+  <!-- QUIXCALC PROMO BANNER -->
+  <section style="padding: 40px 0 20px; background: #FDFCF8;">
+    <div class="container">
+      <div class="quix-banner" style="background: linear-gradient(135deg, #17B278, #0D7A52); border-radius: 16px; padding: 22px 30px; display: flex; align-items: center; justify-content: space-between; gap: 20px; box-shadow: 0 10px 30px -10px rgba(23, 178, 120, 0.4); color: #fff; transition: transform 0.3s; position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+        <!-- Decorative background glow -->
+        <div style="position: absolute; top: -50px; right: -50px; width: 150px; height: 150px; border-radius: 50%; background: rgba(255, 255, 255, 0.15); filter: blur(20px); pointer-events: none;"></div>
+        
+        <div style="display: flex; align-items: center; gap: 18px; flex: 1;">
+          <div style="width: 46px; height: 46px; border-radius: 50%; background: rgba(255,255,255,0.18); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; animation: pulseCalc 2s infinite ease-in-out;">
+            <i class="fa-solid fa-calculator" style="color: #fff;"></i>
+          </div>
+          <div>
+            <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.7); display: block; margin-bottom: 4px;">Preporučeni Resurs</span>
+            <h3 style="margin: 0; font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em; line-height: 1.2; color: #ffffff;">Pronađite najbolju stranicu s kalkulatorima ovdje</h3>
+          </div>
+        </div>
+        <div>
+          <a href="https://quixcalc.com/" target="_blank" rel="noopener" class="quix-banner-btn" style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 26px; background: #FFFFFF; color: #0D7A52; border-radius: 100px; font-weight: 700; font-size: 0.9rem; text-decoration: none; box-shadow: 0 4px 14px rgba(0,0,0,0.12); transition: all 0.3s; white-space: nowrap;" onmouseover="this.style.background='#f4fbf8'; this.style.boxShadow='0 6px 20px rgba(0,0,0,0.18)';" onmouseout="this.style.background='#FFFFFF'; this.style.boxShadow='0 4px 14px rgba(0,0,0,0.12)';">
+            Posjeti <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.8rem;"></i>
+          </a>
+        </div>
+      </div>
     </div>
   </section>
 
